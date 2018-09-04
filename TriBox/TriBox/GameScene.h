@@ -1,15 +1,25 @@
 #pragma once
 #include "Scene.h"
 #include "Vector2D.h"
+
+enum class PlayerState
+{
+	box,
+	triangle,
+};
+
 class GameScene :
 	public Scene
 {
 private:
 	int triboximg;
 	int changeframe;
+	int imgcnt;
 
+	bool onceExcute;
 	bool changeflg;
-	bool boxorTriangle;
+
+	PlayerState pState;
 
 	Vector2f imgpos;
 	Vector2f imgcpos;

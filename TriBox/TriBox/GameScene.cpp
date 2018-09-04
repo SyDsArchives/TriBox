@@ -4,13 +4,13 @@
 const int WindowSizeX = 1280;
 const int WindowSizeY = 720;
 
-GameScene::GameScene()
+GameScene::GameScene() : onceExcute(false), imgcnt(0)
 {
 	triboximg = DxLib::LoadGraph("Resource/img/tribox.png");
 	changeframe = 0;
 
 	changeflg = false;
-	boxorTriangle = true;
+	pState = PlayerState::box;
 
 	triboxpos = Vector2f(WindowSizeX / 2, WindowSizeY / 2);
 	imgpos = Vector2f(25, 25);
@@ -24,6 +24,9 @@ GameScene::~GameScene()
 
 void GameScene::Update()
 {
+	DxLib::DrawFormatString(0, 0, GetColor(255, 255, 255), "GameScene");
+	DxLib::DrawFormatString(0, 25, GetColor(255, 255, 255), "%d", pState);
+
 	if (CheckHitKey(KEY_INPUT_W))
 	{
 		triboxpos.y -= 4;
@@ -50,24 +53,104 @@ void GameScene::Update()
 			changeframe = 0;
 		}
 	}
+
+#pragma region --------------------プレイヤーアニメーション(仮)--------------------
 	if (changeflg)
 	{
-		changeframe += 1;
-		if (changeframe % 20 == 0)
+		if (imgcnt == 2)
 		{
-			if (imgpos.x < 400)
+			changeflg = false;
+			onceExcute = false;
+			imgcnt = 0;
+		}
+
+		changeframe += 1;
+		if (changeframe % 3 == 0)
+		{
+			if (pState == PlayerState::box)
 			{
-				imgpos.x = imgpos.x + 125;
+				if (imgcnt == 0)//プレイヤーイメージ1段目
+				{
+					if (!onceExcute)
+					{
+						imgpos.x = 25;
+						imgpos.y = 25;
+						onceExcute = true;
+					}
+					if (imgpos.x < 400)
+					{
+						imgpos.x = imgpos.x + 125;
+					}
+					else
+					{
+						imgcnt = 1;
+						onceExcute = false;
+					}
+				}
+
+				if (imgcnt == 1)//プレイヤーイメージ2段目
+				{
+					if (!onceExcute)
+					{
+						imgpos.x = 25;
+						imgpos.y = 150;
+						onceExcute = true;
+					}
+					if (imgpos.x < 400)
+					{
+						imgpos.x = imgpos.x + 125;
+					}
+					else
+					{
+						imgcnt = 2;
+						pState = PlayerState::triangle;
+					}
+				}
 			}
-			else
+			else if (pState == PlayerState::triangle)
 			{
-				changeflg = false;
+				if (imgcnt == 0)//プレイヤーイメージ1段目
+				{
+					if (!onceExcute)
+					{
+						imgpos.x = 400;
+						imgpos.y = 150;
+						onceExcute = true;
+					}
+					if (imgpos.x > 25)
+					{
+						imgpos.x = imgpos.x - 125;
+					}
+					else
+					{
+						imgcnt = 1;
+						onceExcute = false;
+					}
+				}
+
+				if (imgcnt == 1)//プレイヤーイメージ2段目
+				{
+					if (!onceExcute)
+					{
+						imgpos.x = 400;
+						imgpos.y = 25;
+						onceExcute = true;
+					}
+					if (imgpos.x > 25)
+					{
+						imgpos.x = imgpos.x - 125;
+					}
+					else
+					{
+						imgcnt = 2;
+						pState = PlayerState::box;
+					}
+				}
 			}
 		}
 	}
+#pragma endregion
 
-
-	DxLib::DrawFormatString(0, 0, GetColor(255, 255, 255), "GameScene");
 	//DxLib::DrawRectRotaGraph2(triboxpos.x, triboxpos.y, imgpos.x, imgpos.y, 100, 100, imgcpos.x, imgcpos.y, 1, 0, triboximg, true, false, false);//家
 	DxLib::DrawRectRotaGraph2(triboxpos.x, triboxpos.y, imgpos.x, imgpos.y, 100, 100, imgcpos.x, imgcpos.y, 1, 0, triboximg, true, false);//学校
 }
