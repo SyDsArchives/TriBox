@@ -2,9 +2,7 @@
 #include "DxLib.h"
 #include "Scene.h"
 #include "GameScene.h"
-
-const int WindowSizeX = 1280;
-const int WindowSizeY = 720;
+#include "Geometry.h"
 
 
 GameSystem::GameSystem()

@@ -1,14 +1,14 @@
 #include "DxLib.h"
+#include "Geometry.h"
 #include "GameScene.h"
-
-const int WindowSizeX = 1280;
-const int WindowSizeY = 720;
+#include "BackGround.h"
 
 GameScene::GameScene() : onceExcute(false), imgcnt(0)
 {
+	bg = std::make_shared<BackGround>();
+
 	triboximg = DxLib::LoadGraph("Resource/img/tribox.png");
-	backimg = DxLib::LoadGraph("Resource/img/block”wŒi.png");
-	backframeimg = DxLib::LoadGraph("Resource/img/˜g.png");
+
 	changeframe = 0;
 	normalframe = 0;
 
@@ -16,15 +16,11 @@ GameScene::GameScene() : onceExcute(false), imgcnt(0)
 	pState = PlayerState::box;
 	playerSpeed = 6.f;
 
-	bgMoveSpeed = 0.f;
-	bgMoveMaxSpeed = 5.f;
-
 	triboxpos = Vector2f(WindowSizeX / 2, WindowSizeY / 2);
-	backimgpos = Vector2f(0, 0);
-	backframeimgpos = Vector2f(0, 0);
-
+	
 	imgpos = Vector2f(25, 25);
 	imgcpos = Vector2f(75, 75);//125‚¸‚Â
+
 }
 
 
@@ -36,6 +32,8 @@ void GameScene::Update()
 {
 	DxLib::DrawFormatString(0, 0, GetColor(255, 255, 255), "GameScene");
 	DxLib::DrawFormatString(0, 25, GetColor(255, 255, 255), "%d", pState);
+
+	bg->Update();//”wŒiŠÖŒW
 
 	//ƒvƒŒƒCƒ„[‚ÌˆÚ“®
 	if (CheckHitKey(KEY_INPUT_W))
@@ -162,39 +160,7 @@ void GameScene::Update()
 	}
 #pragma endregion
 
-	//”wŒi‚ÌˆÊ’u‰Šú‰»
-	if (backimgpos.x <= -WindowSizeX)
-	{
-		backimgpos.x = 0;
-	}
-	if (backframeimgpos.x <= -WindowSizeX)
-	{
-		backframeimgpos.x = 0;
-	}
-
-	//”wŒi‚ÌˆÚ“®‘¬“x
-	if (normalframe == 59)
-	{
-		if (bgMoveSpeed <= bgMoveMaxSpeed)//5‚Ü‚Å
-		{
-			bgMoveSpeed += 0.5;
-		}
-	}
-
-	//”wŒi‚ÌˆÚ“®
-	backimgpos.x -= bgMoveSpeed;
-	backframeimgpos.x -= (bgMoveSpeed / 2);
-
-	//‰æ‘œ
-	DxLib::DrawExtendGraph(backimgpos.x, backimgpos.y, backimgpos.x + WindowSizeX, backimgpos.y + WindowSizeY, backimg, true);//”wŒi
-	DxLib::DrawExtendGraph(backimgpos.x + WindowSizeX, backimgpos.y, backimgpos.x + WindowSizeX * 2, backimgpos.y + WindowSizeY, backimg, true);//”wŒi
-	DxLib::DrawExtendGraph(backframeimgpos.x, backframeimgpos.y, backframeimgpos.x + WindowSizeX, backframeimgpos.y + WindowSizeY, backframeimg, true);//˜g
-	DxLib::DrawExtendGraph(backframeimgpos.x + WindowSizeX, backframeimgpos.y, backframeimgpos.x + WindowSizeX * 2, backframeimgpos.y + WindowSizeY, backframeimg, true);//˜g
-
-
-	//DxLib::DrawRectRotaGraph2(triboxpos.x, triboxpos.y, imgpos.x, imgpos.y, 100, 100, imgcpos.x, imgcpos.y, 1, 0, triboximg, true, false, false);//‰Æ,ƒvƒŒƒCƒ„[
-	DxLib::DrawRectRotaGraph2(triboxpos.x, triboxpos.y, imgpos.x, imgpos.y, 100, 100, imgcpos.x, imgcpos.y, 0.5, 0, triboximg, true, false);//ŠwZ,ƒvƒŒƒCƒ„[
-
+	DxLib::DrawRectRotaGraph2(triboxpos.x, triboxpos.y, imgpos.x, imgpos.y, 100, 100, imgcpos.x, imgcpos.y, 0.5, 0, triboximg, true, false, false);//‰Æ,ƒvƒŒƒCƒ„[
 
 	if (++normalframe % 60 == 0)//60f–ˆ‚Éf‚Ì‰Šú‰»‚ğs‚¤
 	{
