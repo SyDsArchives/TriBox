@@ -12,9 +12,17 @@ class GameScene :
 	public Scene
 {
 private:
-	int triboximg;
+	int triboximg;//ÉvÉåÉCÉÑÅ[
+	int backimg;//îwåi
+	int backframeimg;//òg
+
 	int changeframe;
+	int normalframe;
 	int imgcnt;
+
+	float playerSpeed;
+	float bgMoveSpeed;
+	float bgMoveMaxSpeed;
 
 	bool onceExcute;
 	bool changeflg;
@@ -24,6 +32,10 @@ private:
 	Vector2f imgpos;
 	Vector2f imgcpos;
 	Vector2f triboxpos;
+	Vector2f backimgpos;
+	Vector2f backframeimgpos;
+
+
 public:
 	GameScene();
 	~GameScene();

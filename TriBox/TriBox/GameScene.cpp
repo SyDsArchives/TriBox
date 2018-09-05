@@ -7,12 +7,22 @@ const int WindowSizeY = 720;
 GameScene::GameScene() : onceExcute(false), imgcnt(0)
 {
 	triboximg = DxLib::LoadGraph("Resource/img/tribox.png");
+	backimg = DxLib::LoadGraph("Resource/img/blockîwåi.png");
+	backframeimg = DxLib::LoadGraph("Resource/img/òg.png");
 	changeframe = 0;
+	normalframe = 0;
 
 	changeflg = false;
 	pState = PlayerState::box;
+	playerSpeed = 6.f;
+
+	bgMoveSpeed = 0.f;
+	bgMoveMaxSpeed = 5.f;
 
 	triboxpos = Vector2f(WindowSizeX / 2, WindowSizeY / 2);
+	backimgpos = Vector2f(0, 0);
+	backframeimgpos = Vector2f(0, 0);
+
 	imgpos = Vector2f(25, 25);
 	imgcpos = Vector2f(75, 75);//125Ç∏Ç¬
 }
@@ -27,21 +37,22 @@ void GameScene::Update()
 	DxLib::DrawFormatString(0, 0, GetColor(255, 255, 255), "GameScene");
 	DxLib::DrawFormatString(0, 25, GetColor(255, 255, 255), "%d", pState);
 
+	//ÉvÉåÉCÉÑÅ[ÇÃà⁄ìÆ
 	if (CheckHitKey(KEY_INPUT_W))
 	{
-		triboxpos.y -= 4;
+		triboxpos.y -= playerSpeed;
 	}
 	else if (CheckHitKey(KEY_INPUT_S))
 	{
-		triboxpos.y += 4;
+		triboxpos.y += playerSpeed;
 	}
 	else if (CheckHitKey(KEY_INPUT_A))
 	{
-		triboxpos.x -= 4;
+		triboxpos.x -= playerSpeed;
 	}
 	else if (CheckHitKey(KEY_INPUT_D))
 	{
-		triboxpos.x += 4;
+		triboxpos.x += playerSpeed;
 	}
 
 
@@ -151,6 +162,42 @@ void GameScene::Update()
 	}
 #pragma endregion
 
-	//DxLib::DrawRectRotaGraph2(triboxpos.x, triboxpos.y, imgpos.x, imgpos.y, 100, 100, imgcpos.x, imgcpos.y, 1, 0, triboximg, true, false, false);//â∆
-	DxLib::DrawRectRotaGraph2(triboxpos.x, triboxpos.y, imgpos.x, imgpos.y, 100, 100, imgcpos.x, imgcpos.y, 1, 0, triboximg, true, false);//äwçZ
+	//îwåiÇÃà íuèâä˙âª
+	if (backimgpos.x <= -WindowSizeX)
+	{
+		backimgpos.x = 0;
+	}
+	if (backframeimgpos.x <= -WindowSizeX)
+	{
+		backframeimgpos.x = 0;
+	}
+
+	//îwåiÇÃà⁄ìÆë¨ìx
+	if (normalframe == 59)
+	{
+		if (bgMoveSpeed <= bgMoveMaxSpeed)//5Ç‹Ç≈
+		{
+			bgMoveSpeed += 0.5;
+		}
+	}
+
+	//îwåiÇÃà⁄ìÆ
+	backimgpos.x -= bgMoveSpeed;
+	backframeimgpos.x -= (bgMoveSpeed / 2);
+
+	//âÊëú
+	DxLib::DrawExtendGraph(backimgpos.x, backimgpos.y, backimgpos.x + WindowSizeX, backimgpos.y + WindowSizeY, backimg, true);//îwåi
+	DxLib::DrawExtendGraph(backimgpos.x + WindowSizeX, backimgpos.y, backimgpos.x + WindowSizeX * 2, backimgpos.y + WindowSizeY, backimg, true);//îwåi
+	DxLib::DrawExtendGraph(backframeimgpos.x, backframeimgpos.y, backframeimgpos.x + WindowSizeX, backframeimgpos.y + WindowSizeY, backframeimg, true);//òg
+	DxLib::DrawExtendGraph(backframeimgpos.x + WindowSizeX, backframeimgpos.y, backframeimgpos.x + WindowSizeX * 2, backframeimgpos.y + WindowSizeY, backframeimg, true);//òg
+
+
+	//DxLib::DrawRectRotaGraph2(triboxpos.x, triboxpos.y, imgpos.x, imgpos.y, 100, 100, imgcpos.x, imgcpos.y, 1, 0, triboximg, true, false, false);//â∆,ÉvÉåÉCÉÑÅ[
+	DxLib::DrawRectRotaGraph2(triboxpos.x, triboxpos.y, imgpos.x, imgpos.y, 100, 100, imgcpos.x, imgcpos.y, 0.5, 0, triboximg, true, false);//äwçZ,ÉvÉåÉCÉÑÅ[
+
+
+	if (++normalframe % 60 == 0)//60fñàÇ…fÇÃèâä˙âªÇçsÇ§
+	{
+		normalframe = 0;
+	}
 }
