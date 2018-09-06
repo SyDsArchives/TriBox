@@ -29,8 +29,11 @@ private:
 	void PlayerAnimation();
 
 public:
-	Player();
+	Player(Vector2f _pos);
 	~Player();
+
+	void SetPosition(Vector2f _pos);
+	Vector2f GetPosition();
 
 	void Update(Peripheral& p);
 };

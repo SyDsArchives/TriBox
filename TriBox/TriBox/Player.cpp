@@ -4,11 +4,11 @@
 #include "Geometry.h"
 
 
-Player::Player(): imgcnt(0),changeframe(0),playerSpeed(6.f),changeflg(false),onceExcute(false)
+Player::Player(Vector2f _pos): imgcnt(0),changeframe(0),playerSpeed(6.f),changeflg(false),onceExcute(false)
 {
 	triboximg = DxLib::LoadGraph("Resource/img/tribox.png");
 	pState = PlayerState::box;
-	triboxpos = Vector2f(WindowSizeX / 2, WindowSizeY / 2);
+	triboxpos = Vector2f(_pos.x,_pos.y);
 
 	imgpos = Vector2f(25, 25);
 	imgcpos = Vector2f(75, 75);//125‚¸‚Â
@@ -17,6 +17,16 @@ Player::Player(): imgcnt(0),changeframe(0),playerSpeed(6.f),changeflg(false),onc
 
 Player::~Player()
 {
+}
+
+void Player::SetPosition(Vector2f _pos)
+{
+	triboxpos = _pos;
+}
+
+Vector2f Player::GetPosition()
+{
+	return triboxpos;
 }
 
 void Player::PlayerMove(Peripheral& _p)
