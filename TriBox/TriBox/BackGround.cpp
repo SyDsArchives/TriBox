@@ -5,7 +5,8 @@
 
 BackGround::BackGround():normalframe(0),bgMoveSpeed(0.f), bgMoveMaxSpeed(5.f), backimgpos(Vector2f(0, 0)), backframeimgpos(Vector2f(0, 0))
 {
-	backimg = DxLib::LoadGraph("Resource/img/block”wŒi.png");
+	backimg = DxLib::LoadGraph("Resource/img/block”wŒiƒuƒ‰ƒEƒ“.png");
+	back2img = DxLib::LoadGraph("Resource/img/block”wŒi‚Û‚í‚Û‚í.png");
 	backframeimg = DxLib::LoadGraph("Resource/img/˜g.png");
 }
 
@@ -40,8 +41,10 @@ void BackGround::Update()
 	backframeimgpos.x -= (bgMoveSpeed / 2);
 
 	//‰æ‘œ
-	DxLib::DrawExtendGraph(backimgpos.x, backimgpos.y, backimgpos.x + WindowSizeX, backimgpos.y + WindowSizeY, backimg, true);//”wŒi
-	DxLib::DrawExtendGraph(backimgpos.x + WindowSizeX, backimgpos.y, backimgpos.x + WindowSizeX * 2, backimgpos.y + WindowSizeY, backimg, true);//”wŒi
+	DxLib::DrawExtendGraph(0,0, WindowSizeX, WindowSizeY, backimg, true);//”wŒi
+
+	DxLib::DrawExtendGraph(backimgpos.x, backimgpos.y, backimgpos.x + WindowSizeX, backimgpos.y + WindowSizeY, back2img, true);//”wŒi
+	DxLib::DrawExtendGraph(backimgpos.x + WindowSizeX, backimgpos.y, backimgpos.x + WindowSizeX * 2, backimgpos.y + WindowSizeY, back2img, true);//”wŒi
 
 	DxLib::DrawExtendGraph(backframeimgpos.x, backframeimgpos.y, backframeimgpos.x + WindowSizeX, backframeimgpos.y + WindowSizeY, backframeimg, true);//˜g
 	DxLib::DrawExtendGraph(backframeimgpos.x + WindowSizeX, backframeimgpos.y, backframeimgpos.x + WindowSizeX * 2, backframeimgpos.y + WindowSizeY, backframeimg, true);//˜g

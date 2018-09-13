@@ -36,27 +36,28 @@ void GameScene::Update()
 	int plcnt = 0;
 	bool frontorback = false;//true前false後ろ
 	Vector2f backrowPos = playerLife.at(0).GetPosition();
-	for (auto& pl : playerLife)
-	{
-		//先頭
-		if (plcnt == 0)
-		{
-			pl.Update(p);//プレイヤー
-		}
-		else//それ以外
-		{
-			if (normalframe % 10 == 0)
-			{
-				backrowPos = Vector2f(playerLife.at(plcnt - 1).GetPosition().x, playerLife.at(plcnt - 1).GetPosition().y);
-				pl.SetPosition(backrowPos);
-				pl.Update(p);//プレイヤー
-			}
-			
-		}
-		pl.Update(p);//プレイヤー
-		++plcnt;
-	}
+	//for (auto& pl : playerLife)
+	//{
+	//	//先頭
+	//	if (plcnt == 0)
+	//	{
+	//		pl.Update(p);//プレイヤー
+	//	}
+	//	else//それ以外
+	//	{
+	//		if (normalframe % 10 == 0)
+	//		{
+	//			backrowPos = Vector2f(playerLife.at(plcnt - 1).GetPosition().x, playerLife.at(plcnt - 1).GetPosition().y);
+	//			pl.SetPosition(backrowPos);
+	//			pl.Update(p);//プレイヤー
+	//		}
+	//		
+	//	}
+	//	pl.Update(p);//プレイヤー
+	//	++plcnt;
+	//}
 	
+	player->Update(p);
 
 	if (++normalframe % 60 == 0)//60f毎にfの初期化を行う
 	{

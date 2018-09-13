@@ -5,6 +5,7 @@ class BackGround
 private:
 	int normalframe;
 	int backimg;//îwåi
+	int back2img;
 	int backframeimg;//òg
 
 	float bgMoveSpeed;
