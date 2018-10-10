@@ -35,6 +35,9 @@ public:
 	void SetPosition(Vector2f _pos);
 	Vector2f GetPosition();
 
+	void SetSpeed(float _speed);
+	float GetSpeed();
+
 	void Update(Peripheral& p);
 };
 

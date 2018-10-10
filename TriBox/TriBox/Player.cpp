@@ -29,6 +29,16 @@ Vector2f Player::GetPosition()
 	return triboxpos;
 }
 
+void Player::SetSpeed(float _speed)
+{
+	playerSpeed = _speed;
+}
+
+float Player::GetSpeed()
+{
+	return playerSpeed;
+}
+
 void Player::PlayerMove(Peripheral& _p)
 {
 	//ƒvƒŒƒCƒ„[‚ÌˆÚ“®(•¡‡‰Â)

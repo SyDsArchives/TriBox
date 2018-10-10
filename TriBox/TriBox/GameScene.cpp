@@ -5,10 +5,13 @@
 #include "Player.h"
 #include "Peripheral.h"
 
+#include "Block.h"
+
 GameScene::GameScene():onceExcute(false)
 {
 	bg = std::make_shared<BackGround>();
 	player = std::make_shared<Player>(Vector2f(WindowSizeX / 2, WindowSizeY / 2));
+	block = std::make_shared<Block>();
 
 	normalframe = 0;
 }
@@ -36,26 +39,8 @@ void GameScene::Update()
 	int plcnt = 0;
 	bool frontorback = false;//true前false後ろ
 	Vector2f backrowPos = playerLife.at(0).GetPosition();
-	//for (auto& pl : playerLife)
-	//{
-	//	//先頭
-	//	if (plcnt == 0)
-	//	{
-	//		pl.Update(p);//プレイヤー
-	//	}
-	//	else//それ以外
-	//	{
-	//		if (normalframe % 10 == 0)
-	//		{
-	//			backrowPos = Vector2f(playerLife.at(plcnt - 1).GetPosition().x, playerLife.at(plcnt - 1).GetPosition().y);
-	//			pl.SetPosition(backrowPos);
-	//			pl.Update(p);//プレイヤー
-	//		}
-	//		
-	//	}
-	//	pl.Update(p);//プレイヤー
-	//	++plcnt;
-	//}
+	
+	block->Draw();
 	
 	player->Update(p);
 

@@ -6,6 +6,7 @@
 
 class Player;
 class BackGround;
+class Block;
 class GameScene : public Scene
 {
 private:
@@ -16,6 +17,7 @@ private:
 
 	std::shared_ptr<BackGround> bg;
 	std::shared_ptr<Player> player;
+	std::shared_ptr<Block> block;
 
 	std::vector<Player> playerLife;
 
