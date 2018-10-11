@@ -23,5 +23,6 @@ public:
 	void ChangeScene(Scene* _scene);
 
 	void Run();
+	void End();
 };
 

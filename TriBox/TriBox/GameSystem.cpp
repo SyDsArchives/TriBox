@@ -56,4 +56,9 @@ void GameSystem::Run()
 		scene->Update();
 		DxLib::ScreenFlip();
 	}
+	
+}
+
+void GameSystem::End() {
+	DxLib::DxLib_End();
 }
