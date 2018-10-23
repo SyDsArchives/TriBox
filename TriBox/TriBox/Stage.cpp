@@ -18,10 +18,10 @@ void Stage::LoadStageData()
 	FILE* fp = fopen("Resource/map/TriBox仮配置データ.fmf", "rb");
 	fread(&stagedata, sizeof(StageData), 1, fp);
 	auto layersize = stagedata.mapwidth * stagedata.mapheight;
-	stageArrangement.resize(layersize);
+	//stageArrangement.resize(layersize);
 	for (int i = 0; i < layersize; ++i)
 	{
-		fread(&stageArrangement[i], layersize, 1, fp);
+		//fread(&stageArrangement[i], layersize, 1, fp);
 	}
 	fclose(fp);
 
@@ -34,17 +34,17 @@ void Stage::LoadStageData()
 			//ステージ端まで行ったら+1
 			mapy += 1;
 		}
-		if (stageArrangement[i] == 1)
+		//if (stageArrangement[i] == 1)
 		{
-			block.push_back(Block(Position2f(50 * i, 50 * mapy )));
+			//block.push_back(Block(Position2f(50 * i, 50 * mapy )));
 		}
 	}
 }
 
-std::vector<unsigned char> Stage::GetStageData()const
-{
-	return stageArrangement;
-}
+//std::vector<unsigned char> Stage::GetStageData()const
+//{
+//	//return stageArrangement;
+//}
 
 unsigned int Stage::GetStageWidth()const
 {
@@ -53,8 +53,8 @@ unsigned int Stage::GetStageWidth()const
 
 void Stage::Draw()
 {
-	for (int i = 0; i < block.size() - 1; ++i)
-	{
-		block[i].Draw();
-	}
+	//for (int i = 0; i < block.size() - 1; ++i)
+	//{
+	//	block[i].Draw();
+	//}
 }

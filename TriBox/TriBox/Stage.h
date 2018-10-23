@@ -28,7 +28,7 @@ private:
 
 	std::vector<Block> block;
 
-	std::vector<unsigned char> stageArrangement;
+	//std::vector<unsigned char> stageArrangement;
 public:
 	Stage();
 	~Stage();
