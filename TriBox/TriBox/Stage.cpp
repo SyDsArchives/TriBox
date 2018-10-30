@@ -16,55 +16,59 @@ Stage::~Stage()
 
 void Stage::LoadStageData()
 {
+	//ステージデータの読み込み
 	FILE* fp = fopen("Resource/map/TriBox仮配置データ.fmf", "rb");
-
 	std::vector<unsigned char> dummyData;
 
+	//ステージのサイズ、横幅縦幅、1マップチップの横幅縦幅、レイヤー数、ビットサイズの取得
 	fread(&stagedata, sizeof(StageData), 1, fp);
 
+	//1レイヤー辺りのサイズを計算
 	auto layersize = stagedata.mapwidth * stagedata.mapheight * (stagedata.bitcount / 8);
 
+	//vector配列のサイズ変更
 	dummyData.resize(layersize);
 	stageArrangement.resize(dummyData.size());
 
-	for (auto& stage : dummyData)
+	//ダミー変数にステージ配置を一時保存
+	for (auto& dummy : dummyData)
 	{
-		fread(&stage, sizeof(unsigned char), 1, fp);
+		fread(&dummy, sizeof(unsigned char), 1, fp);
 	}
 	
 	fclose(fp);
+	
+	//ステージデータを行から列に並べ替える
+	int dataX = 0;
 
-	for (int x = 0; x < stagedata.mapwidth; /*++x*/)
+	while (true)
 	{
 		for (int y = 0; y < stagedata.mapheight; ++y)
 		{
-			if (y % stagedata.mapheight == 0)
-			{
-				//stageArrangement[y * stagedata.mapheight + x];
-				stageArrangement[y * stagedata.mapheight + x] = dummyData[x * stagedata.mapwidth + y];
-			}
+			stageArrangement[dataX * stagedata.mapheight + y] = dummyData[y * stagedata.mapwidth + dataX];
 		}
-		++x;
-	}
 
+		++dataX;
+
+		if (dataX >= stagedata.mapwidth)
+		{
+			break;
+		}
+	}
+	
 	//ダミーデータの解放
 	dummyData.clear();
 
-	int a = 0;
-
-	//int mapy = 0;
-	//for (int i = 0; i < layersize; ++i)
-	//{
-	//	if (i % 60 == 0)
-	//	{
-	//		//ステージ端まで行ったら+1
-	//		mapy += 1;
-	//	}
-	//	//if (stageArrangement[i] == 1)
-	//	{
-	//		//block.push_back(Block(Position2f(50 * i, 50 * mapy )));
-	//	}
-	//}
+	for (int y = 0; y < stagedata.mapheight; ++y)
+	{
+		for (int x = 0; x < stagedata.mapwidth; ++x)
+		{
+			if (stageArrangement[x * stagedata.mapheight + y] == 1)
+			{
+				block.push_back(Block(Position2f(50 * x, 50 * y)));
+			}
+		}
+	}
 }
 
 //std::vector<unsigned char> Stage::GetStageData()const
@@ -79,8 +83,8 @@ void Stage::LoadStageData()
 
 void Stage::Draw()
 {
-	//for (int i = 0; i < block.size() - 1; ++i)
-	//{
-	//	block[i].Draw();
-	//}
+	for (auto b : block)
+	{
+		b.Update();
+	}
 }

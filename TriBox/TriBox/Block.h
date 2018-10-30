@@ -5,11 +5,12 @@ class Block
 private:
 	int blockimg;
 	Position2f pos;
+
+	void Draw();
 public:
 	Block(Position2f _pos);
 	~Block();
 
-	void Draw();
-
+	void Update();
 };
 
