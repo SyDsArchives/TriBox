@@ -12,5 +12,7 @@ public:
 	~Block();
 
 	void Update();
+
+	bool HitCheck(Position2f _pos);
 };
 

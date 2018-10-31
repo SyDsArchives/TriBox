@@ -12,7 +12,7 @@ GameScene::GameScene():onceExcute(false)
 {
 	bg = std::make_shared<BackGround>();
 	player = std::make_shared<Player>(Vector2f(WindowSizeX / 2, WindowSizeY / 2));
-	stage = std::make_shared<Stage>();
+	stage = std::make_shared<Stage>(*player);
 }
 
 

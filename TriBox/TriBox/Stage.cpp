@@ -3,8 +3,9 @@
 #include <stdio.h>
 #include "Block.h"
 #include <iostream>
+#include "Player.h"
 
-Stage::Stage()
+Stage::Stage(Player& _pl) : player(_pl)
 {
 	LoadStageData();
 }
@@ -83,8 +84,11 @@ void Stage::LoadStageData()
 
 void Stage::Draw()
 {
-	for (auto b : block)
-	{
-		b.Update();
-	}
+	block[0].HitCheck(player.GetPosition());
+	block[0].Update();
+	//for (auto b : block)
+	//{
+	//	b.HitCheck(player.GetPosition());
+	//	b.Update();
+	//}
 }

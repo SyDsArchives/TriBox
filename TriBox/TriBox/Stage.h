@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <memory>
 
 enum class StageObject
 {
@@ -19,6 +20,7 @@ struct StageData
 	unsigned char bitcount;
 };
 
+class Player;
 class Block;
 class Stage
 {
@@ -27,10 +29,11 @@ private:
 	StageData stagedata;
 
 	std::vector<Block> block;
+	Player& player;
 
 	std::vector<unsigned char> stageArrangement;
 public:
-	Stage();
+	Stage(Player& _pl);
 	~Stage();
 	std::vector<unsigned char> GetStageData()const;
 	unsigned int GetStageWidth()const;
