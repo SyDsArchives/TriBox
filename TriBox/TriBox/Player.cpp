@@ -72,100 +72,100 @@ void Player::PlayerMove(Peripheral& _p)
 
 void Player::PlayerAnimation()
 {
-	if (changeflg)
-	{
-		if (imgcnt == 2)
-		{
-			changeflg = false;
-			onceExcute = false;
-			imgcnt = 0;
-		}
+	//if (changeflg)
+	//{
+	//	if (imgcnt == 2)
+	//	{
+	//		changeflg = false;
+	//		onceExcute = false;
+	//		imgcnt = 0;
+	//	}
 
-		changeframe += 1;
-		if (changeframe % 3 == 0)
-		{
-			if (pState == PlayerState::box)
-			{
-				if (imgcnt == 0)//プレイヤーイメージ1段目
-				{
-					if (!onceExcute)
-					{
-						imgpos.x = 25;
-						imgpos.y = 25;
-						onceExcute = true;
-					}
-					if (imgpos.x < 400)
-					{
-						imgpos.x = imgpos.x + 125;
-					}
-					else
-					{
-						imgcnt = 1;
-						onceExcute = false;
-					}
-				}
+	//	changeframe += 1;
+	//	if (changeframe % 3 == 0)
+	//	{
+	//		if (pState == PlayerState::box)
+	//		{
+	//			if (imgcnt == 0)//プレイヤーイメージ1段目
+	//			{
+	//				if (!onceExcute)
+	//				{
+	//					imgpos.x = 25;
+	//					imgpos.y = 25;
+	//					onceExcute = true;
+	//				}
+	//				if (imgpos.x < 400)
+	//				{
+	//					imgpos.x = imgpos.x + 125;
+	//				}
+	//				else
+	//				{
+	//					imgcnt = 1;
+	//					onceExcute = false;
+	//				}
+	//			}
 
-				if (imgcnt == 1)//プレイヤーイメージ2段目
-				{
-					if (!onceExcute)
-					{
-						imgpos.x = 25;
-						imgpos.y = 150;
-						onceExcute = true;
-					}
-					if (imgpos.x < 400)
-					{
-						imgpos.x = imgpos.x + 125;
-					}
-					else
-					{
-						imgcnt = 2;
-						pState = PlayerState::triangle;
-					}
-				}
-			}
-			else if (pState == PlayerState::triangle)
-			{
-				if (imgcnt == 0)//プレイヤーイメージ1段目
-				{
-					if (!onceExcute)
-					{
-						imgpos.x = 400;
-						imgpos.y = 150;
-						onceExcute = true;
-					}
-					if (imgpos.x > 25)
-					{
-						imgpos.x = imgpos.x - 125;
-					}
-					else
-					{
-						imgcnt = 1;
-						onceExcute = false;
-					}
-				}
+	//			if (imgcnt == 1)//プレイヤーイメージ2段目
+	//			{
+	//				if (!onceExcute)
+	//				{
+	//					imgpos.x = 25;
+	//					imgpos.y = 150;
+	//					onceExcute = true;
+	//				}
+	//				if (imgpos.x < 400)
+	//				{
+	//					imgpos.x = imgpos.x + 125;
+	//				}
+	//				else
+	//				{
+	//					imgcnt = 2;
+	//					pState = PlayerState::triangle;
+	//				}
+	//			}
+	//		}
+	//		else if (pState == PlayerState::triangle)
+	//		{
+	//			if (imgcnt == 0)//プレイヤーイメージ1段目
+	//			{
+	//				if (!onceExcute)
+	//				{
+	//					imgpos.x = 400;
+	//					imgpos.y = 150;
+	//					onceExcute = true;
+	//				}
+	//				if (imgpos.x > 25)
+	//				{
+	//					imgpos.x = imgpos.x - 125;
+	//				}
+	//				else
+	//				{
+	//					imgcnt = 1;
+	//					onceExcute = false;
+	//				}
+	//			}
 
-				if (imgcnt == 1)//プレイヤーイメージ2段目
-				{
-					if (!onceExcute)
-					{
-						imgpos.x = 400;
-						imgpos.y = 25;
-						onceExcute = true;
-					}
-					if (imgpos.x > 25)
-					{
-						imgpos.x = imgpos.x - 125;
-					}
-					else
-					{
-						imgcnt = 2;
-						pState = PlayerState::box;
-					}
-				}
-			}
-		}
-	}
+	//			if (imgcnt == 1)//プレイヤーイメージ2段目
+	//			{
+	//				if (!onceExcute)
+	//				{
+	//					imgpos.x = 400;
+	//					imgpos.y = 25;
+	//					onceExcute = true;
+	//				}
+	//				if (imgpos.x > 25)
+	//				{
+	//					imgpos.x = imgpos.x - 125;
+	//				}
+	//				else
+	//				{
+	//					imgcnt = 2;
+	//					pState = PlayerState::box;
+	//				}
+	//			}
+	//		}
+	//	}
+	//}
 }
 
 void Player::Update(Peripheral& _p)

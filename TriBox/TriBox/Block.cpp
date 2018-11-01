@@ -16,8 +16,8 @@ Block::~Block()
 
 void Block::Draw()
 {
-	DxLib::DrawGraph(pos.x, pos.y, blockimg, true);
-	//DxLib::DrawRectRotaGraph2();
+	//DxLib::DrawGraph(pos.x, pos.y, blockimg, true);
+	DxLib::DrawRectRotaGraph2(pos.x, pos.y, 0, 0, blocksize, blocksize, blocksize / 2, blocksize / 2, 1.f, 0.f, blockimg, true, false, false);
 }
 
 void Block::Update()
@@ -31,12 +31,8 @@ void Block::Update()
 
 bool Block::HitCheck(Position2f _pos)
 {
-	bool testx = pos.x - blocksize/2 < _pos.x && pos.x + blocksize/2 > _pos.x;
-	bool testy = pos.y - blocksize/2 < _pos.y && pos.y + blocksize/2 > _pos.y;
-	if (testx || testy)
-	{
-		int a = 0;
-	}
+	bool checkX = pos.x - blocksize/2 < _pos.x && pos.x + blocksize/2 > _pos.x;
+	bool checkY = pos.y - blocksize/2 < _pos.y && pos.y + blocksize/2 > _pos.y;
 
-	return false;
+	return checkX && checkY;
 }

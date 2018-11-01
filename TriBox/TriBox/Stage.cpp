@@ -84,8 +84,8 @@ void Stage::LoadStageData()
 
 void Stage::Draw()
 {
-	block[0].HitCheck(player.GetPosition());
-	block[0].Update();
+	block[40].HitCheck(player.GetPosition());
+	block[40].Update();
 	//for (auto b : block)
 	//{
 	//	b.HitCheck(player.GetPosition());
