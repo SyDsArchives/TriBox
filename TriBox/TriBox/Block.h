@@ -1,5 +1,20 @@
 #pragma once
 #include "Vector2D.h"
+
+enum class HitDirection {
+	none,
+	top,
+	left,
+	right,
+	bottom,
+};
+
+struct HitObjectData {
+	bool isHit;
+	std::string objectName;
+};
+
+class Player;
 class Block
 {
 private:
@@ -13,6 +28,6 @@ public:
 
 	void Update();
 
-	bool HitCheck(Position2f _pos);
+	HitObjectData HitCheck(Position2f pos);
 };
 

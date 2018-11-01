@@ -29,10 +29,23 @@ void Block::Update()
 	Draw();
 }
 
-bool Block::HitCheck(Position2f _pos)
+HitObjectData Block::HitCheck(Position2f _pos)
 {
-	bool checkX = pos.x - blocksize/2 < _pos.x && pos.x + blocksize/2 > _pos.x;
-	bool checkY = pos.y - blocksize/2 < _pos.y && pos.y + blocksize/2 > _pos.y;
+	//返り値用変数
+	HitObjectData ret;
+	ret.objectName = "block";
 
-	return checkX && checkY;
+	//ブロックに当たっているか
+	bool isHitTop = pos.y - blocksize / 2 < _pos.y;
+	bool isHitLeft = pos.x - blocksize / 2 < _pos.x;
+	bool isHitRight = pos.x + blocksize / 2 > _pos.x;
+	bool isHitBottom = pos.y + blocksize / 2 > _pos.y;
+
+	bool checkX = isHitLeft && isHitRight;
+	bool checkY = isHitTop && isHitBottom;
+
+	ret.isHit = isHitTop && isHitLeft && isHitRight && isHitBottom;
+		
+	return ret;
 }
+
