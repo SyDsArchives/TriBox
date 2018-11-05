@@ -5,6 +5,7 @@
 #include "Geometry.h"
 
 
+
 GameSystem::GameSystem()
 {
 }
@@ -14,16 +15,10 @@ GameSystem::~GameSystem()
 {
 }
 
-int GameSystem::GetWindowSize(char num)
+Vector2 GameSystem::GetWindowSize()
 {
-	if (num == 'x')
-	{
-		return WindowSizeX;
-	}
-	else if (num == 'y')
-	{
-		return WindowSizeY;
-	}
+	Vector2 ret(WindowSizeX, WindowSizeY);
+	return ret;
 }
 
 void GameSystem::ChangeScene(Scene* _scene)

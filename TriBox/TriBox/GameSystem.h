@@ -1,5 +1,7 @@
 #pragma once
 #include <memory>
+#include "Vector2D.h"
+
 class Scene;
 class GameSystem
 {
@@ -19,7 +21,7 @@ public:
 	~GameSystem();
 
 
-	int GetWindowSize(char num);
+	Vector2 GetWindowSize();
 	void ChangeScene(Scene* _scene);
 
 	void Run();

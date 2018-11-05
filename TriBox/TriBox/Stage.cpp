@@ -1,9 +1,10 @@
 #include "Stage.h"
-//#include "DxLib.h"
+#include "DxLib.h"
 #include <stdio.h>
 #include "Block.h"
 #include <iostream>
 #include "Player.h"
+#include "Geometry.h"
 
 Stage::Stage(Player& _pl) : player(_pl)
 {
@@ -18,7 +19,7 @@ Stage::~Stage()
 void Stage::LoadStageData()
 {
 	//ステージデータの読み込み
-	FILE* fp = fopen("Resource/map/TriBox仮配置データ.fmf", "rb");
+	FILE* fp = fopen("Resource/map/仮stage1.fmf", "rb");
 	std::vector<unsigned char> dummyData;
 
 	//ステージのサイズ、横幅縦幅、1マップチップの横幅縦幅、レイヤー数、ビットサイズの取得
@@ -36,6 +37,8 @@ void Stage::LoadStageData()
 	{
 		fread(&dummy, sizeof(unsigned char), 1, fp);
 	}
+
+	//auto a = stagedata.mapheight * stagedata.chipheight;
 	
 	fclose(fp);
 	
@@ -84,11 +87,16 @@ void Stage::LoadStageData()
 
 void Stage::Draw()
 {
-	//block[40].HitCheck(player.GetPosition());
-	//block[40].Update();
-	for (auto b : block)
+	int count = 0;
+
+	for(int i = 0; i < block.size(); ++i)
 	{
-		b.HitCheck(player.GetPosition());
-		b.Update();
+		block[i].Update(5.f);
+		
+		if (block[i].GetBlockPos().x > -100 && block[i].GetBlockPos().x < WindowSizeX + 50)
+		{
+			block[i].Draw();
+			block[i].HitCheck(player.GetPosition());
+		}
 	}
 }

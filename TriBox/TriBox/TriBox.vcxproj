@@ -132,11 +132,12 @@
     <ClInclude Include="GameSystem.h" />
     <ClInclude Include="Geometry.h" />
     <ClInclude Include="ImageData.h" />
-    <ClInclude Include="main.h" />
     <ClInclude Include="Peripheral.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="ResultScene.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Stage.h" />
+    <ClInclude Include="TitleScene.h" />
     <ClInclude Include="Vector2D.h" />
   </ItemGroup>
   <ItemGroup>
@@ -149,8 +150,10 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Peripheral.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="ResultScene.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Stage.cpp" />
+    <ClCompile Include="TitleScene.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -30,16 +30,6 @@ Vector2f Player::GetPosition()
 	return triboxpos;
 }
 
-void Player::SetSpeed(float _speed)
-{
-	playerSpeed = _speed;
-}
-
-float Player::GetSpeed()
-{
-	return playerSpeed;
-}
-
 void Player::PlayerMove(Peripheral& _p)
 {
 	//プレイヤーの移動(複合可)
@@ -109,7 +99,8 @@ void Player::PlayerMouseMove()
 	}
 
 	//キャラ座標へ代入
-	triboxpos = mousePos;
+	triboxpos.x = mousePos.x;
+	triboxpos.y = mousePos.y;
 
 
 	DrawFormatString(0, 0, GetColor(255, 255, 255), "%.1f", mousePos.x);
@@ -214,11 +205,13 @@ void Player::PlayerAnimation()
 	//}
 }
 
+
 void Player::Update(Peripheral& _p)
 {
 	
 	//プレイヤー移動
-	PlayerMouseMove();
+	//PlayerMouseMove();
+	PlayerMove(_p);
 
 	//PlayerAnimation();//プレイヤーのアニメーション再生
 

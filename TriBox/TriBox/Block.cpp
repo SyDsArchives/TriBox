@@ -16,17 +16,23 @@ Block::~Block()
 
 void Block::Draw()
 {
-	//DxLib::DrawGraph(pos.x, pos.y, blockimg, true);
 	DxLib::DrawRectRotaGraph2(pos.x, pos.y, 0, 0, blocksize, blocksize, blocksize / 2, blocksize / 2, 1.f, 0.f, blockimg, true, false, false);
 }
 
-void Block::Update()
+void Block::MoveBlock(float _speed)
 {
-	if (CheckHitKey(KEY_INPUT_A))
-	{
-		pos.x = pos.x - 220;
-	}
-	Draw();
+	pos.x -= _speed;
+	DrawFormatString(0, 30, GetColor(255, 0, 0),"%d", pos.x);
+}
+
+void Block::Update(float _speed)
+{
+	MoveBlock(_speed);
+}
+
+Position2f Block::GetBlockPos()
+{
+	return pos;
 }
 
 HitObjectData Block::HitCheck(Position2f _pos)

@@ -17,28 +17,28 @@ BackGround::~BackGround()
 
 void BackGround::Update()
 {
-	//”wŒi‚ÌˆÊ’u‰Šú‰»
-	if (backimgpos.x <= -WindowSizeX)
-	{
-		backimgpos.x = 0;
-	}
-	if (backframeimgpos.x <= -WindowSizeX)
-	{
-		backframeimgpos.x = 0;
-	}
+	////”wŒi‚ÌˆÊ’u‰Šú‰»
+	//if (backimgpos.x <= -WindowSizeX)
+	//{
+	//	backimgpos.x = 0;
+	//}
+	//if (backframeimgpos.x <= -WindowSizeX)
+	//{
+	//	backframeimgpos.x = 0;
+	//}
 
-	//”wŒi‚ÌˆÚ“®‘¬“x
-	if (normalframe == 59)
-	{
-		if (bgMoveSpeed <= bgMoveMaxSpeed)//5‚Ü‚Å
-		{
-			bgMoveSpeed += 0.2;
-		}
-	}
+	////”wŒi‚ÌˆÚ“®‘¬“x
+	//if (normalframe == 59)
+	//{
+	//	if (bgMoveSpeed <= bgMoveMaxSpeed)//5‚Ü‚Å
+	//	{
+	//		bgMoveSpeed += 0.2;
+	//	}
+	//}
 
-	//”wŒi‚ÌˆÚ“®
-	backimgpos.x -= bgMoveSpeed;
-	backframeimgpos.x -= (bgMoveSpeed / 2);
+	////”wŒi‚ÌˆÚ“®
+	//backimgpos.x -= bgMoveSpeed;
+	//backframeimgpos.x -= (bgMoveSpeed / 2);
 
 	//‰æ‘œ
 	DxLib::DrawExtendGraph(0,0, WindowSizeX, WindowSizeY, backimg, true);//”wŒi

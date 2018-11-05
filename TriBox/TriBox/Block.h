@@ -22,12 +22,17 @@ private:
 	int blockimg;
 	Position2f pos;
 
-	void Draw();
+	void MoveBlock(float _speed);
+
 public:
 	Block(Position2f _pos);
 	~Block();
 
-	void Update();
+	void Draw();
+
+	void Update(float _speed);
+
+	Position2f GetBlockPos();
 
 	HitObjectData HitCheck(Position2f pos);
 };
