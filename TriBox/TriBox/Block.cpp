@@ -38,14 +38,14 @@ HitObjectData Block::HitCheck(Position2f _pos)
 	//ÉuÉçÉbÉNÇ…ìñÇΩÇ¡ÇƒÇ¢ÇÈÇ©
 	bool isHitTop = pos.y - blocksize / 2 < _pos.y;
 	bool isHitLeft = pos.x - blocksize / 2 < _pos.x;
-	bool isHitRight = pos.x + blocksize / 2 > _pos.x;
-	bool isHitBottom = pos.y + blocksize / 2 > _pos.y;
+	bool isHitRight = pos.x + blocksize > _pos.x;
+	bool isHitBottom = pos.y + blocksize > _pos.y;
 
 	bool checkX = isHitLeft && isHitRight;
 	bool checkY = isHitTop && isHitBottom;
 
 	ret.isHit = isHitTop && isHitLeft && isHitRight && isHitBottom;
-		
+
 	return ret;
 }
 

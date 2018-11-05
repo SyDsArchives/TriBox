@@ -2,6 +2,7 @@
 #include "Peripheral.h"
 #include "DxLib.h"
 #include "Geometry.h"
+#include <Windows.h>
 
 
 Player::Player(Vector2f _pos): imgcnt(0),changeframe(0),playerSpeed(6.f),changeflg(false),onceExcute(false)
@@ -68,6 +69,51 @@ void Player::PlayerMove(Peripheral& _p)
 			changeframe = 0;
 		}
 	}
+}
+
+
+void Player::PlayerMouseMove()
+{
+	auto hwnd = DxLib::GetMainWindowHandle();
+	POINT mouse;
+
+	//スクリーン座標上のマウスカーソル位置を取得
+	GetCursorPos(&mouse);
+	
+	//カーソル位置をスクリーン座標→クライアント座標へ変換する
+	//取得に成功で 「true」、失敗すると 「false」 が出力される
+	bool result = ScreenToClient(hwnd, &mouse);
+
+	//Vector2変数に代入、保存
+	Vector2f mousePos;
+	mousePos.x = mouse.x;
+	mousePos.y = mouse.y;
+
+	//カーソル座標X,Yのクライアント外の座標時の補正
+	if (mousePos.x < 0)
+	{
+		mousePos.x = 0;
+	}
+	else if (mousePos.x > WindowSizeX)
+	{
+		mousePos.x = WindowSizeX;
+	}
+
+	if (mousePos.y < 0)
+	{
+		mousePos.y = 0;
+	}
+	else if (mousePos.y > WindowSizeY)
+	{
+		mousePos.y = WindowSizeY;
+	}
+
+	//キャラ座標へ代入
+	triboxpos = mousePos;
+
+
+	DrawFormatString(0, 0, GetColor(255, 255, 255), "%.1f", mousePos.x);
+	DrawFormatString(70, 0, GetColor(255, 255, 255), "%.1f", mousePos.y);
 }
 
 void Player::PlayerAnimation()
@@ -171,9 +217,10 @@ void Player::PlayerAnimation()
 void Player::Update(Peripheral& _p)
 {
 	
-	PlayerMove(_p);//プレイヤーの移動
+	//プレイヤー移動
+	PlayerMouseMove();
 
-	PlayerAnimation();//プレイヤーのアニメーション再生
+	//PlayerAnimation();//プレイヤーのアニメーション再生
 
 	DxLib::DrawRectRotaGraph2(triboxpos.x, triboxpos.y, imgpos.x, imgpos.y, 100, 100, imgcpos.x, imgcpos.y, 0.5, 0, triboximg, true, false, false);//プレイヤー
 

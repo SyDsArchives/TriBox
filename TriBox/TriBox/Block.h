@@ -1,5 +1,6 @@
 #pragma once
 #include "Vector2D.h"
+#include <string>
 
 enum class HitDirection {
 	none,

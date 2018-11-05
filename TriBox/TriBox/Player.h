@@ -28,6 +28,8 @@ private:
 	void PlayerMove(Peripheral& _p);
 	void PlayerAnimation();
 
+
+	void PlayerMouseMove();
 public:
 	Player(Vector2f _pos);
 	~Player();
