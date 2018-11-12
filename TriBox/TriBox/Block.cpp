@@ -1,12 +1,11 @@
 #include "Block.h"
 #include "DxLib.h"
 #include <iostream>
-
-const int blocksize = 50;
+#include "ObjectParent.h"
 
 Block::Block(Position2f _pos):pos(_pos)
 {
-	blockimg = DxLib::LoadGraph("Resource/img/block.png");
+	blockimg = DxLib::LoadGraph("Resource/img/block.png");	
 }
 
 
@@ -35,11 +34,11 @@ Position2f Block::GetBlockPos()
 	return pos;
 }
 
-HitObjectData Block::HitCheck(Position2f _pos)
+bool Block::HitCheck(Position2f _pos)
 {
 	//返り値用変数
-	HitObjectData ret;
-	ret.objectName = "block";
+	bool ret;
+	//ret->objectName = "block";
 
 	//ブロックに当たっているか
 	bool isHitTop = pos.y - blocksize / 2 < _pos.y;
@@ -50,7 +49,7 @@ HitObjectData Block::HitCheck(Position2f _pos)
 	bool checkX = isHitLeft && isHitRight;
 	bool checkY = isHitTop && isHitBottom;
 
-	ret.isHit = isHitTop && isHitLeft && isHitRight && isHitBottom;
+	ret = isHitTop && isHitLeft && isHitRight && isHitBottom;
 
 	return ret;
 }

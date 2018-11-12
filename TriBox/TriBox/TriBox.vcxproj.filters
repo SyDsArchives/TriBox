@@ -9,10 +9,6 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="リソース ファイル">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="Scene">
       <UniqueIdentifier>{c5be2bd2-9440-4258-a2a5-1b67914c97da}</UniqueIdentifier>
     </Filter>
@@ -30,6 +26,10 @@
     </Filter>
     <Filter Include="Main">
       <UniqueIdentifier>{ba3b0acd-be8a-4e58-8b07-c3d93f38a274}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -75,6 +75,12 @@
     <ClInclude Include="ResultScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
+    <ClInclude Include="Goal.h">
+      <Filter>Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectParent.h">
+      <Filter>Stage</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BackGround.cpp">
@@ -115,6 +121,12 @@
     </ClCompile>
     <ClCompile Include="ResultScene.cpp">
       <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Goal.cpp">
+      <Filter>Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectParent.cpp">
+      <Filter>Stage</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

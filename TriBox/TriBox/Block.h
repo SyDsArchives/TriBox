@@ -10,11 +10,7 @@ enum class HitDirection {
 	bottom,
 };
 
-struct HitObjectData {
-	bool isHit;
-	std::string objectName;
-};
-
+struct HitObjectData;
 class Player;
 class Block
 {
@@ -34,6 +30,6 @@ public:
 
 	Position2f GetBlockPos();
 
-	HitObjectData HitCheck(Position2f pos);
+	bool HitCheck(Position2f pos);
 };
 

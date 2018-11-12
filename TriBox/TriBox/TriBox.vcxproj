@@ -131,7 +131,9 @@
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="GameSystem.h" />
     <ClInclude Include="Geometry.h" />
+    <ClInclude Include="Goal.h" />
     <ClInclude Include="ImageData.h" />
+    <ClInclude Include="ObjectParent.h" />
     <ClInclude Include="Peripheral.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="ResultScene.h" />
@@ -146,8 +148,10 @@
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="GameSystem.cpp" />
+    <ClCompile Include="Goal.cpp" />
     <ClCompile Include="ImageData.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ObjectParent.cpp" />
     <ClCompile Include="Peripheral.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ResultScene.cpp" />

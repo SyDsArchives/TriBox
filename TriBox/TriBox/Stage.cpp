@@ -1,10 +1,12 @@
 #include "Stage.h"
 #include "DxLib.h"
 #include <stdio.h>
-#include "Block.h"
 #include <iostream>
 #include "Player.h"
 #include "Geometry.h"
+
+#include "Block.h"
+#include "Goal.h"
 
 Stage::Stage(Player& _pl) : player(_pl)
 {
@@ -71,6 +73,10 @@ void Stage::LoadStageData()
 			{
 				block.push_back(Block(Position2f(50 * x, 50 * y)));
 			}
+			if (stageArrangement[x * stagedata.mapheight + y] == 2)
+			{
+				goal.push_back(Goal(Position2f(50 * x, 50 * y)));
+			}
 		}
 	}
 }
@@ -89,14 +95,26 @@ void Stage::Draw()
 {
 	int count = 0;
 
-	for(int i = 0; i < block.size(); ++i)
 	{
-		block[i].Update(5.f);
-		
-		if (block[i].GetBlockPos().x > -100 && block[i].GetBlockPos().x < WindowSizeX + 50)
+		for (int i = 0; i < block.size(); ++i)
 		{
-			block[i].Draw();
-			block[i].HitCheck(player.GetPosition());
+			block[i].Update(5.f);
+
+			if (block[i].GetBlockPos().x > -100 && block[i].GetBlockPos().x < WindowSizeX + 50)
+			{
+				block[i].Draw();
+				block[i].HitCheck(player.GetPosition());
+			}
+		}
+	}
+
+	{
+		for (int i = 0; i < goal.size(); ++i)
+		{
+			{
+				goal[i].Update(5.f);
+				goal[i].HitCheck(player.GetPosition());
+			}
 		}
 	}
 }

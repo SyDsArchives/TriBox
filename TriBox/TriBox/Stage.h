@@ -20,6 +20,7 @@ struct StageData
 	unsigned char bitcount;
 };
 
+class Goal;
 class Player;
 class Block;
 class Stage
@@ -29,6 +30,7 @@ private:
 	StageData stagedata;
 
 	std::vector<Block> block;
+	std::vector<Goal> goal;
 	Player& player;
 
 	std::vector<unsigned char> stageArrangement;
