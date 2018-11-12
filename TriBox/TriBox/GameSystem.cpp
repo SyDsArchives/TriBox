@@ -4,6 +4,8 @@
 #include "GameScene.h"
 #include "Geometry.h"
 
+#include "TitleScene.h"
+
 
 
 GameSystem::GameSystem()
@@ -38,7 +40,7 @@ void GameSystem::Run()
 	SetWindowText(_T("TriBox"));
 	SetDrawScreen(DX_SCREEN_BACK);
 
-	ChangeScene(new GameScene());
+	ChangeScene(new TitleScene());
 
 	while (DxLib::ProcessMessage() == 0)
 	{

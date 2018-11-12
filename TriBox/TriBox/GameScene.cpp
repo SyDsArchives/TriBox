@@ -4,9 +4,12 @@
 #include "BackGround.h"
 #include "Player.h"
 #include "Peripheral.h"
+#include "GameSystem.h"
+#include "ResultScene.h"
 
 #include "Block.h"
 #include "Stage.h"
+#include "Goal.h"
 
 GameScene::GameScene():onceExcute(false)
 {
@@ -23,7 +26,8 @@ GameScene::~GameScene()
 
 void GameScene::Update()
 {
-	
+
+
 	Peripheral p;
 	DxLib::DrawFormatString(0, 0, GetColor(255, 255, 255), "GameScene");
 
@@ -32,4 +36,9 @@ void GameScene::Update()
 	stage->Draw();
 	
 	player->Update(p);
+
+	if (stage->GoalCheck())
+	{
+		GameSystem::GameInstance().ChangeScene(new ResultScene());
+	}
 }

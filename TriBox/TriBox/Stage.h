@@ -40,5 +40,7 @@ public:
 	std::vector<unsigned char> GetStageData()const;
 	unsigned int GetStageWidth()const;
 	void Draw();
+
+	bool GoalCheck();
 };
 

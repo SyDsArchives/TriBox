@@ -113,8 +113,20 @@ void Stage::Draw()
 		{
 			{
 				goal[i].Update(5.f);
-				goal[i].HitCheck(player.GetPosition());
 			}
 		}
 	}
+}
+
+bool Stage::GoalCheck()
+{
+	bool ret = false;
+	for (int i = 0; i < goal.size(); ++i)
+	{
+		if (goal[i].HitCheck(player.GetPosition()))
+		{
+			ret = true;
+		}
+	}
+	return ret; 
 }
