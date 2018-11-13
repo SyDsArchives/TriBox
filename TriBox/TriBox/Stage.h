@@ -26,6 +26,8 @@ class Block;
 class Stage
 {
 private:
+	float stageSpeed;
+
 	void LoadStageData();
 	StageData stagedata;
 

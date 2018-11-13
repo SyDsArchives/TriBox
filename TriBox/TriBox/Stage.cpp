@@ -8,7 +8,9 @@
 #include "Block.h"
 #include "Goal.h"
 
-Stage::Stage(Player& _pl) : player(_pl)
+
+
+Stage::Stage(Player& _pl) : player(_pl), stageSpeed(0.f)
 {
 	LoadStageData();
 }
@@ -95,10 +97,23 @@ void Stage::Draw()
 {
 	int count = 0;
 
+	if (CheckHitKey(KEY_INPUT_L))
+	{
+		stageSpeed = 5.f;
+	}
+	else if (CheckHitKey(KEY_INPUT_K))
+	{
+		stageSpeed = -5.f;
+	}
+	else
+	{
+		stageSpeed = 0.f;
+	}
+
 	{
 		for (int i = 0; i < block.size(); ++i)
 		{
-			block[i].Update(5.f);
+			block[i].Update(stageSpeed);
 
 			if (block[i].GetBlockPos().x > -100 && block[i].GetBlockPos().x < WindowSizeX + 50)
 			{
@@ -112,7 +127,7 @@ void Stage::Draw()
 		for (int i = 0; i < goal.size(); ++i)
 		{
 			{
-				goal[i].Update(5.f);
+				goal[i].Update(stageSpeed);
 			}
 		}
 	}

@@ -1,33 +1,27 @@
 #pragma once
 #include "Vector2D.h"
-enum class PlayerState
-{
-	box,
-	triangle,
-};
 
 class Peripheral;
 class Player
 {
 private:
-	int triboximg;//プレイヤー
-	int imgcnt;
-	int changeframe;
+	int triboximg;//プレイヤー画像
 
 	float playerSpeed;
 
-	bool onceExcute;
-	bool changeflg;
-
-	PlayerState pState;
-
 	Vector2f imgpos;
 	Vector2f imgcpos;
-	Vector2f triboxpos;
+	Vector2f pos;
 
-	void PlayerMove(Peripheral& _p);
-	void PlayerAnimation();
+	//プレイヤー状態遷移
+	void (Player::*updateFunc)(const Peripheral&);
+	//何も入力が入っていない状態
+	void NeutralUpdate(const Peripheral& _p);
+	//移動状態
+	void MoveUpdate(const Peripheral& _p);
 
+
+	//マウス
 	void PlayerMouseMove();
 public:
 	Player(Vector2f _pos);
@@ -35,9 +29,6 @@ public:
 
 	void SetPosition(Vector2f _pos);
 	Vector2f GetPosition();
-
-	void SetSpeed(float _speed);
-	float GetSpeed();
 
 	void Update(Peripheral& p);
 };

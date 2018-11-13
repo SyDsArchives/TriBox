@@ -40,7 +40,7 @@ void GameSystem::Run()
 	SetWindowText(_T("TriBox"));
 	SetDrawScreen(DX_SCREEN_BACK);
 
-	ChangeScene(new TitleScene());
+	ChangeScene(new GameScene());
 
 	while (DxLib::ProcessMessage() == 0)
 	{

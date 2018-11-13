@@ -5,14 +5,14 @@
 #include <Windows.h>
 
 
-Player::Player(Vector2f _pos): imgcnt(0),changeframe(0),playerSpeed(6.f),changeflg(false),onceExcute(false)
+Player::Player(Vector2f _pos):playerSpeed(6.f)
 {
+	updateFunc = &Player::NeutralUpdate;
 	triboximg = DxLib::LoadGraph("Resource/img/tribox.png");
-	pState = PlayerState::box;
-	triboxpos = Vector2f(_pos.x,_pos.y);
+	pos = Vector2f(_pos.x,_pos.y);
 
 	imgpos = Vector2f(25, 25);
-	imgcpos = Vector2f(75, 75);//125ずつ
+	imgcpos = Vector2f(75, 75);
 }
 
 
@@ -22,42 +22,49 @@ Player::~Player()
 
 void Player::SetPosition(Vector2f _pos)
 {
-	triboxpos = _pos;
+	pos = _pos;
 }
 
 Vector2f Player::GetPosition()
 {
-	return triboxpos;
+	return pos;
 }
 
-void Player::PlayerMove(Peripheral& _p)
+void Player::NeutralUpdate(const Peripheral& _p)
 {
-	//プレイヤーの移動(複合可)
+	DrawFormatString(0, 0, GetColor(255, 255, 255), "ニュートラル");
+
+	if (_p.IsPressing(PAD_INPUT_UP) || _p.IsPressing(PAD_INPUT_DOWN) || _p.IsPressing(PAD_INPUT_LEFT) || _p.IsPressing(PAD_INPUT_RIGHT))
+	{
+		updateFunc = &Player::MoveUpdate;
+	}
+	
+}
+
+void Player::MoveUpdate(const Peripheral& _p)
+{
+	DrawFormatString(0, 0, GetColor(255, 255, 255), "ムーヴ");
+
+	if (!(_p.IsPressing(PAD_INPUT_UP) || _p.IsPressing(PAD_INPUT_DOWN) || _p.IsPressing(PAD_INPUT_LEFT) || _p.IsPressing(PAD_INPUT_RIGHT)))
+	{
+		updateFunc = &Player::NeutralUpdate;
+	}
+
 	if (_p.IsPressing(PAD_INPUT_UP))//上
 	{
-		triboxpos.y -= playerSpeed;
+		pos.y -= playerSpeed;
 	}
 	if (_p.IsPressing(PAD_INPUT_DOWN))//下
 	{
-		triboxpos.y += playerSpeed;
+		pos.y += playerSpeed;
 	}
 	if (_p.IsPressing(PAD_INPUT_LEFT))//左
 	{
-		triboxpos.x -= playerSpeed;
+		pos.x -= playerSpeed;
 	}
 	if (_p.IsPressing(PAD_INPUT_RIGHT))//右
 	{
-		triboxpos.x += playerSpeed;
-	}
-
-	//プレイヤーのアニメーション再生開始
-	if (_p.IsPressing(PAD_INPUT_A))
-	{
-		if (!changeflg)
-		{
-			changeflg = true;
-			changeframe = 0;
-		}
+		pos.x += playerSpeed;
 	}
 }
 
@@ -99,122 +106,26 @@ void Player::PlayerMouseMove()
 	}
 
 	//キャラ座標へ代入
-	triboxpos.x = mousePos.x;
-	triboxpos.y = mousePos.y;
+	pos.x = mousePos.x;
+	pos.y = mousePos.y;
 
 
 	DrawFormatString(0, 0, GetColor(255, 255, 255), "%.1f", mousePos.x);
 	DrawFormatString(70, 0, GetColor(255, 255, 255), "%.1f", mousePos.y);
 }
 
-void Player::PlayerAnimation()
-{
-	//if (changeflg)
-	//{
-	//	if (imgcnt == 2)
-	//	{
-	//		changeflg = false;
-	//		onceExcute = false;
-	//		imgcnt = 0;
-	//	}
-
-	//	changeframe += 1;
-	//	if (changeframe % 3 == 0)
-	//	{
-	//		if (pState == PlayerState::box)
-	//		{
-	//			if (imgcnt == 0)//プレイヤーイメージ1段目
-	//			{
-	//				if (!onceExcute)
-	//				{
-	//					imgpos.x = 25;
-	//					imgpos.y = 25;
-	//					onceExcute = true;
-	//				}
-	//				if (imgpos.x < 400)
-	//				{
-	//					imgpos.x = imgpos.x + 125;
-	//				}
-	//				else
-	//				{
-	//					imgcnt = 1;
-	//					onceExcute = false;
-	//				}
-	//			}
-
-	//			if (imgcnt == 1)//プレイヤーイメージ2段目
-	//			{
-	//				if (!onceExcute)
-	//				{
-	//					imgpos.x = 25;
-	//					imgpos.y = 150;
-	//					onceExcute = true;
-	//				}
-	//				if (imgpos.x < 400)
-	//				{
-	//					imgpos.x = imgpos.x + 125;
-	//				}
-	//				else
-	//				{
-	//					imgcnt = 2;
-	//					pState = PlayerState::triangle;
-	//				}
-	//			}
-	//		}
-	//		else if (pState == PlayerState::triangle)
-	//		{
-	//			if (imgcnt == 0)//プレイヤーイメージ1段目
-	//			{
-	//				if (!onceExcute)
-	//				{
-	//					imgpos.x = 400;
-	//					imgpos.y = 150;
-	//					onceExcute = true;
-	//				}
-	//				if (imgpos.x > 25)
-	//				{
-	//					imgpos.x = imgpos.x - 125;
-	//				}
-	//				else
-	//				{
-	//					imgcnt = 1;
-	//					onceExcute = false;
-	//				}
-	//			}
-
-	//			if (imgcnt == 1)//プレイヤーイメージ2段目
-	//			{
-	//				if (!onceExcute)
-	//				{
-	//					imgpos.x = 400;
-	//					imgpos.y = 25;
-	//					onceExcute = true;
-	//				}
-	//				if (imgpos.x > 25)
-	//				{
-	//					imgpos.x = imgpos.x - 125;
-	//				}
-	//				else
-	//				{
-	//					imgcnt = 2;
-	//					pState = PlayerState::box;
-	//				}
-	//			}
-	//		}
-	//	}
-	//}
-}
-
 
 void Player::Update(Peripheral& _p)
 {
-	
+	(this->*updateFunc)(_p);
 	//プレイヤー移動
 	//PlayerMouseMove();
-	PlayerMove(_p);
 
-	//PlayerAnimation();//プレイヤーのアニメーション再生
+	if (pos.y < WindowSizeY - 100)
+	{
+		pos.y += 10.f;
+	}
 
-	DxLib::DrawRectRotaGraph2(triboxpos.x, triboxpos.y, imgpos.x, imgpos.y, 100, 100, imgcpos.x, imgcpos.y, 0.5, 0, triboximg, true, false, false);//プレイヤー
+	DxLib::DrawRectRotaGraph2(pos.x, pos.y, imgpos.x, imgpos.y, 100, 100, imgcpos.x, imgcpos.y, 0.5, 0, triboximg, true, false, false);//プレイヤー
 
 }
