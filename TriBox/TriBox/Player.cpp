@@ -3,9 +3,15 @@
 #include "DxLib.h"
 #include "Geometry.h"
 #include <Windows.h>
+#include <mmsystem.h>
 
+#pragma comment(lib,"winmm.lib")
 
-Player::Player(Vector2f _pos):playerSpeed(6.f)
+const float initJumpHeight = 12.f;
+
+Player::Player(Vector2f _pos):playerSpeed(6.f),lastTime(0.f), jumpInertia(0.f),
+aerialFlag(false),
+direction(PlayerDirection::none)
 {
 	updateFunc = &Player::NeutralUpdate;
 	triboximg = DxLib::LoadGraph("Resource/img/tribox.png");
@@ -34,37 +40,98 @@ void Player::NeutralUpdate(const Peripheral& _p)
 {
 	DrawFormatString(0, 0, GetColor(255, 255, 255), "ニュートラル");
 
-	if (_p.IsPressing(PAD_INPUT_UP) || _p.IsPressing(PAD_INPUT_DOWN) || _p.IsPressing(PAD_INPUT_LEFT) || _p.IsPressing(PAD_INPUT_RIGHT))
+	//移動
+	if (_p.IsPressing(PAD_INPUT_LEFT) || _p.IsPressing(PAD_INPUT_RIGHT))
 	{
 		updateFunc = &Player::MoveUpdate;
 	}
-	
+
+	//ジャンプ
+	if (_p.IsPressing(PAD_INPUT_UP))
+	{
+		aerialFlag = true;
+		pos.y -= 50.f;
+		lastTime = timeGetTime();
+		direction = PlayerDirection::none;
+		updateFunc = &Player::AerialUpdate;
+	}
 }
 
 void Player::MoveUpdate(const Peripheral& _p)
 {
 	DrawFormatString(0, 0, GetColor(255, 255, 255), "ムーヴ");
 
-	if (!(_p.IsPressing(PAD_INPUT_UP) || _p.IsPressing(PAD_INPUT_DOWN) || _p.IsPressing(PAD_INPUT_LEFT) || _p.IsPressing(PAD_INPUT_RIGHT)))
+	//何もしていなかったらNeutralUpdateに戻る
+	if (!(_p.IsPressing(PAD_INPUT_LEFT) || _p.IsPressing(PAD_INPUT_RIGHT)))
 	{
 		updateFunc = &Player::NeutralUpdate;
 	}
 
-	if (_p.IsPressing(PAD_INPUT_UP))//上
+	//左移動
+	if (_p.IsPressing(PAD_INPUT_LEFT))
 	{
-		pos.y -= playerSpeed;
-	}
-	if (_p.IsPressing(PAD_INPUT_DOWN))//下
-	{
-		pos.y += playerSpeed;
-	}
-	if (_p.IsPressing(PAD_INPUT_LEFT))//左
-	{
+		direction = PlayerDirection::left;
 		pos.x -= playerSpeed;
 	}
-	if (_p.IsPressing(PAD_INPUT_RIGHT))//右
+	//右移動
+	if (_p.IsPressing(PAD_INPUT_RIGHT))
 	{
+		direction = PlayerDirection::right;
 		pos.x += playerSpeed;
+	}
+
+	//ジャンプ
+	if (_p.IsPressing(PAD_INPUT_UP))
+	{
+		aerialFlag = true;
+		pos.y -= 50.f;
+		lastTime = timeGetTime();
+		updateFunc = &Player::AerialUpdate;
+	}
+}
+
+void Player::AerialUpdate(const Peripheral & _p)
+{
+	float secondsLimit = 100.f;
+	bool aerialTime = (timeGetTime() - lastTime) <= secondsLimit;
+
+	//上キーを押している間かつ、押している時間が0.1秒を超えるまでの間
+	if (_p.IsPressing(PAD_INPUT_UP) && aerialTime)
+	{
+		pos.y -= initJumpHeight;
+	}
+	else
+	{
+		aerialFlag = false;
+	}
+
+	//左移動
+	if (_p.IsPressing(PAD_INPUT_LEFT))
+	{
+		direction = PlayerDirection::left;
+	}
+	//右移動
+	if (_p.IsPressing(PAD_INPUT_RIGHT))
+	{
+		direction = PlayerDirection::right;
+	}
+
+	if (direction == PlayerDirection::left)
+	{
+		jumpInertia = -playerSpeed;
+	}
+	else if (direction == PlayerDirection::right)
+	{
+		jumpInertia = playerSpeed;
+	}
+
+	pos.x += jumpInertia;
+
+	//地面と同じ座標についたらNeutralUpdateに戻る
+	if (pos.y >= WindowSizeY - 100)
+	{
+		jumpInertia = 0;
+		updateFunc = &Player::NeutralUpdate;
 	}
 }
 
@@ -121,9 +188,9 @@ void Player::Update(Peripheral& _p)
 	//プレイヤー移動
 	//PlayerMouseMove();
 
-	if (pos.y < WindowSizeY - 100)
+	if (pos.y < WindowSizeY - 100 && !aerialFlag)
 	{
-		pos.y += 10.f;
+		pos.y += 8.f;
 	}
 
 	DxLib::DrawRectRotaGraph2(pos.x, pos.y, imgpos.x, imgpos.y, 100, 100, imgcpos.x, imgcpos.y, 0.5, 0, triboximg, true, false, false);//プレイヤー
