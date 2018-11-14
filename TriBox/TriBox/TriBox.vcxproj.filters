@@ -81,6 +81,9 @@
     <ClInclude Include="ObjectParent.h">
       <Filter>Stage</Filter>
     </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Other</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BackGround.cpp">
@@ -127,6 +130,9 @@
     </ClCompile>
     <ClCompile Include="ObjectParent.cpp">
       <Filter>Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Other</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

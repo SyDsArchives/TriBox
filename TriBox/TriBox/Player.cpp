@@ -135,7 +135,6 @@ void Player::AerialUpdate(const Peripheral & _p)
 	}
 }
 
-
 void Player::PlayerMouseMove()
 {
 	auto hwnd = DxLib::GetMainWindowHandle();
@@ -185,12 +184,13 @@ void Player::PlayerMouseMove()
 void Player::Update(Peripheral& _p)
 {
 	(this->*updateFunc)(_p);
+
 	//プレイヤー移動
 	//PlayerMouseMove();
 
 	if (pos.y < WindowSizeY - 100 && !aerialFlag)
 	{
-		pos.y += 8.f;
+		pos.y += 15.f;
 	}
 
 	DxLib::DrawRectRotaGraph2(pos.x, pos.y, imgpos.x, imgpos.y, 100, 100, imgcpos.x, imgcpos.y, 0.5, 0, triboximg, true, false, false);//プレイヤー

@@ -1,5 +1,7 @@
 #pragma once
 #include "Vector2D.h"
+
+class Stage;
 class BackGround
 {
 private:
@@ -14,9 +16,11 @@ private:
 	Vector2f backimgpos;
 	Vector2f backframeimgpos;
 
+	Stage& stage;
+
 public:
-	BackGround();
+	BackGround(Stage& _stage);
 	~BackGround();
-	void Update();
+	void Update(Position2f _playerPos);
 };
 

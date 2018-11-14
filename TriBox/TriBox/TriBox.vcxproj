@@ -128,6 +128,7 @@
     <ClInclude Include="App.h" />
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="Block.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="GameSystem.h" />
     <ClInclude Include="Geometry.h" />
@@ -146,6 +147,7 @@
     <ClCompile Include="App.cpp" />
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="Block.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="GameSystem.cpp" />
     <ClCompile Include="Goal.cpp" />

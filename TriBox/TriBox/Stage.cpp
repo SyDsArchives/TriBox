@@ -93,22 +93,27 @@ void Stage::LoadStageData()
 //	return stagedata.mapwidth;
 //}
 
+void Stage::SetStageSpeed(float _stageSpeed)
+{
+	stageSpeed = _stageSpeed;
+}
+
 void Stage::Draw()
 {
 	int count = 0;
 
-	if (CheckHitKey(KEY_INPUT_L))
-	{
-		stageSpeed = 5.f;
-	}
-	else if (CheckHitKey(KEY_INPUT_K))
-	{
-		stageSpeed = -5.f;
-	}
-	else
-	{
-		stageSpeed = 0.f;
-	}
+	//if (CheckHitKey(KEY_INPUT_L))
+	//{
+	//	stageSpeed = 5.f;
+	//}
+	//else if (CheckHitKey(KEY_INPUT_K))
+	//{
+	//	stageSpeed = -5.f;
+	//}
+	//else
+	//{
+	//	stageSpeed = 0.f;
+	//}
 
 	{
 		for (int i = 0; i < block.size(); ++i)

@@ -36,6 +36,8 @@ private:
 	//ジャンプ状態
 	void AerialUpdate(const Peripheral& _p);
 
+	void PlayerMoveLimit();
+
 
 	//マウス
 	void PlayerMouseMove();

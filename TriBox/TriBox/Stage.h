@@ -39,8 +39,14 @@ private:
 public:
 	Stage(Player& _pl);
 	~Stage();
+	//Get
 	std::vector<unsigned char> GetStageData()const;
 	unsigned int GetStageWidth()const;
+
+	//Set
+	void SetStageSpeed(float _stageSpeed);
+
+	//•`‰æ
 	void Draw();
 
 	bool GoalCheck();
