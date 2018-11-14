@@ -1,7 +1,7 @@
 #include "BackGround.h"
 #include "DxLib.h"
-#include "Geometry.h"
 #include "Stage.h"
+#include "Geometry.h"
 
 BackGround::BackGround(Stage& _stage):normalframe(0),bgMoveSpeed(0.f), bgMoveMaxSpeed(5.f), backimgpos(Vector2f(0, 0)), backframeimgpos(Vector2f(0, 0)),stage(_stage)
 {
@@ -20,14 +20,14 @@ void BackGround::Update(Position2f _playerPos)
 	Position2f ppos = _playerPos;
 	int x = _playerPos.x;
 	
-	if (x % WindowSizeX >= WindowSizeX / 2)
-	{
-		stage.SetStageSpeed(5.f);
-	}
-	else
-	{
-		stage.SetStageSpeed(0.f);
-	}
+	//if (x % WindowSizeX >= WindowSizeX / 2)
+	//{
+	//	stage.SetStageSpeed(5.f);
+	//}
+	//else
+	//{
+	//	stage.SetStageSpeed(0.f);
+	//}
 	//‰æ‘œ
 	DxLib::DrawExtendGraph(0,0, WindowSizeX, WindowSizeY, backimg, true);//”wŒi
 

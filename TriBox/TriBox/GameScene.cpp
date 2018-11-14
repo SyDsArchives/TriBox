@@ -7,16 +7,18 @@
 #include "GameSystem.h"
 #include "ResultScene.h"
 
+
 #include "Block.h"
 #include "Stage.h"
 #include "Goal.h"
+#include "Camera.h"
 
 GameScene::GameScene():onceExcute(false)
 {
 	player = std::make_shared<Player>(Vector2f(300, WindowSizeY - 110));
 	stage = std::make_shared<Stage>(*player);
 	bg = std::make_shared<BackGround>(*stage);
-	
+	camera = std::make_shared<Camera>(*stage);
 }
 
 
@@ -37,8 +39,11 @@ void GameScene::Update()
 	
 	player->Update(p);
 
+	camera->SetFocus(player);
+	camera->Update();
+
 	if (stage->GoalCheck())
 	{
-		GameSystem::GameInstance().ChangeScene(new ResultScene());
+		//GameSystem::GameInstance().ChangeScene(new ResultScene());
 	}
 }

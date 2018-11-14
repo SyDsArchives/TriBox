@@ -1,15 +1,15 @@
 #include "Player.h"
 #include "Peripheral.h"
 #include "DxLib.h"
-#include "Geometry.h"
 #include <Windows.h>
 #include <mmsystem.h>
+#include "Geometry.h"
 
 #pragma comment(lib,"winmm.lib")
 
 const float initJumpHeight = 12.f;
 
-Player::Player(Vector2f _pos):playerSpeed(6.f),lastTime(0.f), jumpInertia(0.f),
+Player::Player(Vector2f _pos):playerSpeed(3.f),lastTime(0.f), jumpInertia(0.f),
 aerialFlag(false),
 direction(PlayerDirection::none)
 {
@@ -64,6 +64,7 @@ void Player::MoveUpdate(const Peripheral& _p)
 	//何もしていなかったらNeutralUpdateに戻る
 	if (!(_p.IsPressing(PAD_INPUT_LEFT) || _p.IsPressing(PAD_INPUT_RIGHT)))
 	{
+		direction = PlayerDirection::none;
 		updateFunc = &Player::NeutralUpdate;
 	}
 
@@ -94,6 +95,7 @@ void Player::AerialUpdate(const Peripheral & _p)
 {
 	float secondsLimit = 100.f;
 	bool aerialTime = (timeGetTime() - lastTime) <= secondsLimit;
+	playerSpeed = 5.f;
 
 	//上キーを押している間かつ、押している時間が0.1秒を超えるまでの間
 	if (_p.IsPressing(PAD_INPUT_UP) && aerialTime)
@@ -131,7 +133,21 @@ void Player::AerialUpdate(const Peripheral & _p)
 	if (pos.y >= WindowSizeY - 100)
 	{
 		jumpInertia = 0;
+		playerSpeed = 3.f;
+		direction = PlayerDirection::none;
 		updateFunc = &Player::NeutralUpdate;
+	}
+}
+
+void Player::PlayerMoveLimit()
+{
+	if (pos.x >= WindowSizeX / 2)
+	{
+		pos.x = WindowSizeX / 2;
+	}
+	if (pos.x <= 25)
+	{
+		pos.x = 25;
 	}
 }
 
@@ -185,6 +201,8 @@ void Player::Update(Peripheral& _p)
 {
 	(this->*updateFunc)(_p);
 
+	PlayerMoveLimit();
+
 	//プレイヤー移動
 	//PlayerMouseMove();
 
@@ -193,6 +211,7 @@ void Player::Update(Peripheral& _p)
 		pos.y += 15.f;
 	}
 
+	DrawFormatString(100, 0, GetColor(255, 255, 255), "%.1f", pos.x);
 	DxLib::DrawRectRotaGraph2(pos.x, pos.y, imgpos.x, imgpos.y, 100, 100, imgcpos.x, imgcpos.y, 0.5, 0, triboximg, true, false, false);//プレイヤー
 
 }

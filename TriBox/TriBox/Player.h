@@ -47,6 +47,8 @@ public:
 
 	void SetPosition(Vector2f _pos);
 	Vector2f GetPosition();
+	float GetSpeed() { return playerSpeed; };
+	PlayerDirection GetPlayerDirection() { return direction; };
 
 	void Update(Peripheral& p);
 };

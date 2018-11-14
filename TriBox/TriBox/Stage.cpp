@@ -88,10 +88,12 @@ void Stage::LoadStageData()
 //	//return stageArrangement;
 //}
 
-//unsigned int Stage::GetStageWidth()const
-//{
-//	return stagedata.mapwidth;
-//}
+const Rect Stage::GetStageSize()
+{
+	//return Rect(0, stagedata.mapheight * 50, 0, stagedata.mapwidth * 50);
+	return Rect(0, stagedata.mapheight * 50, block[0].GetBlockPos().x, block[block.size() - 1].GetBlockPos().x);
+
+}
 
 void Stage::SetStageSpeed(float _stageSpeed)
 {

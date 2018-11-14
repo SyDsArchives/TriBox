@@ -2,6 +2,7 @@
 #include <memory>
 #include "Vector2D.h"
 
+struct Rect;
 class Scene;
 class GameSystem
 {
@@ -21,7 +22,7 @@ public:
 	~GameSystem();
 
 
-	Vector2 GetWindowSize();
+	const Rect GetWindowSize();
 	void ChangeScene(Scene* _scene);
 
 	void Run();

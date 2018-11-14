@@ -20,6 +20,7 @@ struct StageData
 	unsigned char bitcount;
 };
 
+struct Rect;
 class Goal;
 class Player;
 class Block;
@@ -41,7 +42,7 @@ public:
 	~Stage();
 	//Get
 	std::vector<unsigned char> GetStageData()const;
-	unsigned int GetStageWidth()const;
+	const Rect GetStageSize();
 
 	//Set
 	void SetStageSpeed(float _stageSpeed);

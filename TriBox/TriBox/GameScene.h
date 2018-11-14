@@ -1,9 +1,10 @@
 #pragma once
 #include "Scene.h"
-#include "Vector2D.h"
 #include <memory>
 #include <vector>
+#include "Vector2D.h"
 
+class Camera;
 class Player;
 class BackGround;
 class Block;
@@ -20,6 +21,7 @@ private:
 	std::shared_ptr<Player> player;
 	std::shared_ptr<Block> block;
 	std::shared_ptr<Stage> stage;
+	std::shared_ptr<Camera> camera;
 
 	std::vector<Player> playerLife;
 
