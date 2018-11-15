@@ -4,8 +4,9 @@
 #include <iostream>
 #include "ObjectParent.h"
 #include "Ground.h"
+#include "Player.h"
 
-Block::Block(Ground& _ground,Position2f _pos):ground(_ground),pos(_pos)
+Block::Block(Player& _player,Position2f _pos):player(_player), pos(_pos), playerHit(false)
 {
 	blockimg = DxLib::LoadGraph("Resource/img/block.png");	
 }
@@ -17,18 +18,24 @@ Block::~Block()
 
 void Block::Draw()
 {
-	DxLib::DrawRectRotaGraph2(pos.x, pos.y, 0, 0, blocksize, blocksize, blocksize / 2, blocksize / 2, 1.f, 0.f, blockimg, true, false, false);
+	DxLib::DrawRotaGraph(pos.x, pos.y, 1.f, 0.f, blockimg, true);
 }
 
 void Block::MoveBlock(float _speed)
 {
 	pos.x -= _speed;
-	DrawFormatString(0, 30, GetColor(255, 0, 0),"%d", pos.x);
 }
 
 void Block::Update(float _speed)
 {
 	MoveBlock(_speed);
+
+	if (HitCheck(player.GetPosition()))
+	{
+		player.SetOnGround(true);
+		float setPosY = pos.y - blocksize;
+		player.SetPosition(Vector2f(player.GetPosition().x, setPosY));
+	}
 }
 
 Position2f Block::GetBlockPos()
@@ -38,21 +45,19 @@ Position2f Block::GetBlockPos()
 
 bool Block::HitCheck(Position2f _pos)
 {
-	//返り値用変数
-	bool ret;
 	//ret->objectName = "block";
 
 	//ブロックに当たっているか
-	bool isHitTop = pos.y - blocksize / 2 < _pos.y;
-	bool isHitLeft = pos.x - blocksize / 2 < _pos.x;
+	bool isHitTop = pos.y - blocksize < _pos.y;
+	bool isHitLeft = pos.x - blocksize < _pos.x;
 	bool isHitRight = pos.x + blocksize > _pos.x;
 	bool isHitBottom = pos.y + blocksize > _pos.y;
 
-	bool checkX = isHitLeft && isHitRight;
-	bool checkY = isHitTop && isHitBottom;
+	/*bool checkX = isHitLeft && isHitRight;
+	bool checkY = isHitTop && isHitBottom;*/
 
-	ret = isHitTop && isHitLeft && isHitRight && isHitBottom;
+	playerHit = isHitTop && isHitLeft && isHitRight && isHitBottom;
 
-	return ret;
+	return playerHit;
 }
 

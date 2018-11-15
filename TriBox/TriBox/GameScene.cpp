@@ -17,8 +17,8 @@
 GameScene::GameScene():onceExcute(false)
 {
 	ground = std::make_shared<Ground>();
-	player = std::make_shared<Player>(*ground,Vector2f(300, WindowSizeY - 110));
-	stage = std::make_shared<Stage>(*player, *ground);
+	player = std::make_shared<Player>(Vector2f(300, WindowSizeY - 110));
+	stage = std::make_shared<Stage>(*player);
 	bg = std::make_shared<BackGround>(*stage);
 	camera = std::make_shared<Camera>(*stage);
 }
@@ -35,14 +35,12 @@ void GameScene::Update()
 
 	bg->Update(player->GetPosition());//”wŒiŠÖŒW
 	
-	stage->Draw();
-	
 	player->Update(p);
+
+	stage->Draw();
 
 	camera->SetFocus(player);
 	camera->Update();
-
-	DxLib::DrawFormatString(0, 120, GetColor(255, 255, 255), "%d", ground->GetGroundLine());
 
 	if (stage->GoalCheck())
 	{

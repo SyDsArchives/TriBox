@@ -4,39 +4,29 @@
 #include <Windows.h>
 #include <mmsystem.h>
 #include "Geometry.h"
-#include "Ground.h"
 
 #pragma comment(lib,"winmm.lib")
 
-const float initJumpHeight = 12.f;
-
-Player::Player(Ground & _ground, Vector2f _pos) : ground(_ground),
-playerSpeed(3.f),lastTime(0.f), jumpInertia(0.f),
-aerialFlag(false),
+Player::Player(Vector2f _pos) :
+playerSpeed(3.f), jumpInertia(0.f), gravity(5.f), jumpPower(30.f),lastTime(0),
+pos(_pos), vel(0,0),
+onGround(false),
 direction(PlayerDirection::none)
 {
+	playerImg = DxLib::LoadGraph("Resource/img/Circle.png");
 	updateFunc = &Player::NeutralUpdate;
-	triboximg = DxLib::LoadGraph("Resource/img/tribox.png");
-	pos = Vector2f(_pos.x,_pos.y);
-
-	imgpos = Vector2f(25, 25);
-	imgcpos = Vector2f(75, 75);
 }
 
 Player::~Player()
 {
 }
 
-void Player::SetPosition(Vector2f _pos)
-{
-	pos = _pos;
-}
 
-Vector2f Player::GetPosition()
-{
-	return pos;
-}
+///////////////////////////////////////////
+//状態遷移系関数
+///////////////////////////////////////////
 
+//何の状態でもない場合
 void Player::NeutralUpdate(const Peripheral& _p)
 {
 	DrawFormatString(0, 0, GetColor(255, 255, 255), "ニュートラル");
@@ -50,17 +40,19 @@ void Player::NeutralUpdate(const Peripheral& _p)
 	//ジャンプ
 	if (_p.IsPressing(PAD_INPUT_UP))
 	{
-		aerialFlag = true;
-		pos.y -= 50.f;
+		onGround = false;
+		vel.y = jumpPower;
 		lastTime = timeGetTime();
 		direction = PlayerDirection::none;
 		updateFunc = &Player::AerialUpdate;
 	}
 }
 
+//移動中の場合
 void Player::MoveUpdate(const Peripheral& _p)
 {
 	DrawFormatString(0, 0, GetColor(255, 255, 255), "ムーヴ");
+
 
 	//何もしていなかったらNeutralUpdateに戻る
 	if (!(_p.IsPressing(PAD_INPUT_LEFT) || _p.IsPressing(PAD_INPUT_RIGHT)))
@@ -85,27 +77,31 @@ void Player::MoveUpdate(const Peripheral& _p)
 	//ジャンプ
 	if (_p.IsPressing(PAD_INPUT_UP))
 	{
-		aerialFlag = true;
-		pos.y -= 50.f;
+		onGround = false;
+		vel.y = jumpPower;
 		lastTime = timeGetTime();
 		updateFunc = &Player::AerialUpdate;
 	}
 }
 
+//空中の場合
 void Player::AerialUpdate(const Peripheral & _p)
 {
+	DrawFormatString(0, 0, GetColor(255, 255, 255), "エリアル");
+
 	float secondsLimit = 100.f;
+	float addJumpPower = 2.f;
 	bool aerialTime = (timeGetTime() - lastTime) <= secondsLimit;
 	playerSpeed = 8.f;
+
+	pos.y -= vel.y;
+	vel.y -= gravity;
+	pos.x += jumpInertia;
 
 	//上キーを押している間かつ、押している時間が0.1秒を超えるまでの間
 	if (_p.IsPressing(PAD_INPUT_UP) && aerialTime)
 	{
-		pos.y -= initJumpHeight;
-	}
-	else
-	{
-		aerialFlag = false;
+		vel.y += addJumpPower;
 	}
 
 	//左移動
@@ -128,10 +124,8 @@ void Player::AerialUpdate(const Peripheral & _p)
 		jumpInertia = playerSpeed;
 	}
 
-	pos.x += jumpInertia;
-
 	//地面と同じ座標についたらNeutralUpdateに戻る
-	if (pos.y >= ground.GetGroundLine())
+	if (onGround)
 	{
 		jumpInertia = 0;
 		playerSpeed = 3.f;
@@ -140,6 +134,24 @@ void Player::AerialUpdate(const Peripheral & _p)
 	}
 }
 
+///////////////////////////////////////////
+//毎フレーム更新用関数
+///////////////////////////////////////////
+void Player::Update(Peripheral& _p)
+{
+	(this->*updateFunc)(_p);
+
+	if (updateFunc != &Player::AerialUpdate)
+	{
+		pos.y += gravity;
+	}
+
+	DxLib::DrawRectRotaGraph2(pos.x, pos.y, 0, 0, 100, 100, 50, 50, 0.5, 0, playerImg, true, false, false);//プレイヤー
+}
+
+///////////////////////////////////////////
+//移動制御関数
+///////////////////////////////////////////
 void Player::PlayerMoveLimit(bool excuteFlag)
 {
 	if (excuteFlag)
@@ -155,6 +167,22 @@ void Player::PlayerMoveLimit(bool excuteFlag)
 	}
 }
 
+///////////////////////////////////////////
+//セット系関数
+///////////////////////////////////////////
+void Player::SetPosition(Vector2f _pos)
+{
+	pos = _pos;
+}
+
+void Player::SetOnGround(bool _onGround)
+{
+	onGround = _onGround;
+}
+
+///////////////////////////////////////////
+//保留
+///////////////////////////////////////////
 void Player::PlayerMouseMove()
 {
 	auto hwnd = DxLib::GetMainWindowHandle();
@@ -162,7 +190,7 @@ void Player::PlayerMouseMove()
 
 	//スクリーン座標上のマウスカーソル位置を取得
 	GetCursorPos(&mouse);
-	
+
 	//カーソル位置をスクリーン座標→クライアント座標へ変換する
 	//取得に成功で 「true」、失敗すると 「false」 が出力される
 	bool result = ScreenToClient(hwnd, &mouse);
@@ -198,22 +226,4 @@ void Player::PlayerMouseMove()
 
 	DrawFormatString(0, 0, GetColor(255, 255, 255), "%.1f", mousePos.x);
 	DrawFormatString(70, 0, GetColor(255, 255, 255), "%.1f", mousePos.y);
-}
-
-void Player::Update(Peripheral& _p)
-{
-	(this->*updateFunc)(_p);
-
-	//プレイヤー移動
-	//PlayerMouseMove();
-
-
-	if (pos.y < ground.GetGroundLine() && !aerialFlag)
-	{
-		pos.y += 10.f;
-	}
-
-	DrawFormatString(100, 0, GetColor(255, 255, 255), "%.1f", pos.x);
-	DxLib::DrawRectRotaGraph2(pos.x, pos.y, imgpos.x, imgpos.y, 100, 100, imgcpos.x, imgcpos.y, 0.5, 0, triboximg, true, false, false);//プレイヤー
-
 }

@@ -7,11 +7,11 @@
 
 #include "Block.h"
 #include "Goal.h"
-#include "Ground.h"
 
 
 
-Stage::Stage(Player& _pl, Ground& _ground) : player(_pl), ground(_ground), stageSpeed(0.f), lastHitBlock(0)
+
+Stage::Stage(Player& _pl) : player(_pl), stageSpeed(0.f), lastHitBlock(0)
 {
 	LoadStageData();
 }
@@ -74,7 +74,7 @@ void Stage::LoadStageData()
 		{
 			if (stageArrangement[x * stagedata.mapheight + y] == 1)
 			{
-				block.push_back(Block(ground,Position2f(50 * x, 50 * y)));
+				block.push_back(Block(player,Position2f(50 * x, 50 * y)));
 			}
 			if (stageArrangement[x * stagedata.mapheight + y] == 2)
 			{
@@ -91,9 +91,7 @@ void Stage::LoadStageData()
 
 const Rect Stage::GetStageSize()
 {
-	//return Rect(0, stagedata.mapheight * 50, 0, stagedata.mapwidth * 50);
 	return Rect(0, stagedata.mapheight * 50, block[0].GetBlockPos().x, block[block.size() - 1].GetBlockPos().x);
-
 }
 
 void Stage::SetStageSpeed(float _stageSpeed)
@@ -103,23 +101,8 @@ void Stage::SetStageSpeed(float _stageSpeed)
 
 void Stage::Draw()
 {
-	int count = 0;
-
-	//if (CheckHitKey(KEY_INPUT_L))
-	//{
-	//	stageSpeed = 5.f;
-	//}
-	//else if (CheckHitKey(KEY_INPUT_K))
-	//{
-	//	stageSpeed = -5.f;
-	//}
-	//else
-	//{
-	//	stageSpeed = 0.f;
-	//}
-
+	//ÉuÉçÉbÉN
 	{
-		//int hitnum = -1;
 		for (int i = 0; i < block.size(); ++i)
 		{
 			block[i].Update(stageSpeed);
@@ -127,20 +110,6 @@ void Stage::Draw()
 			if (block[i].GetBlockPos().x > -100 && block[i].GetBlockPos().x < WindowSizeX + 50)
 			{
 				block[i].Draw();
-				if (block[i].HitCheck(player.GetPosition()))
-				{
-					DrawFormatString(0, 140, GetColor(255, 255, 255), "true");
-					ground.SetGroundLine(block[i].GetBlockPos().y - 50 / 2);
-					lastHitBlock = i;
-				}
-				else if (lastHitBlock != -1)
-				{
-					if (!block[lastHitBlock].HitCheck(player.GetPosition()))
-					{
-						ground.SetGroundLine(10000);
-					}
-
-				}
 			}
 		}
 	}
