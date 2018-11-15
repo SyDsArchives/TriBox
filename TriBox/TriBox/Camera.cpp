@@ -43,17 +43,19 @@ void Camera::Update()
 	pos = &focus.lock()->GetPosition();
 
 	//ƒJƒƒ‰ˆÊ’u‚Ì•â³
-	if (pos->x - size.right / 2 < range.left)
+/*	if (pos->x - size.right / 2 < range.left)
 	{
-		pos->x = range.left + size.right / 2;
+		stage.SetStageSpeed(0.f);
 		DrawFormatString(0, 150, GetColor(255, 255, 255), "¶‚Í‚¶");
-	}else if (pos->x + size.right / 2 > range.right)
+	}else */if (size.right > range.right)
 	{
-		pos->x = range.right - size.right / 2;
+		focus.lock()->PlayerMoveLimit(false);
+		stage.SetStageSpeed(0.f);
 		DrawFormatString(0, 150, GetColor(255, 255, 255), "‰E‚Í‚¶");
 	}
 	else
 	{
+		focus.lock()->PlayerMoveLimit(true);
 		if (pos->x >= WindowSizeX / 2 && focus.lock()->GetPlayerDirection() == PlayerDirection::right)
 		{
 			stage.SetStageSpeed(focus.lock()->GetSpeed());
@@ -62,6 +64,5 @@ void Camera::Update()
 		{
 			stage.SetStageSpeed(0.f);
 		}
-		
 	}
 }

@@ -11,17 +11,21 @@ enum class HitDirection {
 };
 
 struct HitObjectData;
+class Ground;
 class Player;
 class Block
 {
 private:
+	Ground& ground;
+
 	int blockimg;
 	Position2f pos;
 
 	void MoveBlock(float _speed);
 
+
 public:
-	Block(Position2f _pos);
+	Block(Ground & _ground, Position2f _pos);
 	~Block();
 
 	void Draw();

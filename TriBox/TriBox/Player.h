@@ -8,7 +8,7 @@ enum class PlayerDirection
 	right,
 };
 
-
+class Ground;
 class Peripheral;
 class Player
 {
@@ -27,6 +27,8 @@ private:
 
 	PlayerDirection direction;
 
+	Ground& ground;
+
 	//プレイヤー状態遷移
 	void (Player::*updateFunc)(const Peripheral&);
 	//何も入力が入っていない状態
@@ -36,19 +38,17 @@ private:
 	//ジャンプ状態
 	void AerialUpdate(const Peripheral& _p);
 
-	void PlayerMoveLimit();
-
-
 	//マウス
 	void PlayerMouseMove();
 public:
-	Player(Vector2f _pos);
+	Player(Ground& _ground,Vector2f _pos);
 	~Player();
 
 	void SetPosition(Vector2f _pos);
 	Vector2f GetPosition();
 	float GetSpeed() { return playerSpeed; };
 	PlayerDirection GetPlayerDirection() { return direction; };
+	void PlayerMoveLimit(bool excuteFlag);
 
 	void Update(Peripheral& p);
 };

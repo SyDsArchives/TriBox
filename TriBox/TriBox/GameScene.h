@@ -4,6 +4,7 @@
 #include <vector>
 #include "Vector2D.h"
 
+class Ground;
 class Camera;
 class Player;
 class BackGround;
@@ -22,6 +23,7 @@ private:
 	std::shared_ptr<Block> block;
 	std::shared_ptr<Stage> stage;
 	std::shared_ptr<Camera> camera;
+	std::shared_ptr<Ground> ground;
 
 	std::vector<Player> playerLife;
 

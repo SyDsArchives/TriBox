@@ -12,11 +12,13 @@
 #include "Stage.h"
 #include "Goal.h"
 #include "Camera.h"
+#include "Ground.h"
 
 GameScene::GameScene():onceExcute(false)
 {
-	player = std::make_shared<Player>(Vector2f(300, WindowSizeY - 110));
-	stage = std::make_shared<Stage>(*player);
+	ground = std::make_shared<Ground>();
+	player = std::make_shared<Player>(*ground,Vector2f(300, WindowSizeY - 110));
+	stage = std::make_shared<Stage>(*player, *ground);
 	bg = std::make_shared<BackGround>(*stage);
 	camera = std::make_shared<Camera>(*stage);
 }
@@ -28,8 +30,6 @@ GameScene::~GameScene()
 
 void GameScene::Update()
 {
-
-
 	Peripheral p;
 	DxLib::DrawFormatString(0, 0, GetColor(255, 255, 255), "GameScene");
 
@@ -41,6 +41,8 @@ void GameScene::Update()
 
 	camera->SetFocus(player);
 	camera->Update();
+
+	DxLib::DrawFormatString(0, 120, GetColor(255, 255, 255), "%d", ground->GetGroundLine());
 
 	if (stage->GoalCheck())
 	{

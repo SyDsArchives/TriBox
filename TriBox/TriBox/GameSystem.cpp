@@ -19,7 +19,7 @@ GameSystem::~GameSystem()
 
 const Rect GameSystem::GetWindowSize()
 {
-	Rect ret(0, WindowSizeX, 0, WindowSizeY);
+	Rect ret(0, WindowSizeY, 0, WindowSizeX);
 	return ret;
 }
 

@@ -1,9 +1,11 @@
 #include "Block.h"
 #include "DxLib.h"
+#include "Ground.h"
 #include <iostream>
 #include "ObjectParent.h"
+#include "Ground.h"
 
-Block::Block(Position2f _pos):pos(_pos)
+Block::Block(Ground& _ground,Position2f _pos):ground(_ground),pos(_pos)
 {
 	blockimg = DxLib::LoadGraph("Resource/img/block.png");	
 }

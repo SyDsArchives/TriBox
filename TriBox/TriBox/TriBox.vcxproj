@@ -133,6 +133,7 @@
     <ClInclude Include="GameSystem.h" />
     <ClInclude Include="Geometry.h" />
     <ClInclude Include="Goal.h" />
+    <ClInclude Include="Ground.h" />
     <ClInclude Include="ImageData.h" />
     <ClInclude Include="ObjectParent.h" />
     <ClInclude Include="Peripheral.h" />
@@ -151,6 +152,7 @@
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="GameSystem.cpp" />
     <ClCompile Include="Goal.cpp" />
+    <ClCompile Include="Ground.cpp" />
     <ClCompile Include="ImageData.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ObjectParent.cpp" />

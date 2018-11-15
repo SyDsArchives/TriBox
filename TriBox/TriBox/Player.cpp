@@ -4,12 +4,14 @@
 #include <Windows.h>
 #include <mmsystem.h>
 #include "Geometry.h"
+#include "Ground.h"
 
 #pragma comment(lib,"winmm.lib")
 
 const float initJumpHeight = 12.f;
 
-Player::Player(Vector2f _pos):playerSpeed(3.f),lastTime(0.f), jumpInertia(0.f),
+Player::Player(Ground & _ground, Vector2f _pos) : ground(_ground),
+playerSpeed(3.f),lastTime(0.f), jumpInertia(0.f),
 aerialFlag(false),
 direction(PlayerDirection::none)
 {
@@ -20,7 +22,6 @@ direction(PlayerDirection::none)
 	imgpos = Vector2f(25, 25);
 	imgcpos = Vector2f(75, 75);
 }
-
 
 Player::~Player()
 {
@@ -95,7 +96,7 @@ void Player::AerialUpdate(const Peripheral & _p)
 {
 	float secondsLimit = 100.f;
 	bool aerialTime = (timeGetTime() - lastTime) <= secondsLimit;
-	playerSpeed = 5.f;
+	playerSpeed = 8.f;
 
 	//上キーを押している間かつ、押している時間が0.1秒を超えるまでの間
 	if (_p.IsPressing(PAD_INPUT_UP) && aerialTime)
@@ -130,7 +131,7 @@ void Player::AerialUpdate(const Peripheral & _p)
 	pos.x += jumpInertia;
 
 	//地面と同じ座標についたらNeutralUpdateに戻る
-	if (pos.y >= WindowSizeY - 100)
+	if (pos.y >= ground.GetGroundLine())
 	{
 		jumpInertia = 0;
 		playerSpeed = 3.f;
@@ -139,15 +140,18 @@ void Player::AerialUpdate(const Peripheral & _p)
 	}
 }
 
-void Player::PlayerMoveLimit()
+void Player::PlayerMoveLimit(bool excuteFlag)
 {
-	if (pos.x >= WindowSizeX / 2)
+	if (excuteFlag)
 	{
-		pos.x = WindowSizeX / 2;
-	}
-	if (pos.x <= 25)
-	{
-		pos.x = 25;
+		if (pos.x >= WindowSizeX / 2)
+		{
+			pos.x = WindowSizeX / 2;
+		}
+		if (pos.x <= 25)
+		{
+			pos.x = 25;
+		}
 	}
 }
 
@@ -196,19 +200,17 @@ void Player::PlayerMouseMove()
 	DrawFormatString(70, 0, GetColor(255, 255, 255), "%.1f", mousePos.y);
 }
 
-
 void Player::Update(Peripheral& _p)
 {
 	(this->*updateFunc)(_p);
 
-	PlayerMoveLimit();
-
 	//プレイヤー移動
 	//PlayerMouseMove();
 
-	if (pos.y < WindowSizeY - 100 && !aerialFlag)
+
+	if (pos.y < ground.GetGroundLine() && !aerialFlag)
 	{
-		pos.y += 15.f;
+		pos.y += 10.f;
 	}
 
 	DrawFormatString(100, 0, GetColor(255, 255, 255), "%.1f", pos.x);
