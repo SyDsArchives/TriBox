@@ -35,9 +35,9 @@ void GameScene::Update()
 
 	bg->Update(player->GetPosition());//”wŒiŠÖŒW
 	
-	player->Update(p);
-
 	stage->Draw();
+
+	player->Update(p);
 
 	camera->SetFocus(player);
 	camera->Update();

@@ -3,7 +3,7 @@
 #include "DxLib.h"
 
 
-ElevatorRail::ElevatorRail(Position2f& _pos, RailType _railType) :pos(&_pos)
+ElevatorRail::ElevatorRail(Position2f _pos, RailType _railType) :pos(_pos)
 {
 	if (_railType == RailType::normalRail)
 	{
@@ -23,11 +23,18 @@ ElevatorRail::~ElevatorRail()
 {
 }
 
-void ElevatorRail::Draw()
+void ElevatorRail::MoveBlock(float _speed)
 {
-	DrawRotaGraph(pos->x, pos->y, 1.f, 0.f, imgPath, true);
+	pos.x -= _speed;
 }
 
-void ElevatorRail::Update()
+void ElevatorRail::Draw()
 {
+	DrawRotaGraph(pos.x, pos.y, 1.f, 0.f, imgPath, true);
+}
+
+void ElevatorRail::Update(float _speed)
+{
+	MoveBlock(_speed);
+	Draw();
 }

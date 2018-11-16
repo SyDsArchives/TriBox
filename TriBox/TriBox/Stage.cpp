@@ -8,6 +8,7 @@
 
 #include "Block.h"
 #include "Goal.h"
+#include "ElevatorRail.h"
 
 
 
@@ -73,14 +74,33 @@ void Stage::LoadStageData()
 	{
 		for (int x = 0; x < stagedata.mapwidth; ++x)
 		{
+			//ブロック生成
 			if (stageArrangement[x * stagedata.mapheight + y] == 1)
 			{
 				block.push_back(Block(player,Position2f(50 * x, 50 * y)));
 				underLine = std::max<float>(underLine, static_cast<float>(50 * y));
 			}
+
+			//ゴール生成
 			if (stageArrangement[x * stagedata.mapheight + y] == 2)
 			{
 				goal.push_back(Goal(Position2f(50 * x, 50 * y)));
+			}
+
+			//エレベーターレール(中部分)
+			if (stageArrangement[x * stagedata.mapheight + y] == 3)
+			{
+				rail.push_back(ElevatorRail(Position2f(50 * x, 50 * y), RailType::normalRail));
+			}
+			//エレベーターレール(下部分)
+			if (stageArrangement[x * stagedata.mapheight + y] == 4)
+			{
+				rail.push_back(ElevatorRail(Position2f(50 * x, 50 * y), RailType::bottomRail));
+			}
+			//エレベーターレール(上部分)
+			if (stageArrangement[x * stagedata.mapheight + y] == 5)
+			{
+				rail.push_back(ElevatorRail(Position2f(50 * x, 50 * y), RailType::topRail));
 			}
 		}
 	}
@@ -121,11 +141,22 @@ void Stage::Draw()
 		}
 	}
 
+	//ゴール
 	{
 		for (int i = 0; i < goal.size(); ++i)
 		{
 			{
 				goal[i].Update(stageSpeed);
+			}
+		}
+	}
+
+	//エレベーターレール
+	{
+		for (int i = 0; i < rail.size(); ++i)
+		{
+			{
+				rail[i].Update(stageSpeed);
 			}
 		}
 	}

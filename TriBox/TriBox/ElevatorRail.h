@@ -1,30 +1,31 @@
 #pragma once
 #include "ObjectParent.h"
+#include "Vector2D.h"
 
 enum class RailType {
-	normalRail,
-	topRail,
-	bottomRail,
+	normalRail,//type = 3
+	bottomRail,//type = 4
+	topRail,//type = 5
 };
 
-template<typename T>
-struct Vector2D;
-typedef Vector2D <float> Vector2f;
-typedef Vector2f Position2f;
 class ElevatorRail :
 	public ObjectParent
 {
 private:
+	Position2f pos;
+
 	int imgPath;
 
-	Position2f* pos;
+	//プレイヤーに合わせた移動
+	void MoveBlock(float _speed);
 public:
-	ElevatorRail(Position2f& _pos, RailType _railType);
+	ElevatorRail(Position2f _pos, RailType _railType);
 	~ElevatorRail();
 
 	//描画関数
 	void Draw();
+	
 	//毎フレーム動作関数
-	void Update();
+	void Update(float _speed);
 };
 

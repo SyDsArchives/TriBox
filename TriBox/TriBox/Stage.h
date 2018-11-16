@@ -21,6 +21,7 @@ struct StageData
 };
 
 struct Rect;
+class ElevatorRail;
 class Goal;
 class Player;
 class Block;
@@ -37,6 +38,8 @@ private:
 
 	std::vector<Block> block;
 	std::vector<Goal> goal;
+	std::vector<ElevatorRail> rail;
+
 	Player& player;
 
 	std::vector<unsigned char> stageArrangement;
