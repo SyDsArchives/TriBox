@@ -87,6 +87,9 @@
     <ClInclude Include="Ground.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="ElevatorRail.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BackGround.cpp">
@@ -138,6 +141,9 @@
       <Filter>Other</Filter>
     </ClCompile>
     <ClCompile Include="Ground.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="ElevatorRail.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
