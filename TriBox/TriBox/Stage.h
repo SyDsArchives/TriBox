@@ -30,6 +30,7 @@ class Stage
 private:
 	int lastHitBlock;
 	float stageSpeed;
+	float underLine;
 
 	void LoadStageData();
 	StageData stagedata;
@@ -45,6 +46,7 @@ public:
 	//Get
 	std::vector<unsigned char> GetStageData()const;
 	const Rect GetStageSize();
+	const float GetStageUnderLine();
 
 	//Set
 	void SetStageSpeed(float _stageSpeed);

@@ -10,7 +10,7 @@
 Player::Player(Vector2f _pos) :
 playerSpeed(3.f), jumpInertia(0.f), gravity(5.f), jumpPower(30.f),lastTime(0),
 pos(_pos), vel(0,0),
-onGround(false),
+onGround(false), isDead(false),
 direction(PlayerDirection::none)
 {
 	playerImg = DxLib::LoadGraph("Resource/img/Circle.png");
@@ -134,12 +134,22 @@ void Player::AerialUpdate(const Peripheral & _p)
 	}
 }
 
+void Player::PlayerDead(const Peripheral & _p)
+{
+	//死亡時のエフェクトなど
+}
+
 ///////////////////////////////////////////
 //毎フレーム更新用関数
 ///////////////////////////////////////////
 void Player::Update(Peripheral& _p)
 {
 	(this->*updateFunc)(_p);
+
+	if (isDead)
+	{
+		updateFunc = &Player::PlayerDead;
+	}
 
 	if (updateFunc != &Player::AerialUpdate)
 	{
@@ -178,6 +188,12 @@ void Player::SetPosition(Vector2f _pos)
 void Player::SetOnGround(bool _onGround)
 {
 	onGround = _onGround;
+}
+
+bool Player::IsDead(float _underLine)
+{
+	isDead = _underLine < pos.y ? true : false;
+	return isDead;
 }
 
 ///////////////////////////////////////////

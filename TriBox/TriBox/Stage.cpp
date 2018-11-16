@@ -4,6 +4,7 @@
 #include <iostream>
 #include "Player.h"
 #include "Geometry.h"
+#include <algorithm>
 
 #include "Block.h"
 #include "Goal.h"
@@ -11,7 +12,7 @@
 
 
 
-Stage::Stage(Player& _pl) : player(_pl), stageSpeed(0.f), lastHitBlock(0)
+Stage::Stage(Player& _pl) : player(_pl), stageSpeed(0.f), lastHitBlock(0), underLine(0)
 {
 	LoadStageData();
 }
@@ -75,6 +76,7 @@ void Stage::LoadStageData()
 			if (stageArrangement[x * stagedata.mapheight + y] == 1)
 			{
 				block.push_back(Block(player,Position2f(50 * x, 50 * y)));
+				underLine = std::max<float>(underLine, static_cast<float>(50 * y));
 			}
 			if (stageArrangement[x * stagedata.mapheight + y] == 2)
 			{
@@ -92,6 +94,11 @@ void Stage::LoadStageData()
 const Rect Stage::GetStageSize()
 {
 	return Rect(0, stagedata.mapheight * 50, block[0].GetBlockPos().x, block[block.size() - 1].GetBlockPos().x);
+}
+
+const float Stage::GetStageUnderLine()
+{
+	return underLine;
 }
 
 void Stage::SetStageSpeed(float _stageSpeed)

@@ -23,6 +23,7 @@ private:
 	
 	bool aerialFlag;//true:空中上昇状態 false:空中下降状態
 	bool onGround;//地面にいるかどうか
+	bool isDead;
 
 	Vector2f pos;//位置情報
 	Vector2f vel;//ジャンプベクトル
@@ -37,6 +38,8 @@ private:
 	void MoveUpdate(const Peripheral& _p);
 	//ジャンプ状態
 	void AerialUpdate(const Peripheral& _p);
+	//死亡判定
+	void PlayerDead(const Peripheral& _p);
 
 	//マウス(保留)
 	void PlayerMouseMove();
@@ -59,6 +62,10 @@ public:
 	//着地判定の設定
 	void SetOnGround(bool _onGround);
 
+
+	//プレイヤーの死亡判定
+	bool IsDead();
+	bool IsDead(float _underLine);
 	
 	//移動制限
 	//@param bool |true:一定範囲以上進めない|false:画面内ならどこでも動ける|

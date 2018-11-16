@@ -42,8 +42,8 @@ void GameScene::Update()
 	camera->SetFocus(player);
 	camera->Update();
 
-	if (stage->GoalCheck())
+	if (stage->GoalCheck() || player->IsDead(stage->GetStageUnderLine()))
 	{
-		//GameSystem::GameInstance().ChangeScene(new ResultScene());
+		GameSystem::GameInstance().ChangeScene(new ResultScene());
 	}
 }
