@@ -5,7 +5,7 @@
 
 
 
-Elevator::Elevator(Player& _player,Position2f _pos) : player(_player),pos(_pos), vel(0.f), playerHit(false)
+Elevator::Elevator(Player& _player,Position2f _pos) : player(_player),pos(_pos), vel(0.f)
 {
 	imgPath = LoadGraph("Resource/img/elevator.png");
 }
@@ -24,7 +24,7 @@ void Elevator::Update(float _speed)
 {
 	MoveElevator(_speed);
 
-	if (HitCheck(player.GetPosition()))
+	if (HitCheck(player.GetPosition()).isHit_All)
 	{
 		player.SetOnGround(true);
 		float setPosY = pos.y - blocksize - 5;
@@ -52,15 +52,17 @@ void Elevator::Active(RailType* _railType)
 	}
 }
 
-bool Elevator::HitCheck(Position2f _pos)
+ObjectHitType Elevator::HitCheck(Position2f _pos)
 {
+	ObjectHitType ret = {};
+
 	//ÉuÉçÉbÉNÇ…ìñÇΩÇ¡ÇƒÇ¢ÇÈÇ©
-	bool isHitTop = pos.y - blocksize < _pos.y;
-	bool isHitLeft = pos.x - blocksize < _pos.x;
-	bool isHitRight = pos.x + blocksize > _pos.x;
-	bool isHitBottom = pos.y + blocksize > _pos.y;
+	ret.isHit_Top = pos.y - blocksize < _pos.y;
+	ret.isHit_Left = pos.x - blocksize < _pos.x;
+	ret.isHit_Right = pos.x + blocksize > _pos.x;
+	ret.isHit_Bottom = pos.y + blocksize > _pos.y;
 
-	playerHit = isHitTop && isHitLeft && isHitRight && isHitBottom;
+	ret.isHit_All = ret.isHit_Top && ret.isHit_Left && ret.isHit_Right && ret.isHit_Bottom;
 
-	return playerHit;
+	return ret;
 }

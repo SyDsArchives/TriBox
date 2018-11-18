@@ -10,21 +10,21 @@ enum class HitDirection {
 	bottom,
 };
 
-struct HitObjectData;
+struct ObjectHitType;
 class Player;
 class Block
 {
 private:
 
+	Position2f pos;
+
 	Player& player;
 
 	int blockimg;
-	Position2f pos;
-	bool playerHit;
 
 	void MoveBlock(float _speed);
 
-
+	ObjectHitType HitCheck(Position2f pos);
 public:
 	Block(Player& _player, Position2f _pos);
 	~Block();
@@ -34,7 +34,5 @@ public:
 	void Update(float _speed);
 
 	Position2f GetBlockPos();
-
-	bool HitCheck(Position2f pos);
 };
 

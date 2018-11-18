@@ -6,7 +6,7 @@
 #include "Ground.h"
 #include "Player.h"
 
-Block::Block(Player& _player,Position2f _pos):player(_player), pos(_pos), playerHit(false)
+Block::Block(Player& _player,Position2f _pos):player(_player), pos(_pos)
 {
 	blockimg = DxLib::LoadGraph("Resource/img/block.png");	
 }
@@ -29,7 +29,7 @@ void Block::Update(float _speed)
 {
 	MoveBlock(_speed);
 
-	if (HitCheck(player.GetPosition()))
+	if (HitCheck(player.GetPosition()).isHit_All)
 	{
 		player.SetOnGround(true);
 		float setPosY = pos.y - blocksize;
@@ -42,21 +42,18 @@ Position2f Block::GetBlockPos()
 	return pos;
 }
 
-bool Block::HitCheck(Position2f _pos)
+ObjectHitType Block::HitCheck(Position2f _pos)
 {
-	//ret->objectName = "block";
+	ObjectHitType ret = {};
 
 	//ÉuÉçÉbÉNÇ…ìñÇΩÇ¡ÇƒÇ¢ÇÈÇ©
-	bool isHitTop = pos.y - blocksize < _pos.y;
-	bool isHitLeft = pos.x - blocksize < _pos.x;
-	bool isHitRight = pos.x + blocksize > _pos.x;
-	bool isHitBottom = pos.y + blocksize > _pos.y;
+	ret.isHit_Top = pos.y - blocksize < _pos.y;
+	ret.isHit_Left = pos.x - blocksize < _pos.x;
+	ret.isHit_Right = pos.x + blocksize > _pos.x;
+	ret.isHit_Bottom = pos.y + blocksize > _pos.y;
 
-	/*bool checkX = isHitLeft && isHitRight;
-	bool checkY = isHitTop && isHitBottom;*/
+	ret.isHit_All = ret.isHit_Top && ret.isHit_Left && ret.isHit_Right && ret.isHit_Bottom;
 
-	playerHit = isHitTop && isHitLeft && isHitRight && isHitBottom;
-
-	return playerHit;
+	return ret;
 }
 

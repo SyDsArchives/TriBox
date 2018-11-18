@@ -2,6 +2,7 @@
 #include "ObjectParent.h"
 #include "Vector2D.h"
 
+//struct ObjectHitType;
 enum class RailType;
 class Player;
 class Elevator : public ObjectParent
@@ -15,12 +16,10 @@ private:
 
 	float vel;
 
-	bool playerHit;
-
 	//ƒvƒŒƒCƒ„[‚É‡‚í‚¹‚½ˆÚ“®
 	void MoveElevator(float _speed);
 
-	bool HitCheck(Position2f _pos);
+	ObjectHitType HitCheck(Position2f _pos);
 public:
 	Elevator(Player & _player, Position2f _pos);
 	~Elevator();
