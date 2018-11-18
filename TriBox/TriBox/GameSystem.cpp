@@ -32,6 +32,8 @@ void GameSystem::Run()
 {
 	DxLib::ChangeWindowMode(true);
 	DxLib::SetGraphMode(WindowSizeX, WindowSizeY, 32);
+	
+	DxLib::SetWindowPosition(0, 0);
 
 	if (DxLib::DxLib_Init() == -1)
 	{

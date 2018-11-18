@@ -129,6 +129,7 @@
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="Block.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Elevator.h" />
     <ClInclude Include="ElevatorRail.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="GameSystem.h" />
@@ -150,6 +151,7 @@
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Elevator.cpp" />
     <ClCompile Include="ElevatorRail.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="GameSystem.cpp" />

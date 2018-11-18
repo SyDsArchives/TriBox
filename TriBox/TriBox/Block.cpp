@@ -11,7 +11,6 @@ Block::Block(Player& _player,Position2f _pos):player(_player), pos(_pos), player
 	blockimg = DxLib::LoadGraph("Resource/img/block.png");	
 }
 
-
 Block::~Block()
 {
 }
