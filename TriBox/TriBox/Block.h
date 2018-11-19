@@ -10,6 +10,17 @@ enum class HitDirection {
 	bottom,
 };
 
+struct ObjectRectHitType {
+	bool isHit_Top;
+	bool isHit_Right;
+	bool isHit_Left;
+	bool isHit_Bottom;
+	bool isHit_All;
+};
+
+template <typename T>
+struct Rect;
+typedef Rect<Position2f> RectPosF;
 struct ObjectHitType;
 class Player;
 class Block
@@ -25,6 +36,7 @@ private:
 	void MoveBlock(float _speed);
 
 	ObjectHitType HitCheck(Position2f pos);
+	ObjectRectHitType HitRect(Position2f _pos);
 public:
 	Block(Player& _player, Position2f _pos);
 	~Block();

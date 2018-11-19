@@ -5,6 +5,7 @@
 #include "ObjectParent.h"
 #include "Ground.h"
 #include "Player.h"
+#include "Geometry.h"
 
 Block::Block(Player& _player,Position2f _pos):player(_player), pos(_pos)
 {
@@ -53,6 +54,22 @@ ObjectHitType Block::HitCheck(Position2f _pos)
 	ret.isHit_Bottom = pos.y + blocksize > _pos.y;
 
 	ret.isHit_All = ret.isHit_Top && ret.isHit_Left && ret.isHit_Right && ret.isHit_Bottom;
+
+	return ret;
+}
+
+ObjectRectHitType Block::HitRect(Position2f _pos)
+{
+	ObjectRectHitType ret = {};
+
+	//‹éŒ`’è‹`
+	RectPosF topRect(Position2f(pos.x, pos.y), Position2f(pos.x, pos.y), Position2f(pos.x, pos.y), Position2f(pos.x, pos.y));
+	RectPosF bottomRect(Position2f(pos.x, pos.y), Position2f(pos.x, pos.y), Position2f(pos.x, pos.y), Position2f(pos.x, pos.y));
+	RectPosF leftRect(Position2f(pos.x, pos.y), Position2f(pos.x, pos.y), Position2f(pos.x, pos.y), Position2f(pos.x, pos.y));
+	RectPosF rightRect(Position2f(pos.x, pos.y), Position2f(pos.x, pos.y), Position2f(pos.x, pos.y), Position2f(pos.x, pos.y));
+
+	//‹éŒ`“–‚½‚è”»’è
+
 
 	return ret;
 }
