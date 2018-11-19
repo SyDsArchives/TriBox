@@ -24,7 +24,9 @@ void Elevator::Update(float _speed)
 {
 	MoveElevator(_speed);
 
-	if (HitCheck(player.GetPosition()).isHit_All)
+	Position2f objPos(player.GetPosition().x, player.GetPosition().y + 25);
+
+	if (HitCheck(objPos).isHit_All)
 	{
 		player.SetOnGround(true);
 		float setPosY = pos.y - blocksize - 5;

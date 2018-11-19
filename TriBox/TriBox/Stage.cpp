@@ -27,7 +27,7 @@ Stage::~Stage()
 void Stage::LoadStageData()
 {
 	//ステージデータの読み込み
-	FILE* fp = fopen("Resource/map/仮stage1(1).fmf", "rb");
+	FILE* fp = fopen("Resource/map/test.fmf", "rb");
 	std::vector<unsigned char> dummyData;
 
 	//ステージのサイズ、横幅縦幅、1マップチップの横幅縦幅、レイヤー数、ビットサイズの取得

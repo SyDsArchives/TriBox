@@ -54,11 +54,11 @@ public:
 	//重力の取得
 	float GetGravity() { return gravity; };
 	//位置の取得
-	Vector2f GetPosition() { return Vector2f(pos.x, pos.y + 25); };
+	Vector2f GetPosition() { return Vector2f(pos.x, pos.y); };
 
 
 	//位置の設定
-	void SetPosition(Vector2f _pos);
+	void SetPosition(Vector2f _pos, bool xEmpty = false, bool yEmpty = false);
 	//着地判定の設定
 	void SetOnGround(bool _onGround);
 

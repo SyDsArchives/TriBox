@@ -180,9 +180,20 @@ void Player::PlayerMoveLimit(bool excuteFlag)
 ///////////////////////////////////////////
 //ÉZÉbÉgånä÷êî
 ///////////////////////////////////////////
-void Player::SetPosition(Vector2f _pos)
+void Player::SetPosition(Vector2f _pos, bool xEmpty, bool yEmpty)
 {
-	pos = _pos;
+	if (xEmpty)
+	{
+		pos.y = _pos.y;
+	}
+	else if (yEmpty)
+	{
+		pos.x = _pos.x;
+	}
+	else
+	{
+		pos = _pos;
+	}
 }
 
 void Player::SetOnGround(bool _onGround)
