@@ -139,9 +139,9 @@ void Stage::LoadStageData()
 //	//return stageArrangement;
 //}
 
-const Rect Stage::GetStageSize()
+const Rect_f Stage::GetStageSize()
 {
-	return Rect(0, stagedata.mapheight * 50, block[0].GetBlockPos().x, block[block.size() - 1].GetBlockPos().x);
+	return Rect_f(0, stagedata.mapheight * 50, block[0].GetBlockPos().x, block[block.size() - 1].GetBlockPos().x);
 }
 
 const float Stage::GetStageUnderLine()

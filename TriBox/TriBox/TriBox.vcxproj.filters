@@ -152,5 +152,8 @@
     <ClCompile Include="Elevator.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Geometry.cpp">
+      <Filter>Other</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

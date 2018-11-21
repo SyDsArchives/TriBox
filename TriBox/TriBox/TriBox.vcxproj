@@ -155,6 +155,7 @@
     <ClCompile Include="ElevatorRail.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="GameSystem.cpp" />
+    <ClCompile Include="Geometry.cpp" />
     <ClCompile Include="Goal.cpp" />
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="ImageData.cpp" />

@@ -63,10 +63,10 @@ ObjectRectHitType Block::HitRect(Position2f _pos)
 	ObjectRectHitType ret = {};
 
 	//‹éŒ`’è‹`
-	RectPosF topRect(Position2f(pos.x, pos.y), Position2f(pos.x, pos.y), Position2f(pos.x, pos.y), Position2f(pos.x, pos.y));
+	/*RectPosF topRect(Position2f(pos.x, pos.y), Position2f(pos.x, pos.y), Position2f(pos.x, pos.y), Position2f(pos.x, pos.y));
 	RectPosF bottomRect(Position2f(pos.x, pos.y), Position2f(pos.x, pos.y), Position2f(pos.x, pos.y), Position2f(pos.x, pos.y));
 	RectPosF leftRect(Position2f(pos.x, pos.y), Position2f(pos.x, pos.y), Position2f(pos.x, pos.y), Position2f(pos.x, pos.y));
-	RectPosF rightRect(Position2f(pos.x, pos.y), Position2f(pos.x, pos.y), Position2f(pos.x, pos.y), Position2f(pos.x, pos.y));
+	RectPosF rightRect(Position2f(pos.x, pos.y), Position2f(pos.x, pos.y), Position2f(pos.x, pos.y), Position2f(pos.x, pos.y));*/
 
 	//‹éŒ`“–‚½‚è”»’è
 
