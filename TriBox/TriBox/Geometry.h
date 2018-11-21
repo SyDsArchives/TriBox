@@ -4,34 +4,31 @@
 const int WindowSizeX = 978;
 const int WindowSizeY = 50 * 11;
 
-template<typename T>
 struct Rect {
-	Rect() 
-		:top(0), left(0), width(0), height(0), centerX(0), centerY(0){};
-	Rect(T _top, T _left, T _width, T _height)
+	//íÜâõç¿ïWån
+	Rect() : top(0), left(0), width(0), height(0), centerX(0), centerY(0) {};
+	//ç∂è„ç¿ïWån
+	Rect(float _top, float _left, float _width, float _height)
 		:top(_top), left(_left), width(_width), height(_height)
 	{
 		centerX = left + width / 2;
 		centerY = top + height / 2;
 	};
 
-	//bool Rect<T>::operator>(T num1, T num2) const
-	//{
-	//	return num1 > num2;
-	//}
+	float top;
+	float left;
+	float width;
+	float height;
+	float centerX;
+	float centerY;
 
-	T top;
-	T left;
-	T width;
-	T height;
-	T centerX;
-	T centerY;
+	float Top() { return centerY - height / 2; };
+	float Bottom() { return centerY + height / 2; };
+	float Right() { return centerX + width / 2; };
+	float Left() { return centerX - width / 2; };
 
-	T Top() { return centerY - height / 2; };
-	T Bottom() { return centerY + height / 2; };
-	T Right() { return centerX + width / 2; };
-	T Left() { return centerX - width / 2; };
-
-	void SetCenter(T _x, T _y);
-	void SetLeftTopWidhtHeight(T _top, T _left, T _width, T _height);
+	//íÜâõç¿ïWån
+	void SetCenter(float _x, float _y, float _width, float _height);
+	//ç∂è„ç¿ïWån
+	void SetLeftTopWidhtHeight(float _top, float _left, float _width, float _height);
 };

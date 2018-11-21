@@ -2,9 +2,7 @@
 #include <memory>
 #include "Vector2D.h"
 
-template <typename T>
 struct Rect;
-typedef Rect<float> Rect_f;
 class Scene;
 class GameSystem
 {
@@ -24,7 +22,7 @@ public:
 	~GameSystem();
 
 
-	const Rect_f GetWindowSize();
+	const Rect GetWindowSize();
 	void ChangeScene(Scene* _scene);
 
 	void Run();

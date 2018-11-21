@@ -20,9 +20,8 @@ struct StageData
 	unsigned char bitcount;
 };
 
-template <typename T>
+
 struct Rect;
-typedef Rect<float> Rect_f;
 class Elevator;
 class ElevatorRail;
 class Goal;
@@ -52,7 +51,7 @@ public:
 	~Stage();
 	//Get
 	std::vector<unsigned char> GetStageData()const;
-	const Rect_f GetStageSize();
+	const Rect GetStageSize();
 	const float GetStageUnderLine();
 
 	//Set

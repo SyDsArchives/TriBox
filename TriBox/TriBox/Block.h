@@ -18,9 +18,7 @@ struct ObjectRectHitType {
 	bool isHit_All;
 };
 
-template <typename T>
 struct Rect;
-typedef Rect<Position2f> RectPosF;
 struct ObjectHitType;
 class Player;
 class Block
@@ -28,7 +26,6 @@ class Block
 private:
 
 	Position2f pos;
-
 	Player& player;
 
 	int blockimg;

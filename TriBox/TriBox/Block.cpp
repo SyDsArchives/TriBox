@@ -62,14 +62,21 @@ ObjectRectHitType Block::HitRect(Position2f _pos)
 {
 	ObjectRectHitType ret = {};
 
-	//‹éŒ`’è‹`
-	/*RectPosF topRect(Position2f(pos.x, pos.y), Position2f(pos.x, pos.y), Position2f(pos.x, pos.y), Position2f(pos.x, pos.y));
-	RectPosF bottomRect(Position2f(pos.x, pos.y), Position2f(pos.x, pos.y), Position2f(pos.x, pos.y), Position2f(pos.x, pos.y));
-	RectPosF leftRect(Position2f(pos.x, pos.y), Position2f(pos.x, pos.y), Position2f(pos.x, pos.y), Position2f(pos.x, pos.y));
-	RectPosF rightRect(Position2f(pos.x, pos.y), Position2f(pos.x, pos.y), Position2f(pos.x, pos.y), Position2f(pos.x, pos.y));*/
+	Rect blockRect;
+	blockRect.SetCenter(pos.x, pos.y, blocksize, blocksize);
 
 	//‹éŒ`“–‚½‚è”»’è
+	auto top = blockRect.Top();
+	auto left = blockRect.Left();
+	auto right = blockRect.Right();
+	auto bottom = blockRect.Bottom();
 
+	ret.isHit_Top = blockRect.Top() < _pos.y;
+	ret.isHit_Left = blockRect.Left() < _pos.x;
+	ret.isHit_Right = blockRect.Right() > _pos.x;
+	ret.isHit_Bottom = blockRect.Bottom() > _pos.y;
+
+	//ret.isHit_All = ret.isHit_Top && ret.isHit_Left && ret.isHit_Right && ret.isHit_Bottom;
 
 	return ret;
 }

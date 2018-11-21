@@ -1,10 +1,8 @@
 #pragma once
 #include <memory>
 
-template <typename T>
-struct Rect;
-typedef Rect<float> Rect_f;
 
+struct Rect;
 template<typename T> 
 struct Vector2D;
 typedef Vector2D<float> Vector2f;
@@ -25,7 +23,7 @@ public:
 
 	const Position2f& GetPosition()const;
 	
-	const Rect_f& GetViewport() const;
+	const Rect& GetViewport() const;
 
 	void Update();
 };

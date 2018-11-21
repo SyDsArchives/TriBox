@@ -17,9 +17,9 @@ GameSystem::~GameSystem()
 {
 }
 
-const Rect_f GameSystem::GetWindowSize()
+const Rect GameSystem::GetWindowSize()
 {
-	Rect_f ret(0, WindowSizeY, 0, WindowSizeX);
+	Rect ret(0, WindowSizeY, 0, WindowSizeX);
 	return ret;
 }
 

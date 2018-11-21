@@ -28,22 +28,22 @@ const Position2f & Camera::GetPosition() const
 	return Position2f(0,0);
 }
 
-const Rect_f& Camera::GetViewport() const
+const Rect& Camera::GetViewport() const
 {
 	auto& size = GameSystem::GameInstance().GetWindowSize();
-	return Rect_f(pos->y - size.top / 2, 0, 0, 0);
+	return Rect(pos->y - size.top / 2, 0, 0, 0);
 }
 
 void Camera::Update()
 {
 	assert(!focus.expired());
-	const Rect_f& range = stage.GetStageSize();
-	const Rect_f& size = GameSystem::GameInstance().GetWindowSize();
+	auto& range = stage.GetStageSize();
+	auto& size = GameSystem::GameInstance().GetWindowSize();
 
 	pos = &focus.lock()->GetPosition();
 
-	Rect_f rect = size;
-	Rect_f rect2 = range;
+	Rect rect = size;
+	Rect rect2 = range;
 
 	//ƒJƒƒ‰ˆÊ’u‚Ì•â³
 	if (rect.Right() > rect2.Right())

@@ -1,14 +1,14 @@
 #include "Geometry.h"
 
-template<typename T>
-void Rect<T>::SetCenter(T _x, T _y)
+void Rect::SetCenter(float _x, float _y, float _width, float _height)
 {
-	centerX += _x;
-	centerY += _y;
+	centerX = _x;
+	centerY = _y;
+	width = _width;
+	height = _height;
 }
 
-template<typename T>
-void Rect<T>::SetLeftTopWidhtHeight(T _top, T _left, T _width, T _height)
+void Rect::SetLeftTopWidhtHeight(float _top, float _left, float _width, float _height)
 {
 	top = _top;
 	left = _left;
