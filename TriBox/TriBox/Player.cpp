@@ -157,18 +157,19 @@ void Player::Update(Peripheral& _p)
 		updateFunc = &Player::PlayerDead;
 	}
 
-	//if (updateFunc != &Player::AerialUpdate && !onGround)
-	//{
-	//	pos.y += gravity;
-	//}
-	if (pos.y < WindowSizeY - 100)
+	if (updateFunc != &Player::AerialUpdate && !onGround)
 	{
 		pos.y += gravity;
 	}
-	else
-	{
-		pos.y = WindowSizeY - 80;
-	}
+	//if (pos.y < WindowSizeY - 100)
+	//{
+	//	pos.y += gravity;
+	//}
+	//else
+	//{
+	//	onGround = true;
+	//	pos.y = WindowSizeY - 80;
+	//}
 	onGround = false;
 
 	DxLib::DrawRectRotaGraph2(pos.x, pos.y, 0, 0, 100, 100, 50, 50, 0.5, 0, playerImg, true, false, false);//ƒvƒŒƒCƒ„[
@@ -230,7 +231,7 @@ void Player::SetVector(Vector2f _vec)
 
 bool Player::IsDead(float _underLine)
 {
-	isDead = _underLine < pos.y ? true : false;
+	//isDead = _underLine < pos.y ? true : false;
 	return isDead;
 }
 

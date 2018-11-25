@@ -27,7 +27,7 @@ Stage::~Stage()
 void Stage::LoadStageData()
 {
 	//ステージデータの読み込み
-	FILE* fp = fopen("Resource/map/test.fmf", "rb");
+	FILE* fp = fopen("Resource/map/仮stage1(1).fmf", "rb");
 	std::vector<unsigned char> dummyData;
 
 	//ステージのサイズ、横幅縦幅、1マップチップの横幅縦幅、レイヤー数、ビットサイズの取得
@@ -159,9 +159,55 @@ void Stage::Update()
 	{
 		_block.Update(stageSpeed);
 
-		if (rect.HitRect(player.GetRect(),_block.GetRect()).isHit_All)
+		float inx = _block.GetBlockPos().x - player.GetPosition().x;
+		float iny = _block.GetBlockPos().y - player.GetPosition().y;
+		Position2f dispos(inx, iny);
+
+		//if (rect.HitRect(player.GetRect(),_block.GetRect()).isHit_All)
+		if (rect.IsCollision(_block.GetRect(), player.GetRect()))
 		{
-			player.SetOnGround(true);
+			int numx = SignCheck(static_cast<int>(inx)) == -1 ? inx * -1 : inx;
+			int numy = SignCheck(static_cast<int>(iny)) == -1 ? iny * -1 : iny;
+			char direction = numx > numy ? 'X' : 'Y';
+
+			if (numx == numy)
+			{
+				int a = 0;
+			}
+
+			if (direction == 'X')
+			{
+				if (SignCheck(inx) == 1)
+				{
+					player.SetPosition(Vector2f(_block.GetBlockPos().x - 50, 0), false, true);
+				}
+				else if (SignCheck(inx) == -1)
+				{
+					player.SetPosition(Vector2f(_block.GetBlockPos().x + 50, 0), false, true);
+				}
+				else 
+				{
+					player.SetPosition(Vector2f(_block.GetBlockPos().x + 50, 0), false, true);
+				}
+			}
+			else  if (direction == 'Y')
+			{
+				if (SignCheck(iny) == 1)
+				{
+					player.SetOnGround(true);
+					player.SetPosition(Vector2f(0, _block.GetBlockPos().y - 50), true, false);
+				}
+				else if (SignCheck(iny) == -1)
+				{
+					player.SetPosition(Vector2f(0, _block.GetBlockPos().y + 50), true, false);
+				}
+				else 
+				{
+					player.SetOnGround(true);
+					player.SetPosition(Vector2f(0, _block.GetBlockPos().y - 50), true, false);
+				}
+			}
+			int a = 0;
 			
 		}
 
@@ -170,22 +216,6 @@ void Stage::Update()
 			_block.Draw();
 		}
 		++i;
-	}
-
-	float inx = block[8].GetBlockPos().x - player.GetPosition().x;
-	float iny = block[8].GetBlockPos().y - player.GetPosition().y;
-	Position2f dispos(inx, iny);
-	DrawFormatString(0, 20, GetColor(255, 255, 255), "%f", dispos.x);
-	DrawFormatString(0, 40, GetColor(255, 255, 255), "%f", dispos.y);
-
-	if (rect.HitRect(block[8].GetRect(), player.GetRect()).isHit_All)
-	{
-		int a = 0;
-	}
-
-	if (rect.IsCollision(block[8].GetRect(), player.GetRect()))
-	{
-		int a = 0;
 	}
 
 	//ゴール
@@ -216,6 +246,11 @@ void Stage::Update()
 			}
 		}
 	}
+}
+
+int Stage::SignCheck(int _num)
+{
+	return ((_num > 0) - (_num < 0));
 }
 
 bool Stage::GoalCheck()

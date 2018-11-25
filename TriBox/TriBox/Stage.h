@@ -60,6 +60,8 @@ public:
 	//–ˆƒtƒŒ[ƒ€
 	void Update();
 
+	int SignCheck(int _num);
+
 	bool GoalCheck();
 };
 

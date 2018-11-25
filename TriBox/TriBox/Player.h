@@ -51,6 +51,7 @@ public:
 	//プレヤーの進んでいる方向取得
 	PlayerDirection GetPlayerDirection() { return direction; };
 	//移動速度の取得
+	float GetSpeed() { return playerSpeed; };
 	Vector2f GetVector();
 	//重力の取得
 	float GetGravity() { return gravity; };
