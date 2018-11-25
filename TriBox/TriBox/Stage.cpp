@@ -134,11 +134,6 @@ void Stage::LoadStageData()
 	}
 }
 
-//std::vector<unsigned char> Stage::GetStageData()const
-//{
-//	//return stageArrangement;
-//}
-
 const Rect Stage::GetStageSize()
 {
 	return Rect(0, stagedata.mapheight * 50, block[0].GetBlockPos().x, block[block.size() - 1].GetBlockPos().x);
@@ -154,17 +149,43 @@ void Stage::SetStageSpeed(float _stageSpeed)
 	stageSpeed = _stageSpeed;
 }
 
-void Stage::Draw()
+void Stage::Update()
 {
+	
+	Rect rect;
 	//ブロック
+	int i = 0;
 	for (auto& _block : block)
 	{
 		_block.Update(stageSpeed);
+
+		if (rect.HitRect(player.GetRect(),_block.GetRect()).isHit_All)
+		{
+			player.SetOnGround(true);
+			
+		}
 
 		if (_block.GetBlockPos().x > -100 && _block.GetBlockPos().x < WindowSizeX + 50)
 		{
 			_block.Draw();
 		}
+		++i;
+	}
+
+	float inx = block[8].GetBlockPos().x - player.GetPosition().x;
+	float iny = block[8].GetBlockPos().y - player.GetPosition().y;
+	Position2f dispos(inx, iny);
+	DrawFormatString(0, 20, GetColor(255, 255, 255), "%f", dispos.x);
+	DrawFormatString(0, 40, GetColor(255, 255, 255), "%f", dispos.y);
+
+	if (rect.HitRect(block[8].GetRect(), player.GetRect()).isHit_All)
+	{
+		int a = 0;
+	}
+
+	if (rect.IsCollision(block[8].GetRect(), player.GetRect()))
+	{
+		int a = 0;
 	}
 
 	//ゴール

@@ -43,5 +43,6 @@ public:
 	void Update(float _speed);
 
 	Position2f GetBlockPos();
+	Rect& GetRect();
 };
 

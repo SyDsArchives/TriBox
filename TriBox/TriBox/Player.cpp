@@ -21,6 +21,11 @@ Player::~Player()
 {
 }
 
+Vector2f Player::GetVector()
+{
+	return vel;
+}
+
 
 ///////////////////////////////////////////
 //ó‘Ô‘JˆÚŒnŠÖ”
@@ -145,18 +150,35 @@ void Player::PlayerDead(const Peripheral & _p)
 void Player::Update(Peripheral& _p)
 {
 	(this->*updateFunc)(_p);
+	
 
 	if (isDead)
 	{
 		updateFunc = &Player::PlayerDead;
 	}
 
-	if (updateFunc != &Player::AerialUpdate)
+	//if (updateFunc != &Player::AerialUpdate && !onGround)
+	//{
+	//	pos.y += gravity;
+	//}
+	if (pos.y < WindowSizeY - 100)
 	{
 		pos.y += gravity;
 	}
+	else
+	{
+		pos.y = WindowSizeY - 80;
+	}
+	onGround = false;
 
 	DxLib::DrawRectRotaGraph2(pos.x, pos.y, 0, 0, 100, 100, 50, 50, 0.5, 0, playerImg, true, false, false);//ƒvƒŒƒCƒ„[
+}
+
+Rect & Player::GetRect()
+{
+	Rect ret;
+	ret.SetCenter(pos.x, pos.y, 50, 50);
+	return ret;
 }
 
 ///////////////////////////////////////////
@@ -199,6 +221,11 @@ void Player::SetPosition(Vector2f _pos, bool xEmpty, bool yEmpty)
 void Player::SetOnGround(bool _onGround)
 {
 	onGround = _onGround;
+}
+
+void Player::SetVector(Vector2f _vec)
+{
+	vel = _vec;
 }
 
 bool Player::IsDead(float _underLine)

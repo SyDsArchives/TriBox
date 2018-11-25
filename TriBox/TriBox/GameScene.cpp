@@ -35,7 +35,7 @@ void GameScene::Update()
 
 	bg->Update(player->GetPosition());//”wŒiŠÖŒW
 	
-	stage->Draw();
+	stage->Update();
 
 	player->Update(p);
 
@@ -44,6 +44,6 @@ void GameScene::Update()
 
 	if (stage->GoalCheck() || player->IsDead(stage->GetStageUnderLine()))
 	{
-		GameSystem::GameInstance().ChangeScene(new ResultScene());
+		//GameSystem::GameInstance().ChangeScene(new ResultScene());
 	}
 }

@@ -9,6 +9,7 @@ enum class PlayerDirection
 	right,//右移動
 };
 
+struct Rect;
 class Peripheral;
 class Player
 {
@@ -26,7 +27,7 @@ private:
 	bool isDead;
 
 	Vector2f pos;//位置情報
-	Vector2f vel;//ジャンプベクトル
+	Vector2f vel;//移動ベクトル
 
 	PlayerDirection direction;//移動中の向き
 
@@ -50,7 +51,7 @@ public:
 	//プレヤーの進んでいる方向取得
 	PlayerDirection GetPlayerDirection() { return direction; };
 	//移動速度の取得
-	float GetSpeed() { return playerSpeed; };
+	Vector2f GetVector();
 	//重力の取得
 	float GetGravity() { return gravity; };
 	//位置の取得
@@ -61,10 +62,10 @@ public:
 	void SetPosition(Vector2f _pos, bool xEmpty = false, bool yEmpty = false);
 	//着地判定の設定
 	void SetOnGround(bool _onGround);
-
+	//移動ベクトルの設定
+	void SetVector(Vector2f _vec);
 
 	//プレイヤーの死亡判定
-	bool IsDead();
 	bool IsDead(float _underLine);
 	
 	//移動制限
@@ -73,5 +74,7 @@ public:
 
 	//毎フレーム更新用関数
 	void Update(Peripheral& p);
+
+	Rect& GetRect();
 };
 

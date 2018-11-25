@@ -57,8 +57,8 @@ public:
 	//Set
 	void SetStageSpeed(float _stageSpeed);
 
-	//•`‰æ
-	void Draw();
+	//–ˆƒtƒŒ[ƒ€
+	void Update();
 
 	bool GoalCheck();
 };

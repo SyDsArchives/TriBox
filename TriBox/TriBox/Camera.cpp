@@ -57,7 +57,7 @@ void Camera::Update()
 		focus.lock()->PlayerMoveLimit(true);
 		if (pos->x >= WindowSizeX / 2 && focus.lock()->GetPlayerDirection() == PlayerDirection::right)
 		{
-			stage.SetStageSpeed(focus.lock()->GetSpeed());
+			//stage.SetStageSpeed(focus.lock()->GetSpeed());
 		}
 		else
 		{

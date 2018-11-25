@@ -4,9 +4,18 @@
 const int WindowSizeX = 978;
 const int WindowSizeY = 50 * 11;
 
+struct HitRectDirection
+{
+	bool isHit_Top;
+	bool isHit_Right;
+	bool isHit_Left;
+	bool isHit_Bottom;
+	bool isHit_All;
+};
+
 struct Rect {
 	//íÜâõç¿ïWån
-	Rect() : top(0), left(0), width(0), height(0), centerX(0), centerY(0) {};
+	Rect() : top(0), left(0), width(0), height(0), centerX(0), centerY(0){};
 	//ç∂è„ç¿ïWån
 	Rect(float _top, float _left, float _width, float _height)
 		:top(_top), left(_left), width(_width), height(_height)
@@ -22,13 +31,17 @@ struct Rect {
 	float centerX;
 	float centerY;
 
-	float Top() { return centerY - height / 2; };
-	float Bottom() { return centerY + height / 2; };
-	float Right() { return centerX + width / 2; };
-	float Left() { return centerX - width / 2; };
+	const float Top() { return centerY - height / 2; };
+	const float Bottom() { return centerY + height / 2; };
+	const float Right() { return centerX + width / 2; };
+	const float Left() { return centerX - width / 2; };
 
 	//íÜâõç¿ïWån
 	void SetCenter(float _x, float _y, float _width, float _height);
 	//ç∂è„ç¿ïWån
 	void SetLeftTopWidhtHeight(float _top, float _left, float _width, float _height);
+
+	HitRectDirection HitRect(Rect a, Rect b);
+
+	bool IsCollision(Rect a, Rect b);
 };

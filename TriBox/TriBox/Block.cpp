@@ -30,17 +30,24 @@ void Block::Update(float _speed)
 {
 	MoveBlock(_speed);
 
-	if (HitCheck(player.GetPosition()).isHit_All)
+	/*if (HitCheck(player.GetPosition()).isHit_All)
 	{
 		player.SetOnGround(true);
 		float setPosY = pos.y - blocksize;
 		player.SetPosition(Vector2f(player.GetPosition().x, setPosY));
-	}
+	}*/
 }
 
 Position2f Block::GetBlockPos()
 {
 	return pos;
+}
+
+Rect& Block::GetRect()
+{
+	Rect blockRect;
+	blockRect.SetCenter(pos.x, pos.y, blocksize, blocksize);
+	return blockRect;
 }
 
 ObjectHitType Block::HitCheck(Position2f _pos)
