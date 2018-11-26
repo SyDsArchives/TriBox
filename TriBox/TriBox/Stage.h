@@ -8,6 +8,17 @@ enum class StageObject
 	block,
 };
 
+struct StageSize
+{
+	StageSize() : beginX(0),beginY(0),endX(0),endY(0) {}
+	StageSize(float _beginX,float _beginY,float _endX, float _endY) : beginX(_beginX), beginY(_beginY), endX(_endX), endY(_endY) {}
+	
+	float beginX;
+	float beginY;
+	float endX;
+	float endY;
+};
+
 struct StageData
 {
 	unsigned char identifier[4];
@@ -51,7 +62,7 @@ public:
 	~Stage();
 	//Get
 	std::vector<unsigned char> GetStageData()const;
-	const Rect GetStageSize();
+	const StageSize GetStageSize();
 	const float GetStageUnderLine();
 
 	//Set

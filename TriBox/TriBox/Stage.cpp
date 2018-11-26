@@ -134,9 +134,10 @@ void Stage::LoadStageData()
 	}
 }
 
-const Rect Stage::GetStageSize()
+const StageSize Stage::GetStageSize()
 {
-	return Rect(0, stagedata.mapheight * 50, block[0].GetBlockPos().x, block[block.size() - 1].GetBlockPos().x);
+	//return Rect(0, stagedata.mapheight * 50, block[0].GetBlockPos().x, block[block.size() - 1].GetBlockPos().x);
+	return StageSize(block[0].GetBlockPos().x, block[0].GetBlockPos().y, block[block.size() - 1].GetBlockPos().x, block[block.size() - 1].GetBlockPos().y);
 }
 
 const float Stage::GetStageUnderLine()
@@ -154,7 +155,8 @@ void Stage::Update()
 	
 	Rect rect;
 	//ブロック
-	int i = 0;
+	int blockNum = 0;
+	int lastBlock = -1;
 	for (auto& _block : block)
 	{
 		_block.Update(stageSpeed);
@@ -166,6 +168,7 @@ void Stage::Update()
 		//if (rect.HitRect(player.GetRect(),_block.GetRect()).isHit_All)
 		if (rect.IsCollision(_block.GetRect(), player.GetRect()))
 		{
+			lastBlock = blockNum;
 			int numx = SignCheck(static_cast<int>(inx)) == -1 ? inx * -1 : inx;
 			int numy = SignCheck(static_cast<int>(iny)) == -1 ? iny * -1 : iny;
 			char direction = numx > numy ? 'X' : 'Y';
@@ -201,21 +204,28 @@ void Stage::Update()
 				{
 					player.SetPosition(Vector2f(0, _block.GetBlockPos().y + 50), true, false);
 				}
-				else 
+				else
 				{
 					player.SetOnGround(true);
 					player.SetPosition(Vector2f(0, _block.GetBlockPos().y - 50), true, false);
 				}
 			}
-			int a = 0;
-			
+
 		}
+		/*else if(lastBlock != -1)
+		{
+			if (!rect.IsCollision(block[lastBlock].GetRect(), player.GetRect()))
+			{
+				player.SetOnGround(false);
+			}
+
+		}*/
 
 		if (_block.GetBlockPos().x > -100 && _block.GetBlockPos().x < WindowSizeX + 50)
 		{
 			_block.Draw();
 		}
-		++i;
+		++blockNum;
 	}
 
 	//ゴール

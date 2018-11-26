@@ -43,13 +43,13 @@ void Camera::Update()
 	pos = &focus.lock()->GetPosition();
 
 	Rect rect = size;
-	Rect rect2 = range;
+	//Rect rect2 = range;
 
 	auto a = rect.Right();
-	auto b = rect2.Right();
+	//auto b = rect2.Right();
 
 	//ƒJƒƒ‰ˆÊ’u‚Ì•â³
-	if (rect.Right() > rect2.Right())
+	if (rect.Right() > range.endX)
 	{
 		focus.lock()->PlayerMoveLimit(false);
 		stage.SetStageSpeed(0.f);

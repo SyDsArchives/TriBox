@@ -29,13 +29,6 @@ void Block::MoveBlock(float _speed)
 void Block::Update(float _speed)
 {
 	MoveBlock(_speed);
-
-	/*if (HitCheck(player.GetPosition()).isHit_All)
-	{
-		player.SetOnGround(true);
-		float setPosY = pos.y - blocksize;
-		player.SetPosition(Vector2f(player.GetPosition().x, setPosY));
-	}*/
 }
 
 Position2f Block::GetBlockPos()

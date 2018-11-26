@@ -8,7 +8,7 @@
 #pragma comment(lib,"winmm.lib")
 
 Player::Player(Vector2f _pos) :
-playerSpeed(3.f), jumpInertia(0.f), gravity(5.f), jumpPower(30.f),lastTime(0),
+playerSpeed(3.f), jumpInertia(0.f), gravity(10.f), jumpPower(25.f),lastTime(0),
 pos(_pos), vel(0,0),
 onGround(false), isDead(false),
 direction(PlayerDirection::none)
@@ -34,7 +34,7 @@ Vector2f Player::GetVector()
 //何の状態でもない場合
 void Player::NeutralUpdate(const Peripheral& _p)
 {
-	DrawFormatString(0, 0, GetColor(255, 255, 255), "ニュートラル");
+	//DrawFormatString(0, 0, GetColor(255, 255, 255), "ニュートラル");
 
 	//移動
 	if (_p.IsPressing(PAD_INPUT_LEFT) || _p.IsPressing(PAD_INPUT_RIGHT))
@@ -56,7 +56,7 @@ void Player::NeutralUpdate(const Peripheral& _p)
 //移動中の場合
 void Player::MoveUpdate(const Peripheral& _p)
 {
-	DrawFormatString(0, 0, GetColor(255, 255, 255), "ムーヴ");
+	//DrawFormatString(0, 0, GetColor(255, 255, 255), "ムーヴ");
 
 
 	//何もしていなかったらNeutralUpdateに戻る
@@ -92,7 +92,7 @@ void Player::MoveUpdate(const Peripheral& _p)
 //空中の場合
 void Player::AerialUpdate(const Peripheral & _p)
 {
-	DrawFormatString(0, 0, GetColor(255, 255, 255), "エリアル");
+	//DrawFormatString(0, 0, GetColor(255, 255, 255), "エリアル");
 
 	float secondsLimit = 100.f;
 	float addJumpPower = 2.f;
@@ -100,7 +100,7 @@ void Player::AerialUpdate(const Peripheral & _p)
 	playerSpeed = 8.f;
 
 	pos.y -= vel.y;
-	vel.y -= gravity;
+	vel.y -= 5.f;
 	pos.x += jumpInertia;
 
 	//上キーを押している間かつ、押している時間が0.1秒を超えるまでの間
@@ -161,15 +161,7 @@ void Player::Update(Peripheral& _p)
 	{
 		pos.y += gravity;
 	}
-	//if (pos.y < WindowSizeY - 100)
-	//{
-	//	pos.y += gravity;
-	//}
-	//else
-	//{
-	//	onGround = true;
-	//	pos.y = WindowSizeY - 80;
-	//}
+
 	onGround = false;
 
 	DxLib::DrawRectRotaGraph2(pos.x, pos.y, 0, 0, 100, 100, 50, 50, 0.5, 0, playerImg, true, false, false);//プレイヤー
