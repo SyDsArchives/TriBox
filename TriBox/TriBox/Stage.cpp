@@ -136,7 +136,6 @@ void Stage::LoadStageData()
 
 const StageSize Stage::GetStageSize()
 {
-	//return Rect(0, stagedata.mapheight * 50, block[0].GetBlockPos().x, block[block.size() - 1].GetBlockPos().x);
 	return StageSize(block[0].GetBlockPos().x, block[0].GetBlockPos().y, block[block.size() - 1].GetBlockPos().x, block[block.size() - 1].GetBlockPos().y);
 }
 

@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <memory>
+#include "Vector2D.h"
 
 enum class StageObject
 {
@@ -57,6 +58,8 @@ private:
 	Player& player;
 
 	std::vector<unsigned char> stageArrangement;
+
+	//void PlayerAdjust();
 public:
 	Stage(Player & _pl);
 	~Stage();
