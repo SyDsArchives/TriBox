@@ -44,6 +44,6 @@ void GameScene::Update()
 
 	if (stage->GoalCheck() || player->IsDead(stage->GetStageUnderLine()))
 	{
-		//GameSystem::GameInstance().ChangeScene(new ResultScene());
+		GameSystem::GameInstance().ChangeScene(new ResultScene());
 	}
 }

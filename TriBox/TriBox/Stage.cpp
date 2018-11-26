@@ -27,7 +27,7 @@ Stage::~Stage()
 void Stage::LoadStageData()
 {
 	//ステージデータの読み込み
-	FILE* fp = fopen("Resource/map/仮stage1(1).fmf", "rb");
+	FILE* fp = fopen("Resource/map/test.fmf", "rb");
 	std::vector<unsigned char> dummyData;
 
 	//ステージのサイズ、横幅縦幅、1マップチップの横幅縦幅、レイヤー数、ビットサイズの取得
@@ -152,11 +152,9 @@ void Stage::SetStageSpeed(float _stageSpeed)
 
 void Stage::Update()
 {
-	
-	Rect rect;
+	Rect rect;//矩形比較用変数
+
 	//ブロック
-	int blockNum = 0;
-	int lastBlock = -1;
 	for (auto& _block : block)
 	{
 		_block.Update(stageSpeed);
@@ -165,10 +163,8 @@ void Stage::Update()
 		float iny = _block.GetBlockPos().y - player.GetPosition().y;
 		Position2f dispos(inx, iny);
 
-		//if (rect.HitRect(player.GetRect(),_block.GetRect()).isHit_All)
 		if (rect.IsCollision(_block.GetRect(), player.GetRect()))
 		{
-			lastBlock = blockNum;
 			int numx = SignCheck(static_cast<int>(inx)) == -1 ? inx * -1 : inx;
 			int numy = SignCheck(static_cast<int>(iny)) == -1 ? iny * -1 : iny;
 			char direction = numx > numy ? 'X' : 'Y';
@@ -198,7 +194,7 @@ void Stage::Update()
 				if (SignCheck(iny) == 1)
 				{
 					player.SetOnGround(true);
-					player.SetPosition(Vector2f(0, _block.GetBlockPos().y - 50), true, false);
+					player.SetPosition(Vector2f(0, _block.GetBlockPos().y - 60), true, false);
 				}
 				else if (SignCheck(iny) == -1)
 				{
@@ -207,25 +203,15 @@ void Stage::Update()
 				else
 				{
 					player.SetOnGround(true);
-					player.SetPosition(Vector2f(0, _block.GetBlockPos().y - 50), true, false);
+					player.SetPosition(Vector2f(0, _block.GetBlockPos().y - 60), true, false);
 				}
 			}
-
 		}
-		/*else if(lastBlock != -1)
-		{
-			if (!rect.IsCollision(block[lastBlock].GetRect(), player.GetRect()))
-			{
-				player.SetOnGround(false);
-			}
-
-		}*/
-
+		
 		if (_block.GetBlockPos().x > -100 && _block.GetBlockPos().x < WindowSizeX + 50)
 		{
 			_block.Draw();
 		}
-		++blockNum;
 	}
 
 	//ゴール

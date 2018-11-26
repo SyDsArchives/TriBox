@@ -99,8 +99,11 @@ void Player::AerialUpdate(const Peripheral & _p)
 	bool aerialTime = (timeGetTime() - lastTime) <= secondsLimit;
 	playerSpeed = 8.f;
 
-	pos.y -= vel.y;
-	vel.y -= 5.f;
+	/*pos.y -= vel.y;
+	if (vel.y >= -10.f)
+	{
+		vel.y -= 5.f;
+	}*/
 	pos.x += jumpInertia;
 
 	//上キーを押している間かつ、押している時間が0.1秒を超えるまでの間
@@ -151,18 +154,21 @@ void Player::Update(Peripheral& _p)
 {
 	(this->*updateFunc)(_p);
 	
-
 	if (isDead)
 	{
 		updateFunc = &Player::PlayerDead;
 	}
 
-	if (updateFunc != &Player::AerialUpdate && !onGround)
-	{
-		pos.y += gravity;
-	}
+	//if (updateFunc != &Player::AerialUpdate && !onGround)
+	//{
+	//	pos.y += gravity;
+	//}
 
-	onGround = false;
+	pos.y -= vel.y;
+	if (vel.y >= -10.f)
+	{
+		vel.y -= 5.f;
+	}
 
 	DxLib::DrawRectRotaGraph2(pos.x, pos.y, 0, 0, 100, 100, 50, 50, 0.5, 0, playerImg, true, false, false);//プレイヤー
 }
@@ -223,7 +229,7 @@ void Player::SetVector(Vector2f _vec)
 
 bool Player::IsDead(float _underLine)
 {
-	//isDead = _underLine < pos.y ? true : false;
+	isDead = _underLine < pos.y ? true : false;
 	return isDead;
 }
 
