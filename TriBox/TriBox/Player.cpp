@@ -169,6 +169,10 @@ void Player::Update(Peripheral& _p)
 	{
 		vel.y -= 5.f;
 	}
+	else
+	{
+		vel.y = -11.f;
+	}
 
 	DxLib::DrawRectRotaGraph2(pos.x, pos.y, 0, 0, 100, 100, 50, 50, 0.5, 0, playerImg, true, false, false);//ÉvÉåÉCÉÑÅ[
 }

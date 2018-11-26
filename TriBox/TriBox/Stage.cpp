@@ -173,22 +173,7 @@ void Stage::Update()
 				int a = 0;
 			}
 
-			if (direction == 'X')
-			{
-				if (SignCheck(inx) == 1)
-				{
-					player.SetPosition(Vector2f(_block.GetBlockPos().x - 50, 0), false, true);
-				}
-				else if (SignCheck(inx) == -1)
-				{
-					player.SetPosition(Vector2f(_block.GetBlockPos().x + 50, 0), false, true);
-				}
-				else 
-				{
-					player.SetPosition(Vector2f(_block.GetBlockPos().x + 50, 0), false, true);
-				}
-			}
-			else  if (direction == 'Y')
+			if (direction == 'Y')
 			{
 				if (SignCheck(iny) == 1)
 				{
@@ -205,6 +190,22 @@ void Stage::Update()
 					player.SetPosition(Vector2f(0, _block.GetBlockPos().y - 60), true, false);
 				}
 			}
+			else if (direction == 'X')
+			{
+				if (SignCheck(inx) == 1)
+				{
+					player.SetPosition(Vector2f(_block.GetBlockPos().x - 50, 0), false, true);
+				}
+				else if (SignCheck(inx) == -1)
+				{
+					player.SetPosition(Vector2f(_block.GetBlockPos().x + 50, 0), false, true);
+				}
+				else 
+				{
+					player.SetPosition(Vector2f(_block.GetBlockPos().x + 50, 0), false, true);
+				}
+			}
+			
 		}
 		
 		if (_block.GetBlockPos().x > -100 && _block.GetBlockPos().x < WindowSizeX + 50)
