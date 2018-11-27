@@ -25,6 +25,7 @@ private:
 	bool aerialFlag;//true:空中上昇状態 false:空中下降状態
 	bool onGround;//地面にいるかどうか
 	bool isDead;
+	bool reverse;
 
 	Vector2f pos;//位置情報
 	Vector2f vel;//移動ベクトル

@@ -10,10 +10,10 @@
 Player::Player(Vector2f _pos) :
 playerSpeed(3.f), jumpInertia(0.f), gravity(10.f), jumpPower(25.f),lastTime(0),
 pos(_pos), vel(0,0),
-onGround(false), isDead(false),
+onGround(false), isDead(false),reverse(false),
 direction(PlayerDirection::none)
 {
-	playerImg = DxLib::LoadGraph("Resource/img/Circle.png");
+	playerImg = DxLib::LoadGraph("Resource/img/nob.png");
 	updateFunc = &Player::NeutralUpdate;
 }
 
@@ -71,12 +71,14 @@ void Player::MoveUpdate(const Peripheral& _p)
 	{
 		direction = PlayerDirection::left;
 		pos.x -= playerSpeed;
+		reverse = true;
 	}
 	//右移動
 	if (_p.IsPressing(PAD_INPUT_RIGHT))
 	{
 		direction = PlayerDirection::right;
 		pos.x += playerSpeed;
+		reverse = false;
 	}
 
 	//ジャンプ
@@ -174,7 +176,7 @@ void Player::Update(Peripheral& _p)
 		vel.y = -11.f;
 	}
 
-	DxLib::DrawRectRotaGraph2(pos.x, pos.y, 0, 0, 100, 100, 50, 50, 0.5, 0, playerImg, true, false, false);//プレイヤー
+	DxLib::DrawRectRotaGraph2(pos.x, pos.y, 0, 0, 60, 60, 25, 30, 1.5f, 0, playerImg, true, reverse, false);//プレイヤー
 }
 
 Rect & Player::GetRect()
