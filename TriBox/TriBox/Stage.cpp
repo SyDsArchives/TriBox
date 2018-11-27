@@ -27,7 +27,7 @@ Stage::~Stage()
 void Stage::LoadStageData()
 {
 	//ステージデータの読み込み
-	FILE* fp = fopen("Resource/map/test.fmf", "rb");
+	FILE* fp = fopen("Resource/map/stage1.fmf", "rb");
 	std::vector<unsigned char> dummyData;
 
 	//ステージのサイズ、横幅縦幅、1マップチップの横幅縦幅、レイヤー数、ビットサイズの取得
@@ -232,6 +232,56 @@ void Stage::Update()
 	{
 		_elevator.Draw();
 		_elevator.Update(stageSpeed);
+
+		float inx = _elevator.GetPosition().x - player.GetPosition().x;
+		float iny = _elevator.GetPosition().y - player.GetPosition().y;
+		Position2f dispos(inx, iny);
+
+		if (rect.IsCollision(_elevator.GetRect(), player.GetRect()))
+		{
+			int numx = SignCheck(static_cast<int>(inx)) == -1 ? inx * -1 : inx;
+			int numy = SignCheck(static_cast<int>(iny)) == -1 ? iny * -1 : iny;
+			char direction = numx > numy ? 'X' : 'Y';
+
+			if (numx == numy)
+			{
+				int a = 0;
+			}
+
+			if (direction == 'Y')
+			{
+				if (SignCheck(iny) == 1)
+				{
+					player.SetOnGround(true);
+					player.SetPosition(Vector2f(0, _elevator.GetPosition().y - 60), true, false);
+				}
+				else if (SignCheck(iny) == -1)
+				{
+					player.SetPosition(Vector2f(0, _elevator.GetPosition().y + 50), true, false);
+				}
+				else
+				{
+					player.SetOnGround(true);
+					player.SetPosition(Vector2f(0, _elevator.GetPosition().y - 60), true, false);
+				}
+			}
+			else if (direction == 'X')
+			{
+				if (SignCheck(inx) == 1)
+				{
+					player.SetPosition(Vector2f(_elevator.GetPosition().x - 50, 0), false, true);
+				}
+				else if (SignCheck(inx) == -1)
+				{
+					player.SetPosition(Vector2f(_elevator.GetPosition().x + 50, 0), false, true);
+				}
+				else
+				{
+					player.SetPosition(Vector2f(_elevator.GetPosition().x + 50, 0), false, true);
+				}
+			}
+
+		}
 
 		for (auto& _rail : rail)
 		{

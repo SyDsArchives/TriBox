@@ -2,7 +2,7 @@
 #include "DxLib.h"
 #include "ElevatorRail.h"
 #include "Player.h"
-
+#include "Geometry.h"
 
 
 Elevator::Elevator(Player& _player,Position2f _pos) : player(_player),pos(_pos), vel(0.f)
@@ -24,14 +24,21 @@ void Elevator::Update(float _speed)
 {
 	MoveElevator(_speed);
 
-	Position2f objPos(player.GetPosition().x, player.GetPosition().y + 25);
+	//Position2f objPos(player.GetPosition().x, player.GetPosition().y + 25);
 
-	if (HitCheck(objPos).isHit_All)
-	{
-		player.SetOnGround(true);
-		float setPosY = pos.y - blocksize - 5;
-		player.SetPosition(Vector2f(player.GetPosition().x, setPosY));
-	}
+	//if (HitCheck(objPos).isHit_All)
+	//{
+	//	player.SetOnGround(true);
+	//	float setPosY = pos.y - blocksize - 5;
+	//	player.SetPosition(Vector2f(player.GetPosition().x, setPosY));
+	//}
+}
+
+Rect& Elevator::GetRect()
+{
+	Rect rect;
+	rect.SetCenter(pos.x, pos.y, blocksize, blocksize);
+	return rect;
 }
 
 void Elevator::MoveElevator(float _speed)

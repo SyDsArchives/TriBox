@@ -3,6 +3,7 @@
 #include "Vector2D.h"
 
 //struct ObjectHitType;
+struct Rect;
 enum class RailType;
 class Player;
 class Elevator : public ObjectParent
@@ -29,5 +30,7 @@ public:
 	void Update(float _speed);
 
 	Position2f GetPosition() { return pos; };
+
+	Rect& GetRect();
 };
 
