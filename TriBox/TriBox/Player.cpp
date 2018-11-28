@@ -13,7 +13,8 @@ pos(_pos), vel(0,0),
 onGround(false), isDead(false),reverse(false),
 direction(PlayerDirection::none)
 {
-	playerImg = DxLib::LoadGraph("Resource/img/nob.png");
+	//playerImg = DxLib::LoadGraph("Resource/img/nob.png");
+	playerImg = DxLib::LoadGraph("Resource/img/player.png");
 	updateFunc = &Player::NeutralUpdate;
 }
 
@@ -176,7 +177,14 @@ void Player::Update(Peripheral& _p)
 		vel.y = -11.f;
 	}
 
-	DxLib::DrawRectRotaGraph2(pos.x, pos.y, 0, 0, 60, 60, 25, 30, 1.5f, 0, playerImg, true, reverse, false);//プレイヤー
+	int srcX;
+	int srcY;
+	int width;
+	int height;
+	int centerX;
+	int centerY;
+
+	DxLib::DrawRectRotaGraph2(pos.x, pos.y, 0, 0, 50, 40, 25, 25, 1.5f, 0, playerImg, true, reverse, false);//プレイヤー
 }
 
 Rect & Player::GetRect()
