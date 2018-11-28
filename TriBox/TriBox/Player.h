@@ -15,6 +15,7 @@ class Player
 {
 private:
 	int playerImg;//プレイヤー画像
+	int imgframe;
 
 	float playerSpeed;//移動速度
 	float jumpInertia;//ジャンプ中の慣性
@@ -29,6 +30,10 @@ private:
 
 	Vector2f pos;//位置情報
 	Vector2f vel;//移動ベクトル
+
+	Position2 imgPos;
+	Position2 imgCenter;
+	Position2 imgSize;
 
 	PlayerDirection direction;//移動中の向き
 

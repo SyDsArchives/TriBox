@@ -8,8 +8,8 @@
 #pragma comment(lib,"winmm.lib")
 
 Player::Player(Vector2f _pos) :
-playerSpeed(3.f), jumpInertia(0.f), gravity(10.f), jumpPower(25.f),lastTime(0),
-pos(_pos), vel(0,0),
+playerSpeed(3.f), jumpInertia(0.f), gravity(10.f), jumpPower(25.f),lastTime(0), imgframe(0),
+pos(_pos), vel(0,0),imgPos(0,0),imgSize(50,40),imgCenter(25,20),
 onGround(false), isDead(false),reverse(false),
 direction(PlayerDirection::none)
 {
@@ -162,11 +162,6 @@ void Player::Update(Peripheral& _p)
 		updateFunc = &Player::PlayerDead;
 	}
 
-	//if (updateFunc != &Player::AerialUpdate && !onGround)
-	//{
-	//	pos.y += gravity;
-	//}
-
 	pos.y -= vel.y;
 	if (vel.y >= -10.f)
 	{
@@ -176,15 +171,18 @@ void Player::Update(Peripheral& _p)
 	{
 		vel.y = -11.f;
 	}
+	//if (++imgframe % 30 == 0)
+	//{
+	//	if (imgPos.x > 249)
+	//	{
+	//		imgPos.x = 0;
+	//		//imgCenter.x += -50;
+	//	}
+	//	imgPos.x += 50;
+	//	//imgCenter.x += 50;
+	//}
 
-	int srcX;
-	int srcY;
-	int width;
-	int height;
-	int centerX;
-	int centerY;
-
-	DxLib::DrawRectRotaGraph2(pos.x, pos.y, 0, 0, 50, 40, 25, 25, 1.5f, 0, playerImg, true, reverse, false);//プレイヤー
+	DxLib::DrawRectRotaGraph2(pos.x, pos.y, imgPos.x, imgPos.y, imgSize.x, imgSize.y, imgCenter.x, imgCenter.y, 2.f, 0, playerImg, true, reverse, false);//プレイヤー
 }
 
 Rect & Player::GetRect()
