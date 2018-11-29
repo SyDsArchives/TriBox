@@ -31,7 +31,7 @@ void BackGround::Update(Position2f _playerPos)
 	//âÊëú
 	DxLib::DrawExtendGraph(0,0, WindowSizeX, WindowSizeY, backimg, true);//îwåi
 
-	//DxLib::DrawExtendGraph(backimgpos.x, backimgpos.y, backimgpos.x + WindowSizeX, backimgpos.y + WindowSizeY, back2img, true);//îwåi
+	DxLib::DrawExtendGraph(backimgpos.x, backimgpos.y, backimgpos.x + WindowSizeX, backimgpos.y + WindowSizeY, back2img, true);//îwåi
 	//DxLib::DrawExtendGraph(backimgpos.x + WindowSizeX, backimgpos.y, backimgpos.x + WindowSizeX * 2, backimgpos.y + WindowSizeY, back2img, true);//îwåi
 
 	//DrawFormatString(0, 200, GetColor(255, 0, 0), "%d", x % WindowSizeX);

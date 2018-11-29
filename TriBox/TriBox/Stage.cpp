@@ -179,17 +179,17 @@ void Stage::Update()
 				if (SignCheck(iny) == 1)
 				{
 					player.SetOnGround(true);
-					player.SetPosition(Vector2f(0, _block.GetBlockPos().y - 55), true, false);
+					player.SetPosition(Vector2f(0, _block.GetBlockPos().y - 54), true, false);
 					
 				}
 				else if (SignCheck(iny) == -1)
 				{
-					player.SetPosition(Vector2f(0, _block.GetBlockPos().y + playerSize.y), true, false);
+					player.SetPosition(Vector2f(0, _block.GetBlockPos().y + 50), true, false);
 				}
 				else
 				{
 					player.SetOnGround(true);
-					player.SetPosition(Vector2f(0, _block.GetBlockPos().y - 55), true, false);
+					player.SetPosition(Vector2f(0, _block.GetBlockPos().y - 54), true, false);
 				}
 			}
 			else if (direction == 'X')

@@ -8,7 +8,7 @@
 #pragma comment(lib,"winmm.lib")
 
 Player::Player(Vector2f _pos) :
-playerSpeed(3.f), jumpInertia(0.f), gravity(10.f), jumpPower(25.f),lastTime(0), imgframe(0),animNum(0),
+playerSpeed(3.f), jumpInertia(0.f), gravity(10.f), jumpPower(10.f),lastTime(0), imgframe(0),animNum(0),
 pos(_pos), vel(0,0),imgCenter(25,20),imgSize(50,40),
 onGround(false), isDead(false),reverse(false),
 direction(PlayerDirection::none)
@@ -32,6 +32,9 @@ void Player::CreatePlayerAnimation()
 		state = { Position2(num * 50,40),Position2(25,20) };
 		playerMoveAnimation.emplace_back(state);
 	}
+
+	//ジャンプイメージ座標
+	playerJumpPos = {0, 80};
 }
 
 ///////////////////////////////////////////
@@ -109,10 +112,11 @@ void Player::MoveUpdate(const Peripheral& _p)
 //空中の場合
 void Player::AerialUpdate(const Peripheral & _p)
 {
+	imgPos = playerJumpPos;
 	float secondsLimit = 100.f;
 	float addJumpPower = 2.f;
 	bool aerialTime = (timeGetTime() - lastTime) <= secondsLimit;
-	playerSpeed = 8.f;
+	playerSpeed = 5.f;
 
 	pos.x += jumpInertia;
 
@@ -123,12 +127,12 @@ void Player::AerialUpdate(const Peripheral & _p)
 	}
 
 	//左移動
-	if (_p.IsPressing(PAD_INPUT_LEFT))
+	if (_p.IsPressing(PAD_INPUT_LEFT) && direction == PlayerDirection::none)
 	{
 		direction = PlayerDirection::left;
 	}
 	//右移動
-	if (_p.IsPressing(PAD_INPUT_RIGHT))
+	if (_p.IsPressing(PAD_INPUT_RIGHT) && direction == PlayerDirection::none)
 	{
 		direction = PlayerDirection::right;
 	}
@@ -179,13 +183,13 @@ void Player::Update(Peripheral& _p)
 	}
 
 	pos.y -= vel.y;
-	if (vel.y >= -10.f)
+	if (vel.y >= -8.f)
 	{
-		vel.y -= 5.f;
+		vel.y -= 2.f;
 	}
 	else
 	{
-		vel.y = -11.f;
+		vel.y = -9.f;
 	}
 
 	DxLib::DrawRectRotaGraph2(pos.x, pos.y, imgPos.x, imgPos.y, imgSize.x, imgSize.y, imgCenter.x, imgCenter.y, 1.f, 0, playerImg, true, reverse, false);//プレイヤー

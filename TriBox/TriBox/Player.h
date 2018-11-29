@@ -47,6 +47,7 @@ private:
 	PlayerDirection direction;//ˆÚ“®’†‚ÌŒü‚«
 
 	std::vector<PlayerAnimationState> playerMoveAnimation;
+	Position2 playerJumpPos;
 
 	//ƒvƒŒƒCƒ„[ó‘Ô‘JˆÚ
 	void (Player::*updateFunc)(const Peripheral&);
