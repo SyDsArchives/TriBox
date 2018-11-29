@@ -1,5 +1,6 @@
 #pragma once
 #include "Vector2D.h"
+#include <vector>
 
 //プレイヤーの移動中向き情報列挙
 enum class PlayerDirection
@@ -9,6 +10,12 @@ enum class PlayerDirection
 	right,//右移動
 };
 
+struct PlayerAnimationState 
+{
+	Position2 imgPos;
+	Position2 imgCenter;
+};
+
 struct Rect;
 class Peripheral;
 class Player
@@ -16,6 +23,8 @@ class Player
 private:
 	int playerImg;//プレイヤー画像
 	int imgframe;
+	int animNum;
+	int frame;
 
 	float playerSpeed;//移動速度
 	float jumpInertia;//ジャンプ中の慣性
@@ -31,11 +40,13 @@ private:
 	Vector2f pos;//位置情報
 	Vector2f vel;//移動ベクトル
 
-	Position2 imgPos;
-	Position2 imgCenter;
+	Position2 imgPos = {};
+	Position2 imgCenter = {};
 	Position2 imgSize;
 
 	PlayerDirection direction;//移動中の向き
+
+	std::vector<PlayerAnimationState> playerMoveAnimation;
 
 	//プレイヤー状態遷移
 	void (Player::*updateFunc)(const Peripheral&);
@@ -45,8 +56,12 @@ private:
 	void MoveUpdate(const Peripheral& _p);
 	//ジャンプ状態
 	void AerialUpdate(const Peripheral& _p);
+	//着地状態
+	void OnLandUpdate(const Peripheral& _p);
 	//死亡判定
 	void PlayerDead(const Peripheral& _p);
+
+	void CreatePlayerAnimation();
 
 	//マウス(保留)
 	void PlayerMouseMove();
@@ -58,7 +73,6 @@ public:
 	PlayerDirection GetPlayerDirection() { return direction; };
 	//移動速度の取得
 	float GetSpeed() { return playerSpeed; };
-	Vector2f GetVector();
 	//重力の取得
 	float GetGravity() { return gravity; };
 	//位置の取得
@@ -81,6 +95,8 @@ public:
 
 	//毎フレーム更新用関数
 	void Update(Peripheral& p);
+
+	Position2 GetPlayerSize();
 
 	Rect& GetRect();
 };

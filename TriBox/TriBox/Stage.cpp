@@ -152,6 +152,7 @@ void Stage::SetStageSpeed(float _stageSpeed)
 void Stage::Update()
 {
 	Rect rect;//矩形比較用変数
+	Position2 playerSize = player.GetPlayerSize();
 
 	//ブロック
 	for (auto& _block : block)
@@ -178,31 +179,32 @@ void Stage::Update()
 				if (SignCheck(iny) == 1)
 				{
 					player.SetOnGround(true);
-					player.SetPosition(Vector2f(0, _block.GetBlockPos().y - 60), true, false);
+					player.SetPosition(Vector2f(0, _block.GetBlockPos().y - 55), true, false);
+					
 				}
 				else if (SignCheck(iny) == -1)
 				{
-					player.SetPosition(Vector2f(0, _block.GetBlockPos().y + 50), true, false);
+					player.SetPosition(Vector2f(0, _block.GetBlockPos().y + playerSize.y), true, false);
 				}
 				else
 				{
 					player.SetOnGround(true);
-					player.SetPosition(Vector2f(0, _block.GetBlockPos().y - 60), true, false);
+					player.SetPosition(Vector2f(0, _block.GetBlockPos().y - 55), true, false);
 				}
 			}
 			else if (direction == 'X')
 			{
 				if (SignCheck(inx) == 1)
 				{
-					player.SetPosition(Vector2f(_block.GetBlockPos().x - 50, 0), false, true);
+					player.SetPosition(Vector2f(_block.GetBlockPos().x - 40, 0), false, true);
 				}
 				else if (SignCheck(inx) == -1)
 				{
-					player.SetPosition(Vector2f(_block.GetBlockPos().x + 50, 0), false, true);
+					player.SetPosition(Vector2f(_block.GetBlockPos().x + 40, 0), false, true);
 				}
 				else 
 				{
-					player.SetPosition(Vector2f(_block.GetBlockPos().x + 50, 0), false, true);
+					player.SetPosition(Vector2f(_block.GetBlockPos().x + 40, 0), false, true);
 				}
 			}
 			
@@ -253,7 +255,7 @@ void Stage::Update()
 				if (SignCheck(iny) == 1)
 				{
 					player.SetOnGround(true);
-					player.SetPosition(Vector2f(0, _elevator.GetPosition().y - 60), true, false);
+					player.SetPosition(Vector2f(0, _elevator.GetPosition().y - 55), true, false);
 				}
 				else if (SignCheck(iny) == -1)
 				{
@@ -262,22 +264,22 @@ void Stage::Update()
 				else
 				{
 					player.SetOnGround(true);
-					player.SetPosition(Vector2f(0, _elevator.GetPosition().y - 60), true, false);
+					player.SetPosition(Vector2f(0, _elevator.GetPosition().y - 55), true, false);
 				}
 			}
 			else if (direction == 'X')
 			{
 				if (SignCheck(inx) == 1)
 				{
-					player.SetPosition(Vector2f(_elevator.GetPosition().x - 50, 0), false, true);
+					player.SetPosition(Vector2f(_elevator.GetPosition().x - 40, 0), false, true);
 				}
 				else if (SignCheck(inx) == -1)
 				{
-					player.SetPosition(Vector2f(_elevator.GetPosition().x + 50, 0), false, true);
+					player.SetPosition(Vector2f(_elevator.GetPosition().x + 40, 0), false, true);
 				}
 				else
 				{
-					player.SetPosition(Vector2f(_elevator.GetPosition().x + 50, 0), false, true);
+					player.SetPosition(Vector2f(_elevator.GetPosition().x + 40, 0), false, true);
 				}
 			}
 

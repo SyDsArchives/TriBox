@@ -8,13 +8,13 @@
 #pragma comment(lib,"winmm.lib")
 
 Player::Player(Vector2f _pos) :
-playerSpeed(3.f), jumpInertia(0.f), gravity(10.f), jumpPower(25.f),lastTime(0), imgframe(0),
-pos(_pos), vel(0,0),imgPos(0,0),imgSize(50,40),imgCenter(25,20),
+playerSpeed(3.f), jumpInertia(0.f), gravity(10.f), jumpPower(25.f),lastTime(0), imgframe(0),animNum(0),
+pos(_pos), vel(0,0),imgCenter(25,20),imgSize(50,40),
 onGround(false), isDead(false),reverse(false),
 direction(PlayerDirection::none)
 {
-	//playerImg = DxLib::LoadGraph("Resource/img/nob.png");
 	playerImg = DxLib::LoadGraph("Resource/img/player.png");
+	CreatePlayerAnimation();
 	updateFunc = &Player::NeutralUpdate;
 }
 
@@ -22,11 +22,17 @@ Player::~Player()
 {
 }
 
-Vector2f Player::GetVector()
+void Player::CreatePlayerAnimation()
 {
-	return vel;
-}
+	PlayerAnimationState state = {};
 
+	//移動アニメーション
+	for (int num = 0; num < 5; ++num)
+	{
+		state = { Position2(num * 50,40),Position2(25,20) };
+		playerMoveAnimation.emplace_back(state);
+	}
+}
 
 ///////////////////////////////////////////
 //状態遷移系関数
@@ -35,8 +41,7 @@ Vector2f Player::GetVector()
 //何の状態でもない場合
 void Player::NeutralUpdate(const Peripheral& _p)
 {
-	//DrawFormatString(0, 0, GetColor(255, 255, 255), "ニュートラル");
-
+	imgPos = { 0,0 };
 	//移動
 	if (_p.IsPressing(PAD_INPUT_LEFT) || _p.IsPressing(PAD_INPUT_RIGHT))
 	{
@@ -57,9 +62,6 @@ void Player::NeutralUpdate(const Peripheral& _p)
 //移動中の場合
 void Player::MoveUpdate(const Peripheral& _p)
 {
-	//DrawFormatString(0, 0, GetColor(255, 255, 255), "ムーヴ");
-
-
 	//何もしていなかったらNeutralUpdateに戻る
 	if (!(_p.IsPressing(PAD_INPUT_LEFT) || _p.IsPressing(PAD_INPUT_RIGHT)))
 	{
@@ -90,23 +92,28 @@ void Player::MoveUpdate(const Peripheral& _p)
 		lastTime = timeGetTime();
 		updateFunc = &Player::AerialUpdate;
 	}
+
+
+	if (++imgframe % 5 == 0)
+	{
+		imgPos = playerMoveAnimation[animNum].imgPos;
+		imgCenter = playerMoveAnimation[animNum].imgCenter;
+		++animNum;
+		if (animNum == playerMoveAnimation.size() - 1)
+		{
+			animNum = 0;
+		}
+	}
 }
 
 //空中の場合
 void Player::AerialUpdate(const Peripheral & _p)
 {
-	//DrawFormatString(0, 0, GetColor(255, 255, 255), "エリアル");
-
 	float secondsLimit = 100.f;
 	float addJumpPower = 2.f;
 	bool aerialTime = (timeGetTime() - lastTime) <= secondsLimit;
 	playerSpeed = 8.f;
 
-	/*pos.y -= vel.y;
-	if (vel.y >= -10.f)
-	{
-		vel.y -= 5.f;
-	}*/
 	pos.x += jumpInertia;
 
 	//上キーを押している間かつ、押している時間が0.1秒を超えるまでの間
@@ -138,9 +145,18 @@ void Player::AerialUpdate(const Peripheral & _p)
 	//地面と同じ座標についたらNeutralUpdateに戻る
 	if (onGround)
 	{
-		jumpInertia = 0;
 		playerSpeed = 3.f;
 		direction = PlayerDirection::none;
+		jumpInertia = 0;
+		updateFunc = &Player::OnLandUpdate;
+	}
+}
+
+void Player::OnLandUpdate(const Peripheral & _p)
+{
+	imgPos = { 0,0 };
+	if (++frame % 5 == 0)
+	{
 		updateFunc = &Player::NeutralUpdate;
 	}
 }
@@ -171,24 +187,20 @@ void Player::Update(Peripheral& _p)
 	{
 		vel.y = -11.f;
 	}
-	//if (++imgframe % 30 == 0)
-	//{
-	//	if (imgPos.x > 249)
-	//	{
-	//		imgPos.x = 0;
-	//		//imgCenter.x += -50;
-	//	}
-	//	imgPos.x += 50;
-	//	//imgCenter.x += 50;
-	//}
 
-	DxLib::DrawRectRotaGraph2(pos.x, pos.y, imgPos.x, imgPos.y, imgSize.x, imgSize.y, imgCenter.x, imgCenter.y, 2.f, 0, playerImg, true, reverse, false);//プレイヤー
+	DxLib::DrawRectRotaGraph2(pos.x, pos.y, imgPos.x, imgPos.y, imgSize.x, imgSize.y, imgCenter.x, imgCenter.y, 1.f, 0, playerImg, true, reverse, false);//プレイヤー
+}
+
+Position2 Player::GetPlayerSize()
+{
+	return imgSize;
 }
 
 Rect & Player::GetRect()
 {
 	Rect ret;
-	ret.SetCenter(pos.x, pos.y, 50, 50);
+	ret.SetCenter(pos.x, pos.y, 25, 50);
+	//ret.SetCenter(pos.x, pos.y, imgSize.x, imgSize.y);
 	return ret;
 }
 
