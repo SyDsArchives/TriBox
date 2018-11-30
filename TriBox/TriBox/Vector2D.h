@@ -17,22 +17,6 @@ struct Vector2D {
 		x -= in.x;
 		y -= in.y;
 	}
-
-	Vector2D<int> ToIntVec()const {
-		Vector2D<int> v(x, y);
-		return v;
-	}
-	Vector2D<float> ToFloatVec()const {
-		Vector2D<float> v(x, y);
-		return v;
-	}
-	float Length()const {
-		return hypot(x, y);
-	}
-	Vector2D<float> Normalized()const {
-		auto len = Length();
-		return Vector3f((float)x / len, (float)y / len);
-	}
 };
 
 //Vector2D<T>のための+オペレータオーバーロード

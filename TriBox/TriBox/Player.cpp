@@ -8,7 +8,7 @@
 #pragma comment(lib,"winmm.lib")
 
 Player::Player(Vector2f _pos) :
-playerSpeed(3.f), jumpInertia(0.f), gravity(10.f), jumpPower(10.f),lastTime(0), imgframe(0),animNum(0),
+playerSpeed(3.f), jumpInertia(0.f), gravity(10.f), jumpPower(10.f),lastTime(0),animNum(0),
 pos(_pos), vel(0,0),imgCenter(25,20),imgSize(50,40),
 onGround(false), isDead(false),reverse(false),
 direction(PlayerDirection::none)
@@ -68,6 +68,7 @@ void Player::MoveUpdate(const Peripheral& _p)
 	//âΩÇ‡ÇµÇƒÇ¢Ç»Ç©Ç¡ÇΩÇÁNeutralUpdateÇ…ñﬂÇÈ
 	if (!(_p.IsPressing(PAD_INPUT_LEFT) || _p.IsPressing(PAD_INPUT_RIGHT)))
 	{
+		frame = 0;
 		direction = PlayerDirection::none;
 		updateFunc = &Player::NeutralUpdate;
 	}
@@ -97,7 +98,7 @@ void Player::MoveUpdate(const Peripheral& _p)
 	}
 
 
-	if (++imgframe % 5 == 0)
+	if (++frame % 5 == 0)
 	{
 		imgPos = playerMoveAnimation[animNum].imgPos;
 		imgCenter = playerMoveAnimation[animNum].imgCenter;
@@ -161,6 +162,7 @@ void Player::OnLandUpdate(const Peripheral & _p)
 	imgPos = { 0,0 };
 	if (++frame % 5 == 0)
 	{
+		frame = 0;
 		updateFunc = &Player::NeutralUpdate;
 	}
 }
@@ -195,16 +197,12 @@ void Player::Update(Peripheral& _p)
 	DxLib::DrawRectRotaGraph2(pos.x, pos.y, imgPos.x, imgPos.y, imgSize.x, imgSize.y, imgCenter.x, imgCenter.y, 1.f, 0, playerImg, true, reverse, false);//ÉvÉåÉCÉÑÅ[
 }
 
-Position2 Player::GetPlayerSize()
-{
-	return imgSize;
-}
-
 Rect & Player::GetRect()
 {
 	Rect ret;
-	ret.SetCenter(pos.x, pos.y, 25, 50);
-	//ret.SetCenter(pos.x, pos.y, imgSize.x, imgSize.y);
+	float playerWidth = 25;
+	float playerHeight = 50;
+	ret.SetCenter(pos.x, pos.y, playerWidth, playerHeight);
 	return ret;
 }
 
@@ -248,11 +246,6 @@ void Player::SetPosition(Vector2f _pos, bool xEmpty, bool yEmpty)
 void Player::SetOnGround(bool _onGround)
 {
 	onGround = _onGround;
-}
-
-void Player::SetVector(Vector2f _vec)
-{
-	vel = _vec;
 }
 
 bool Player::IsDead(float _underLine)
