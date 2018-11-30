@@ -27,6 +27,7 @@ private:
 	int frame;//フレーム処理用変数
 
 	float playerSpeed;//移動速度
+	float initialSpeed;//通常速度(初期速度)
 	float jumpInertia;//ジャンプ中の慣性
 	float gravity;//重力
 	float jumpPower;//ジャンプ力

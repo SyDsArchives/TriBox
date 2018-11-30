@@ -8,7 +8,8 @@
 #pragma comment(lib,"winmm.lib")
 
 Player::Player(Vector2f _pos) :
-playerSpeed(3.f), jumpInertia(0.f), gravity(10.f), jumpPower(10.f),lastTime(0),animNum(0),
+initialSpeed(3.f), playerSpeed(3.f), jumpInertia(0.f), gravity(10.f), jumpPower(10.f),
+lastTime(0),animNum(0),
 pos(_pos), vel(0,0),imgCenter(25,20),imgSize(50,40),
 onGround(false), isDead(false),reverse(false),
 direction(PlayerDirection::none)
@@ -114,10 +115,11 @@ void Player::MoveUpdate(const Peripheral& _p)
 void Player::AerialUpdate(const Peripheral & _p)
 {
 	imgPos = playerJumpPos;
+	float playerSpeed_aerial = 5.f;
 	float secondsLimit = 100.f;
 	float addJumpPower = 2.f;
 	bool aerialTime = (timeGetTime() - lastTime) <= secondsLimit;
-	playerSpeed = 5.f;
+	playerSpeed = playerSpeed_aerial;
 
 	pos.x += jumpInertia;
 
@@ -150,7 +152,7 @@ void Player::AerialUpdate(const Peripheral & _p)
 	//’n–Ê‚Æ“¯‚¶À•W‚É‚Â‚¢‚½‚çNeutralUpdate‚É–ß‚é
 	if (onGround)
 	{
-		playerSpeed = 3.f;
+		playerSpeed = initialSpeed;
 		direction = PlayerDirection::none;
 		jumpInertia = 0;
 		updateFunc = &Player::OnLandUpdate;
