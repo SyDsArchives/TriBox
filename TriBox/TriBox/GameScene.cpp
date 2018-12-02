@@ -13,6 +13,7 @@
 #include "Goal.h"
 #include "Camera.h"
 #include "Ground.h"
+#include "FPS.h"
 
 GameScene::GameScene():onceExcute(false)
 {
@@ -28,7 +29,7 @@ GameScene::~GameScene()
 {
 }
 
-void GameScene::Update()
+void GameScene::Update(FPS& _fps)
 {
 	Peripheral p;
 	DxLib::DrawFormatString(0, 0, GetColor(255, 255, 255), "GameScene");
@@ -37,7 +38,7 @@ void GameScene::Update()
 	
 	stage->Update();
 
-	player->Update(p);
+	player->Update(p, _fps);
 
 	camera->SetFocus(player);
 	camera->Update();

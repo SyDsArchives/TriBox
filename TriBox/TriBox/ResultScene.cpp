@@ -2,6 +2,7 @@
 #include "GameSystem.h"
 #include "TitleScene.h"
 #include "DxLib.h"
+#include "FPS.h"
 
 
 
@@ -14,7 +15,7 @@ ResultScene::~ResultScene()
 {
 }
 
-void ResultScene::Update()
+void ResultScene::Update(FPS& _fps)
 {
 	DxLib::DrawFormatString(0, 0, GetColor(255, 255, 255), "ResultScene");
 	//if ((CheckHitKey(KEY_INPUT_SPACE) & CheckHitKey(KEY_INPUT_SPACE)) ^ CheckHitKey(KEY_INPUT_SPACE))

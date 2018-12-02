@@ -18,6 +18,7 @@ struct PlayerAnimationState
 };
 
 struct Rect;
+class FPS;
 class Peripheral;
 class Player
 {
@@ -112,9 +113,9 @@ public:
 	
 	//移動制限
 	//@param (bool excuteFlag) (true:一定範囲以上進めない,false:画面内ならどこでも動ける)
-	void PlayerMoveLimit(bool excuteFlag);
+	void PlayerMoveLimit(bool _excuteFlag);
 
 	//毎フレーム更新用関数
-	void Update(Peripheral& p);
+	void Update(Peripheral& p, FPS& _fps);
 };
 

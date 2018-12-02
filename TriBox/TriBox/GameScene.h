@@ -10,6 +10,7 @@ class Player;
 class BackGround;
 class Block;
 class Stage;
+class FPS;
 class GameScene : public Scene
 {
 private:
@@ -31,6 +32,6 @@ public:
 	GameScene();
 	~GameScene();
 
-	void Update();
+	void Update(FPS& _fps);
 };
 
