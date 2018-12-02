@@ -23,15 +23,6 @@ void Elevator::Draw()
 void Elevator::Update(float _speed)
 {
 	MoveElevator(_speed);
-
-	//Position2f objPos(player.GetPosition().x, player.GetPosition().y + 25);
-
-	//if (HitCheck(objPos).isHit_All)
-	//{
-	//	player.SetOnGround(true);
-	//	float setPosY = pos.y - blocksize - 5;
-	//	player.SetPosition(Vector2f(player.GetPosition().x, setPosY));
-	//}
 }
 
 Rect& Elevator::GetRect()
@@ -61,17 +52,3 @@ void Elevator::Active(RailType* _railType)
 	}
 }
 
-ObjectHitType Elevator::HitCheck(Position2f _pos)
-{
-	ObjectHitType ret = {};
-
-	//ÉuÉçÉbÉNÇ…ìñÇΩÇ¡ÇƒÇ¢ÇÈÇ©
-	ret.isHit_Top = pos.y - blocksize < _pos.y;
-	ret.isHit_Left = pos.x - blocksize < _pos.x;
-	ret.isHit_Right = pos.x + blocksize > _pos.x;
-	ret.isHit_Bottom = pos.y + blocksize > _pos.y;
-
-	ret.isHit_All = ret.isHit_Top && ret.isHit_Left && ret.isHit_Right && ret.isHit_Bottom;
-
-	return ret;
-}

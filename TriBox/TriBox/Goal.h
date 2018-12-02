@@ -1,7 +1,8 @@
 #pragma once
 #include "Vector2D.h"
 
-struct HitObjectData;
+
+struct Rect;
 class Goal
 {
 private:
@@ -16,8 +17,8 @@ public:
 	~Goal();
 
 	Position2f GetPosition() { return pos; };
+	Rect& GetRect();
 
-	bool HitCheck(Position2f _pos);
 	void Update(float _speed);
 };
 

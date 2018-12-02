@@ -305,9 +305,17 @@ int Stage::SignCheck(int _num)
 bool Stage::GoalCheck()
 {
 	bool ret = false;
-	for (int i = 0; i < goal.size(); ++i)
+	Rect rect;
+	//for (int i = 0; i < goal.size(); ++i)
+	//{
+	//	if (rect.IsCollision(goal[i].GetRect(),player.GetRect()))
+	//	{
+	//		ret = true;
+	//	}
+	//}
+	for (auto& g : goal)
 	{
-		if (goal[i].HitCheck(player.GetPosition()))
+		if (rect.IsCollision(g.GetRect(), player.GetRect()))
 		{
 			ret = true;
 		}

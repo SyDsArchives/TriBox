@@ -31,9 +31,6 @@ private:
 	int blockimg;
 
 	void MoveBlock(float _speed);
-
-	ObjectHitType HitCheck(Position2f pos);
-	ObjectRectHitType HitRect(Position2f _pos);
 public:
 	Block(Player& _player, Position2f _pos);
 	~Block();

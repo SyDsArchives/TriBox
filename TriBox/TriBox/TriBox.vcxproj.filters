@@ -27,28 +27,64 @@
     <Filter Include="Main">
       <UniqueIdentifier>{ba3b0acd-be8a-4e58-8b07-c3d93f38a274}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Other\Camera">
+      <UniqueIdentifier>{43d17398-6412-4bf9-93ad-76e002dbc669}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Other\FPS">
+      <UniqueIdentifier>{d9ab582c-9289-47f6-9a53-0fa01c8fefaf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Other\Peripheral">
+      <UniqueIdentifier>{fa1d6f85-8871-4e82-8bb3-0540ce7fc208}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Other\Geometry">
+      <UniqueIdentifier>{623281ff-2ad8-4baa-b47a-cf004c0b5115}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\GameScene">
+      <UniqueIdentifier>{eeb96765-3bc7-4fdb-81cc-0869bfe3dbeb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\ResultScene">
+      <UniqueIdentifier>{0b48433b-ddcc-4bf1-a461-d4f9d66f1ca0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Scene">
+      <UniqueIdentifier>{229e61c9-6190-4bf4-832c-a0316da90b21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\TitleScene">
+      <UniqueIdentifier>{0675d874-12a8-4231-ad4d-d87e5fa3c85b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stage\BackGround">
+      <UniqueIdentifier>{7929ad9e-11e9-45a2-922b-abcf59d6d5d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stage\Ground">
+      <UniqueIdentifier>{87124c57-5ac9-4c6f-8e3d-677e41bfd602}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stage\Stage">
+      <UniqueIdentifier>{ca2e7513-db28-42c1-8fe6-bd46dd980f4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stage\Object">
+      <UniqueIdentifier>{e6c9e2b5-4120-479b-ac62-3986806bb560}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stage\Object\Goal">
+      <UniqueIdentifier>{6499a88e-26da-49f5-9ac6-aea29722ab82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stage\Object\ElevatorRail">
+      <UniqueIdentifier>{0f2e6715-1789-4155-9917-80d64a384829}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stage\Object\Elevator">
+      <UniqueIdentifier>{6af60641-ce27-4e9a-9c04-2d0fbac10388}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stage\Object\Block">
+      <UniqueIdentifier>{5bcc3d98-3308-4634-b992-a34717dd56cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stage\Object\Parent">
+      <UniqueIdentifier>{163f5452-4d6e-4805-99b0-185102f4c318}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h">
       <Filter>Main</Filter>
     </ClInclude>
-    <ClInclude Include="BackGround.h">
-      <Filter>Stage</Filter>
-    </ClInclude>
-    <ClInclude Include="Stage.h">
-      <Filter>Stage</Filter>
-    </ClInclude>
-    <ClInclude Include="Block.h">
-      <Filter>Stage</Filter>
-    </ClInclude>
     <ClInclude Include="GameSystem.h">
       <Filter>Main</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="GameScene.h">
-      <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="ImageData.h">
       <Filter>Image</Filter>
@@ -56,59 +92,59 @@
     <ClInclude Include="Player.h">
       <Filter>Player</Filter>
     </ClInclude>
-    <ClInclude Include="Geometry.h">
-      <Filter>Other</Filter>
-    </ClInclude>
-    <ClInclude Include="Peripheral.h">
-      <Filter>Other</Filter>
-    </ClInclude>
     <ClInclude Include="Vector2D.h">
       <Filter>Other</Filter>
     </ClInclude>
-    <ClInclude Include="TitleScene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="ResultScene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Goal.h">
-      <Filter>Stage</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectParent.h">
-      <Filter>Stage</Filter>
-    </ClInclude>
     <ClInclude Include="Camera.h">
-      <Filter>Other</Filter>
-    </ClInclude>
-    <ClInclude Include="Ground.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="ElevatorRail.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Elevator.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>Other\Camera</Filter>
     </ClInclude>
     <ClInclude Include="FPS.h">
-      <Filter>Other</Filter>
+      <Filter>Other\FPS</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry.h">
+      <Filter>Other\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Peripheral.h">
+      <Filter>Other\Peripheral</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene.h">
+      <Filter>Scene\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="ResultScene.h">
+      <Filter>Scene\ResultScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Scene\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleScene.h">
+      <Filter>Scene\TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="BackGround.h">
+      <Filter>Stage\BackGround</Filter>
+    </ClInclude>
+    <ClInclude Include="Block.h">
+      <Filter>Stage\Object\Block</Filter>
+    </ClInclude>
+    <ClInclude Include="Elevator.h">
+      <Filter>Stage\Object\Elevator</Filter>
+    </ClInclude>
+    <ClInclude Include="ElevatorRail.h">
+      <Filter>Stage\Object\ElevatorRail</Filter>
+    </ClInclude>
+    <ClInclude Include="Goal.h">
+      <Filter>Stage\Object\Goal</Filter>
+    </ClInclude>
+    <ClInclude Include="Ground.h">
+      <Filter>Stage\Ground</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectParent.h">
+      <Filter>Stage\Object\Parent</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage.h">
+      <Filter>Stage\Stage</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BackGround.cpp">
-      <Filter>Stage</Filter>
-    </ClCompile>
-    <ClCompile Include="Block.cpp">
-      <Filter>Stage</Filter>
-    </ClCompile>
-    <ClCompile Include="Stage.cpp">
-      <Filter>Stage</Filter>
-    </ClCompile>
-    <ClCompile Include="GameScene.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Player</Filter>
     </ClCompile>
@@ -124,38 +160,53 @@
     <ClCompile Include="GameSystem.cpp">
       <Filter>Main</Filter>
     </ClCompile>
-    <ClCompile Include="Peripheral.cpp">
-      <Filter>Other</Filter>
-    </ClCompile>
-    <ClCompile Include="TitleScene.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="ResultScene.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Goal.cpp">
-      <Filter>Stage</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectParent.cpp">
-      <Filter>Stage</Filter>
-    </ClCompile>
     <ClCompile Include="Camera.cpp">
-      <Filter>Other</Filter>
-    </ClCompile>
-    <ClCompile Include="Ground.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="ElevatorRail.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Elevator.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Geometry.cpp">
-      <Filter>Other</Filter>
+      <Filter>Other\Camera</Filter>
     </ClCompile>
     <ClCompile Include="FPS.cpp">
-      <Filter>Other</Filter>
+      <Filter>Other\FPS</Filter>
+    </ClCompile>
+    <ClCompile Include="Geometry.cpp">
+      <Filter>Other\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="Peripheral.cpp">
+      <Filter>Other\Peripheral</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScene.cpp">
+      <Filter>Scene\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="ResultScene.cpp">
+      <Filter>Scene\ResultScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Scene\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleScene.cpp">
+      <Filter>Scene\TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="BackGround.cpp">
+      <Filter>Stage\BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="Block.cpp">
+      <Filter>Stage\Object\Block</Filter>
+    </ClCompile>
+    <ClCompile Include="Elevator.cpp">
+      <Filter>Stage\Object\Elevator</Filter>
+    </ClCompile>
+    <ClCompile Include="ElevatorRail.cpp">
+      <Filter>Stage\Object\ElevatorRail</Filter>
+    </ClCompile>
+    <ClCompile Include="Goal.cpp">
+      <Filter>Stage\Object\Goal</Filter>
+    </ClCompile>
+    <ClCompile Include="Ground.cpp">
+      <Filter>Stage\Ground</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectParent.cpp">
+      <Filter>Stage\Object\Parent</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage.cpp">
+      <Filter>Stage\Stage</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

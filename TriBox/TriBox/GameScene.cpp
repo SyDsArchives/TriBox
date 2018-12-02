@@ -34,15 +34,20 @@ void GameScene::Update(FPS& _fps)
 	Peripheral p;
 	DxLib::DrawFormatString(0, 0, GetColor(255, 255, 255), "GameScene");
 
-	bg->Update(player->GetPosition());//”wŒiŠÖŒW
+	//”wŒiŠÖŒW
+	bg->Update(player->GetPosition());
 	
+	//ƒXƒe[ƒWƒIƒuƒWƒFƒNƒgŠÇ—
 	stage->Update();
 
+	//ƒvƒŒƒCƒ„[
 	player->Update(p, _fps);
 
+	//ƒJƒƒ‰ŠÖŒW
 	camera->SetFocus(player);
 	camera->Update();
 
+	//‰æ–Ê‘JˆÚ
 	if (stage->GoalCheck() || player->IsDead(stage->GetStageUnderLine()))
 	{
 		GameSystem::GameInstance().ChangeScene(new ResultScene());

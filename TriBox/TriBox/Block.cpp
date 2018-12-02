@@ -43,41 +43,5 @@ Rect& Block::GetRect()
 	return blockRect;
 }
 
-ObjectHitType Block::HitCheck(Position2f _pos)
-{
-	ObjectHitType ret = {};
 
-	//ブロックに当たっているか
-	ret.isHit_Top = pos.y - blocksize < _pos.y;
-	ret.isHit_Left = pos.x - blocksize < _pos.x;
-	ret.isHit_Right = pos.x + blocksize > _pos.x;
-	ret.isHit_Bottom = pos.y + blocksize > _pos.y;
-
-	ret.isHit_All = ret.isHit_Top && ret.isHit_Left && ret.isHit_Right && ret.isHit_Bottom;
-
-	return ret;
-}
-
-ObjectRectHitType Block::HitRect(Position2f _pos)
-{
-	ObjectRectHitType ret = {};
-
-	Rect blockRect;
-	blockRect.SetCenter(pos.x, pos.y, blocksize, blocksize);
-
-	//矩形当たり判定
-	auto top = blockRect.Top();
-	auto left = blockRect.Left();
-	auto right = blockRect.Right();
-	auto bottom = blockRect.Bottom();
-
-	ret.isHit_Top = blockRect.Top() < _pos.y;
-	ret.isHit_Left = blockRect.Left() < _pos.x;
-	ret.isHit_Right = blockRect.Right() > _pos.x;
-	ret.isHit_Bottom = blockRect.Bottom() > _pos.y;
-
-	//ret.isHit_All = ret.isHit_Top && ret.isHit_Left && ret.isHit_Right && ret.isHit_Bottom;
-
-	return ret;
-}
 
