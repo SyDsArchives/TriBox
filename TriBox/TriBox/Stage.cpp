@@ -12,7 +12,7 @@
 #include "Elevator.h"
 
 
-
+const int objectSize = 50;
 
 Stage::Stage(Player& _pl) : player(_pl), stageSpeed(0.f), lastHitBlock(0), underLine(0)
 {
@@ -98,36 +98,36 @@ void Stage::LoadStageData()
 				//ブロック生成
 				if (stageArrangement[dataNum] == 1)
 				{
-					block.push_back(Block(player, Position2f(50 * x, 50 * y)));
-					underLine = std::max<float>(underLine, static_cast<float>(50 * y));
+					block.push_back(Block(player, Position2f(objectSize * x, objectSize * y)));
+					underLine = std::max<float>(underLine, static_cast<float>(objectSize * y));
 				}
 
 				//ゴール生成
 				if (stageArrangement[dataNum] == 2)
 				{
-					goal.push_back(Goal(Position2f(50 * x, 50 * y)));
+					goal.push_back(Goal(Position2f(objectSize * x, objectSize * y)));
 				}
 
 				//エレベーターレール(中部分)
 				if (stageArrangement[dataNum] == 3)
 				{
-					rail.push_back(ElevatorRail(Position2f(50 * x, 50 * y), RailType::normalRail));
+					rail.push_back(ElevatorRail(Position2f(objectSize * x, objectSize * y), RailType::normalRail));
 				}
 				//エレベーターレール(下部分)
 				if (stageArrangement[dataNum] == 4)
 				{
-					rail.push_back(ElevatorRail(Position2f(50 * x, 50 * y), RailType::bottomRail));
+					rail.push_back(ElevatorRail(Position2f(objectSize * x, objectSize * y), RailType::bottomRail));
 				}
 				//エレベーターレール(上部分)
 				if (stageArrangement[dataNum] == 5)
 				{
-					rail.push_back(ElevatorRail(Position2f(50 * x, 50 * y), RailType::topRail));
+					rail.push_back(ElevatorRail(Position2f(objectSize * x, objectSize * y), RailType::topRail));
 				}
 
 				if (stageArrangement[dataNum] == 6)
 				{
 					int a = 0;
-					elevator.push_back(Elevator(player, Position2f(50 * x, 50 * y)));
+					elevator.push_back(Elevator(player, Position2f(objectSize * x, objectSize * y)));
 				}
 			}
 		}
@@ -184,7 +184,7 @@ void Stage::Update()
 				}
 				else if (SignCheck(iny) == -1)
 				{
-					player.SetPosition(Vector2f(0, _block.GetBlockPos().y + 50), true, false);
+					player.SetPosition(Vector2f(0, _block.GetBlockPos().y + 54), true, false);
 				}
 				else
 				{
@@ -295,6 +295,7 @@ void Stage::Update()
 		}
 	}
 }
+
 
 int Stage::SignCheck(int _num)
 {

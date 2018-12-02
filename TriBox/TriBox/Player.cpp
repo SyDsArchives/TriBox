@@ -4,6 +4,7 @@
 #include <Windows.h>
 #include <mmsystem.h>
 #include "Geometry.h"
+#include "FPS.h"
 
 #pragma comment(lib,"winmm.lib")
 
@@ -115,10 +116,10 @@ void Player::MoveUpdate(const Peripheral& _p)
 void Player::AerialUpdate(const Peripheral & _p)
 {
 	imgPos = playerJumpPos;
-	float playerSpeed_aerial = 5.f;
-	float secondsLimit = 100.f;
-	float addJumpPower = 2.f;
-	bool aerialTime = (timeGetTime() - lastTime) <= secondsLimit;
+	float playerSpeed_aerial = 5.f;//空中時の横移動速度
+	float secondsLimit = 120.f;//追加ジャンプ時間
+	float addJumpPower = 2.f;//追加ジャンプ力
+	bool aerialTime = (timeGetTime() - lastTime) <= secondsLimit;//追加ジャンプ判定
 	playerSpeed = playerSpeed_aerial;
 
 	pos.x += jumpInertia;
@@ -142,11 +143,11 @@ void Player::AerialUpdate(const Peripheral & _p)
 
 	if (direction == PlayerDirection::left)
 	{
-		jumpInertia = -playerSpeed;
+		jumpInertia = -playerSpeed + 1;
 	}
 	else if (direction == PlayerDirection::right)
 	{
-		jumpInertia = playerSpeed;
+		jumpInertia = playerSpeed + 1;
 	}
 
 	//地面と同じ座標についたらNeutralUpdateに戻る
@@ -177,10 +178,17 @@ void Player::PlayerDead(const Peripheral & _p)
 ///////////////////////////////////////////
 //毎フレーム更新用関数
 ///////////////////////////////////////////
-void Player::Update(Peripheral& _p)
+void Player::Update(Peripheral& _p,FPS& _fps)
 {
+	if (_fps.Wait())
+	{
+		Sleep(_fps.WaitTime());
+		DrawFormatString(0, 300, GetColor(255, 0, 0), "%d", _fps.WaitTime());
+	}
+
+	auto a = _fps.WaitTime();
 	(this->*updateFunc)(_p);
-	
+
 	if (isDead)
 	{
 		updateFunc = &Player::PlayerDead;
@@ -195,25 +203,18 @@ void Player::Update(Peripheral& _p)
 	{
 		vel.y = -9.f;
 	}
+	
 
 	DxLib::DrawRectRotaGraph2(pos.x, pos.y, imgPos.x, imgPos.y, imgSize.x, imgSize.y, imgCenter.x, imgCenter.y, 1.f, 0, playerImg, true, reverse, false);//プレイヤー
 }
 
-Rect & Player::GetRect()
-{
-	Rect ret;
-	float playerWidth = 25;
-	float playerHeight = 50;
-	ret.SetCenter(pos.x, pos.y, playerWidth, playerHeight);
-	return ret;
-}
 
 ///////////////////////////////////////////
 //移動制御関数
 ///////////////////////////////////////////
-void Player::PlayerMoveLimit(bool excuteFlag)
+void Player::PlayerMoveLimit(bool _excuteFlag)
 {
-	if (excuteFlag)
+	if (_excuteFlag)
 	{
 		if (pos.x >= WindowSizeX / 2)
 		{
@@ -254,6 +255,18 @@ bool Player::IsDead(float _underLine)
 {
 	isDead = _underLine < pos.y ? true : false;
 	return isDead;
+}
+
+///////////////////////////////////////////
+//出力
+///////////////////////////////////////////
+Rect & Player::GetRect()
+{
+	Rect ret;
+	float playerWidth = 25;
+	float playerHeight = 50;
+	ret.SetCenter(pos.x, pos.y, playerWidth, playerHeight);
+	return ret;
 }
 
 ///////////////////////////////////////////

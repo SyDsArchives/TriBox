@@ -6,6 +6,8 @@
 
 #include "TitleScene.h"
 
+#include "FPS.h"
+
 
 
 GameSystem::GameSystem()
@@ -30,6 +32,7 @@ void GameSystem::ChangeScene(Scene* _scene)
 
 void GameSystem::Run()
 {
+	FPS fps;
 	DxLib::ChangeWindowMode(true);
 	DxLib::SetGraphMode(WindowSizeX, WindowSizeY, 32);
 	
@@ -52,7 +55,9 @@ void GameSystem::Run()
 			break;
 		}
 
-		scene->Update();
+		fps.Update();
+		scene->Update(fps);
+
 		DxLib::ScreenFlip();
 	}
 	
