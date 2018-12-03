@@ -9,7 +9,7 @@
 #pragma comment(lib,"winmm.lib")
 
 Player::Player(Vector2f _pos) :
-initialSpeed(3.f), playerSpeed(3.f), jumpInertia(0.f), gravity(10.f), jumpPower(10.f),
+initialSpeed(3.f), playerSpeed(3.f), jumpInertia(0.f), gravity(6.f), jumpPower(18.f),
 lastTime(0),animNum(0),
 pos(_pos), vel(0,0),imgCenter(25,20),imgSize(50,40),
 onGround(false), isDead(false),reverse(false),
@@ -124,11 +124,11 @@ void Player::AerialUpdate(const Peripheral & _p)
 
 	pos.x += jumpInertia;
 
-	//上キーを押している間かつ、押している時間が0.1秒を超えるまでの間
-	if (_p.IsPressing(PAD_INPUT_UP) && aerialTime)
-	{
-		vel.y += addJumpPower;
-	}
+	////上キーを押している間かつ、押している時間が0.1秒を超えるまでの間
+	//if (_p.IsPressing(PAD_INPUT_UP) && aerialTime)
+	//{
+	//	vel.y += addJumpPower;
+	//}
 
 	//左移動
 	if (_p.IsPressing(PAD_INPUT_LEFT) && direction == PlayerDirection::none)
@@ -143,11 +143,11 @@ void Player::AerialUpdate(const Peripheral & _p)
 
 	if (direction == PlayerDirection::left)
 	{
-		jumpInertia = -playerSpeed + 1;
+		jumpInertia = -playerSpeed;
 	}
 	else if (direction == PlayerDirection::right)
 	{
-		jumpInertia = playerSpeed + 1;
+		jumpInertia = playerSpeed;
 	}
 
 	//地面と同じ座標についたらNeutralUpdateに戻る
@@ -183,7 +183,7 @@ void Player::Update(Peripheral& _p,FPS& _fps)
 	if (_fps.Wait())
 	{
 		Sleep(_fps.WaitTime());
-		DrawFormatString(0, 300, GetColor(255, 0, 0), "%d", _fps.WaitTime());
+		//DrawFormatString(0, 300, GetColor(255, 0, 0), "%d", _fps.WaitTime());
 	}
 
 	auto a = _fps.WaitTime();
@@ -204,7 +204,7 @@ void Player::Update(Peripheral& _p,FPS& _fps)
 		vel.y = -9.f;
 	}
 	
-
+	//描画
 	DxLib::DrawRectRotaGraph2(pos.x, pos.y, imgPos.x, imgPos.y, imgSize.x, imgSize.y, imgCenter.x, imgCenter.y, 1.f, 0, playerImg, true, reverse, false);//プレイヤー
 }
 
@@ -313,6 +313,6 @@ void Player::PlayerMouseMove()
 	pos.y = mousePos.y;
 
 
-	DrawFormatString(0, 0, GetColor(255, 255, 255), "%.1f", mousePos.x);
-	DrawFormatString(70, 0, GetColor(255, 255, 255), "%.1f", mousePos.y);
+	/*DrawFormatString(0, 0, GetColor(255, 255, 255), "%.1f", mousePos.x);
+	DrawFormatString(70, 0, GetColor(255, 255, 255), "%.1f", mousePos.y);*/
 }

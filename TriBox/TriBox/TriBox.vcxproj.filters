@@ -78,14 +78,11 @@
     <Filter Include="Stage\Object\Parent">
       <UniqueIdentifier>{163f5452-4d6e-4805-99b0-185102f4c318}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Main\GameSystem">
+      <UniqueIdentifier>{ab6bee2d-ca57-4a77-b665-e08b6b2d04f6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="App.h">
-      <Filter>Main</Filter>
-    </ClInclude>
-    <ClInclude Include="GameSystem.h">
-      <Filter>Main</Filter>
-    </ClInclude>
     <ClInclude Include="ImageData.h">
       <Filter>Image</Filter>
     </ClInclude>
@@ -143,6 +140,9 @@
     <ClInclude Include="Stage.h">
       <Filter>Stage\Stage</Filter>
     </ClInclude>
+    <ClInclude Include="GameSystem.h">
+      <Filter>Main\GameSystem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Player.cpp">
@@ -152,12 +152,6 @@
       <Filter>Image</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>Main</Filter>
-    </ClCompile>
-    <ClCompile Include="App.cpp">
-      <Filter>Main</Filter>
-    </ClCompile>
-    <ClCompile Include="GameSystem.cpp">
       <Filter>Main</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
@@ -207,6 +201,9 @@
     </ClCompile>
     <ClCompile Include="Stage.cpp">
       <Filter>Stage\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSystem.cpp">
+      <Filter>Main\GameSystem</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

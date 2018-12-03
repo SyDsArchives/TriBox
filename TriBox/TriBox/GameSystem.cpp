@@ -42,7 +42,8 @@ void GameSystem::Run()
 	{
 		return;
 	}
-	SetWindowText(_T("TriBox"));
+	//SetWindowText(_T("TriBox"));
+	SetWindowText(_T("2DAC"));
 	SetDrawScreen(DX_SCREEN_BACK);
 
 	ChangeScene(new GameScene());

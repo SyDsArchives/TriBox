@@ -14,13 +14,14 @@ private:
 	Player& player;
 
 	int imgPath;
+	int imgPath_Light;
 
 	float vel;
 
+	bool hitPlayer;
+
 	//ƒvƒŒƒCƒ„[‚É‡‚í‚¹‚½ˆÚ“®
 	void MoveElevator(float _speed);
-
-	ObjectHitType HitCheck(Position2f _pos);
 public:
 	Elevator(Player & _player, Position2f _pos);
 	~Elevator();
@@ -28,6 +29,8 @@ public:
 	void Active(RailType* _railType);
 	void Draw();
 	void Update(float _speed);
+
+	void onPlayer(bool _hit);
 
 	Position2f GetPosition() { return pos; };
 

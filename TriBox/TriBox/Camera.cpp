@@ -51,7 +51,7 @@ void Camera::Update()
 	{
 		focus.lock()->PlayerMoveLimit(false);
 		stage.SetStageSpeed(0.f);
-		DrawFormatString(0, 150, GetColor(255, 255, 255), "‰E‚Í‚¶");
+		//DrawFormatString(0, 150, GetColor(255, 255, 255), "‰E‚Í‚¶");
 	}
 	else
 	{
