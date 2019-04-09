@@ -125,7 +125,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="App.h" />
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="Block.h" />
     <ClInclude Include="Camera.h" />
@@ -149,7 +148,6 @@
     <ClInclude Include="Vector2D.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="App.cpp" />
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="Camera.cpp" />

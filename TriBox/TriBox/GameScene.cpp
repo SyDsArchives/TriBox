@@ -32,7 +32,7 @@ GameScene::~GameScene()
 void GameScene::Update(FPS& _fps)
 {
 	Peripheral p;
-	DxLib::DrawFormatString(0, 0, GetColor(255, 255, 255), "GameScene");
+	//DxLib::DrawFormatString(0, 0, GetColor(255, 255, 255), "GameScene");
 
 	//”wŒiŠÖŒW
 	bg->Update(player->GetPosition());

@@ -78,20 +78,19 @@
     <Filter Include="Stage\Object\Parent">
       <UniqueIdentifier>{163f5452-4d6e-4805-99b0-185102f4c318}</UniqueIdentifier>
     </Filter>
+<<<<<<< HEAD
     <Filter Include="Other\Vector2D">
       <UniqueIdentifier>{4d87cc30-d17b-4a04-a484-013dda6115f2}</UniqueIdentifier>
     </Filter>
     <Filter Include="Stage\Object\Lava">
       <UniqueIdentifier>{1ab30b12-1448-40d9-8e67-7ff68fa6eda8}</UniqueIdentifier>
+=======
+    <Filter Include="Main\GameSystem">
+      <UniqueIdentifier>{ab6bee2d-ca57-4a77-b665-e08b6b2d04f6}</UniqueIdentifier>
+>>>>>>> 731914acd23b84759c6fa085050946513b842e25
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="App.h">
-      <Filter>Main</Filter>
-    </ClInclude>
-    <ClInclude Include="GameSystem.h">
-      <Filter>Main</Filter>
-    </ClInclude>
     <ClInclude Include="ImageData.h">
       <Filter>Image</Filter>
     </ClInclude>
@@ -146,11 +145,16 @@
     <ClInclude Include="Stage.h">
       <Filter>Stage\Stage</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="Vector2D.h">
       <Filter>Other\Vector2D</Filter>
     </ClInclude>
     <ClInclude Include="Lava.h">
       <Filter>Stage\Object\Lava</Filter>
+=======
+    <ClInclude Include="GameSystem.h">
+      <Filter>Main\GameSystem</Filter>
+>>>>>>> 731914acd23b84759c6fa085050946513b842e25
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -161,12 +165,6 @@
       <Filter>Image</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>Main</Filter>
-    </ClCompile>
-    <ClCompile Include="App.cpp">
-      <Filter>Main</Filter>
-    </ClCompile>
-    <ClCompile Include="GameSystem.cpp">
       <Filter>Main</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
@@ -217,11 +215,16 @@
     <ClCompile Include="Stage.cpp">
       <Filter>Stage\Stage</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="Vector2D.cpp">
       <Filter>Other\Vector2D</Filter>
     </ClCompile>
     <ClCompile Include="Lava.cpp">
       <Filter>Stage\Object\Lava</Filter>
+=======
+    <ClCompile Include="GameSystem.cpp">
+      <Filter>Main\GameSystem</Filter>
+>>>>>>> 731914acd23b84759c6fa085050946513b842e25
     </ClCompile>
   </ItemGroup>
 </Project>

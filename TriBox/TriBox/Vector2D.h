@@ -26,12 +26,12 @@ template<typename T>
 Vector2D<T> operator+(const Vector2D<T>& lv, const Vector2D<T>& rv) {
 	return Vector2D<T>(lv.x + rv.x, lv.y + rv.y);
 }
-
+//Vector2D<T>のための-オペレータオーバーロード
 template<typename T>
 Vector2D<T> operator-(const Vector2D<T>& lv, const Vector2D<T>& rv) {
 	return Vector2D<T>(lv.x - rv.x, lv.y - rv.y);
 }
-
+//Vector2D<T>のための*オペレータオーバーロード
 template<typename T>
 Vector2D<T> operator*(const Vector2D<T>& lv, const float scale) {
 	return Vector2D<T>(lv.x*scale, lv.y*scale);

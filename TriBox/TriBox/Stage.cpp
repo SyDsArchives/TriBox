@@ -359,6 +359,7 @@ void Stage::Update()
 			{
 				if (SignCheck(iny) == 1)
 				{
+					_elevator.onPlayer(true);
 					player.SetOnGround(true);
 					player.SetPosition(Vector2f(0, _elevator.GetPosition().y - 55), true, false);
 				}
@@ -368,6 +369,7 @@ void Stage::Update()
 				}
 				else
 				{
+					_elevator.onPlayer(true);
 					player.SetOnGround(true);
 					player.SetPosition(Vector2f(0, _elevator.GetPosition().y - 55), true, false);
 				}
@@ -387,6 +389,10 @@ void Stage::Update()
 					player.SetPosition(Vector2f(_elevator.GetPosition().x + 40, 0), false, true);
 				}
 			}
+		}
+		else
+		{
+			_elevator.onPlayer(false);
 		}
 
 		for (auto& _rail : rail)

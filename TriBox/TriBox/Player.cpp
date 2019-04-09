@@ -203,31 +203,10 @@ void Player::Update(Peripheral& _p,FPS& _fps)
 	{
 		vel.y = -9.f;
 	}
-
-	DrawFormatString(0, 300, GetColor(255, 0, 0), "%f", pos.x);
-
 	//描画
 	DxLib::DrawRectRotaGraph2(pos.x, pos.y, imgPos.x, imgPos.y, imgSize.x, imgSize.y, imgCenter.x, imgCenter.y, 1.f, 0, playerImg, true, reverse, false);//プレイヤー
 }
 
-
-///////////////////////////////////////////
-//移動制御関数
-///////////////////////////////////////////
-void Player::PlayerMoveLimit(bool _excuteFlag)
-{
-	/*if (_excuteFlag)
-	{
-		if (pos.x >= WindowSizeX / 2)
-		{
-			pos.x = WindowSizeX / 2;
-		}
-		if (pos.x <= 25)
-		{
-			pos.x = 25;
-		}
-	}*/
-}
 
 ///////////////////////////////////////////
 //セット系関数
@@ -276,50 +255,3 @@ Vector2f Player::GetVelocity()
 	return vel;
 }
 
-///////////////////////////////////////////
-//保留
-///////////////////////////////////////////
-void Player::PlayerMouseMove()
-{
-	auto hwnd = DxLib::GetMainWindowHandle();
-	POINT mouse;
-
-	//スクリーン座標上のマウスカーソル位置を取得
-	GetCursorPos(&mouse);
-
-	//カーソル位置をスクリーン座標→クライアント座標へ変換する
-	//取得に成功で 「true」、失敗すると 「false」 が出力される
-	bool result = ScreenToClient(hwnd, &mouse);
-
-	//Vector2変数に代入、保存
-	Vector2f mousePos;
-	mousePos.x = mouse.x;
-	mousePos.y = mouse.y;
-
-	//カーソル座標X,Yのクライアント外の座標時の補正
-	if (mousePos.x < 0)
-	{
-		mousePos.x = 0;
-	}
-	else if (mousePos.x > WindowSizeX)
-	{
-		mousePos.x = WindowSizeX;
-	}
-
-	if (mousePos.y < 0)
-	{
-		mousePos.y = 0;
-	}
-	else if (mousePos.y > WindowSizeY)
-	{
-		mousePos.y = WindowSizeY;
-	}
-
-	//キャラ座標へ代入
-	pos.x = mousePos.x;
-	pos.y = mousePos.y;
-
-
-	DrawFormatString(0, 0, GetColor(255, 255, 255), "%.1f", mousePos.x);
-	DrawFormatString(70, 0, GetColor(255, 255, 255), "%.1f", mousePos.y);
-}

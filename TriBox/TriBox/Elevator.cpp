@@ -5,9 +5,10 @@
 #include "Geometry.h"
 
 
-Elevator::Elevator(Player& _player,Position2f _pos) : player(_player),pos(_pos), vel(0.f)
+Elevator::Elevator(Player& _player,Position2f _pos) : player(_player),pos(_pos), vel(0.f), hitPlayer(false)
 {
 	imgPath = LoadGraph("Resource/img/elevator.png");
+	imgPath_Light = LoadGraph("Resource/img/elevator_Light.png");
 }
 
 
@@ -17,19 +18,20 @@ Elevator::~Elevator()
 
 void Elevator::Draw()
 {
-	DrawRotaGraph(pos.x, pos.y, 1.f, 0.f, imgPath, true);
+	if (hitPlayer)
+	{
+		DrawRotaGraph(pos.x, pos.y, 1.f, 0.f, imgPath_Light, true);
+	}
+	else 
+	{
+		DrawRotaGraph(pos.x, pos.y, 1.f, 0.f, imgPath, true);
+
+	}
 }
 
-void Elevator::Update(float _speed)
+void Elevator::onPlayer(bool _hit)
 {
-	MoveElevator(_speed);
-}
-
-Rect& Elevator::GetRect()
-{
-	Rect rect;
-	rect.SetCenter(pos.x, pos.y, blocksize, blocksize);
-	return rect;
+	hitPlayer = _hit;
 }
 
 void Elevator::MoveElevator(float _speed)
@@ -50,5 +52,17 @@ void Elevator::Active(RailType* _railType)
 	{
 		vel = -num;
 	}
+}
+
+void Elevator::Update(float _speed)
+{
+	MoveElevator(_speed);
+}
+
+Rect& Elevator::GetRect()
+{
+	Rect rect;
+	rect.SetCenter(pos.x, pos.y, blocksize, blocksize);
+	return rect;
 }
 
