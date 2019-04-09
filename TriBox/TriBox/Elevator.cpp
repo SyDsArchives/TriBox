@@ -34,7 +34,7 @@ Rect& Elevator::GetRect()
 
 void Elevator::MoveElevator(float _speed)
 {
-	pos.x -= _speed;
+	pos.y -= _speed;
 	pos.y += vel;
 }
 

@@ -1,3 +1,4 @@
+#include "Vector2D.h"
 #include "Block.h"
 #include "DxLib.h"
 #include "Ground.h"
@@ -19,11 +20,12 @@ Block::~Block()
 void Block::Draw()
 {
 	DxLib::DrawRotaGraph(pos.x, pos.y, 1.f, 0.f, blockimg, true);
+	DrawPixel(pos.x, pos.y, 0xff0000);
 }
 
 void Block::MoveBlock(float _speed)
 {
-	pos.x -= _speed;
+	pos.y -= _speed;
 }
 
 void Block::Update(float _speed)

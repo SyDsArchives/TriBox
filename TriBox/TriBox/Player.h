@@ -95,6 +95,8 @@ public:
 	Position2 GetPlayerSize() { return imgSize; };
 	//プレイヤーの矩形情報の取得
 	Rect& GetRect();
+	
+	Vector2f GetVelocity();
 
 
 	//位置の設定

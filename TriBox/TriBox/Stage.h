@@ -35,6 +35,7 @@ class ElevatorRail;
 class Goal;
 class Player;
 class Block;
+class Lava;
 
 class Stage
 {
@@ -42,6 +43,8 @@ private:
 	int lastHitBlock;
 	float stageSpeed;
 	float underLine;
+	float stageFarRight;
+	float stageFarLeft;
 
 	void LoadStageData();
 	StageData stagedata;
@@ -52,6 +55,7 @@ private:
 	std::vector<Elevator> elevator;//エレベーターの情報
 
 	Player& player;
+	std::shared_ptr<Lava> lava;
 
 	std::vector<unsigned char> stageArrangement;
 
@@ -73,6 +77,8 @@ public:
 
 	//符号取得
 	int SignCheck(int _num);
+
+	bool LavaHitCheck();
 
 	//ゴール判定
 	bool GoalCheck();

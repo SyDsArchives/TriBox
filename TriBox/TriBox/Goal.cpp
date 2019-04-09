@@ -15,7 +15,7 @@ Goal::~Goal()
 
 void Goal::MoveBlock(float _speed)
 {
-	pos.x -= _speed;
+	pos.y -= _speed;
 }
 
 void Goal::Draw()

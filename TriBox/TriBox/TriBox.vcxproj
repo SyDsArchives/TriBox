@@ -138,6 +138,7 @@
     <ClInclude Include="Goal.h" />
     <ClInclude Include="Ground.h" />
     <ClInclude Include="ImageData.h" />
+    <ClInclude Include="Lava.h" />
     <ClInclude Include="ObjectParent.h" />
     <ClInclude Include="Peripheral.h" />
     <ClInclude Include="Player.h" />
@@ -161,6 +162,7 @@
     <ClCompile Include="Goal.cpp" />
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="ImageData.cpp" />
+    <ClCompile Include="Lava.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ObjectParent.cpp" />
     <ClCompile Include="Peripheral.cpp" />
@@ -169,6 +171,7 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="TitleScene.cpp" />
+    <ClCompile Include="Vector2D.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

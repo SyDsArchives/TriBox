@@ -42,23 +42,25 @@ void Camera::Update()
 
 	pos = &focus.lock()->GetPosition();
 
-	Rect rect = size;
-
-	auto a = rect.Right();
+	Rect cameraRect = size;
 	
 	//カメラ位置の補正
-	if (rect.Right() > range.endX)
+	if (cameraRect.Top() < range.endY - WindowSizeY / 2)
 	{
-		focus.lock()->PlayerMoveLimit(false);
+		//focus.lock()->PlayerMoveLimit(false);
 		stage.SetStageSpeed(0.f);
-		DrawFormatString(0, 150, GetColor(255, 255, 255), "右はじ");
 	}
 	else
 	{
-		focus.lock()->PlayerMoveLimit(true);
-		if (pos->x >= WindowSizeX / 2 && focus.lock()->GetPlayerDirection() == PlayerDirection::right)
+		//focus.lock()->PlayerMoveLimit(true);
+		if (pos->y >= WindowSizeY - 50 /*&& focus.lock()->GetPlayerDirection() == PlayerDirection::right*/)//マジックナンバー
 		{
-			stage.SetStageSpeed(focus.lock()->GetSpeed());
+			//stage.SetStageSpeed(focus.lock()->GetSpeed());
+			stage.SetStageSpeed(-focus.lock()->GetVelocity().y);
+		}
+		else if (pos->y <= WindowSizeY / 2 + 10 /*&& focus.lock()->GetPlayerDirection() == PlayerDirection::right*/)//マジックナンバー
+		{
+			stage.SetStageSpeed(-focus.lock()->GetSpeed());
 		}
 		else
 		{

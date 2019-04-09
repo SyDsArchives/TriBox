@@ -25,7 +25,7 @@ ElevatorRail::~ElevatorRail()
 
 void ElevatorRail::MoveElevatorRail(float _speed)
 {
-	pos.x -= _speed;
+	pos.y -= _speed;
 }
 
 void ElevatorRail::Draw()

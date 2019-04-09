@@ -2,8 +2,8 @@
 
 //プロジェクト全体で必要な機能のみ
 
-const int WindowSizeX = 978;
-const int WindowSizeY = 50 * 11;
+const int WindowSizeX = 600;
+const int WindowSizeY = 600;
 
 struct HitRectDirection
 {
@@ -45,4 +45,9 @@ struct Rect {
 	HitRectDirection HitRect(Rect a, Rect b);
 
 	bool IsCollision(Rect a, Rect b);
+	//float FDot(Vector2f* a, Vector2f* b);
+	//float FCross(Vector2f* a, Vector2f* b);
+	//Vector2f* Normalization(Vector2f* vec);
+	//float FDot(Rect a, Rect b);
+	//float FCross(Rect & a, Rect & b);
 };

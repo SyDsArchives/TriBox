@@ -18,7 +18,7 @@
 GameScene::GameScene():onceExcute(false)
 {
 	ground = std::make_shared<Ground>();
-	player = std::make_shared<Player>(Vector2f(300, WindowSizeY - 150));
+	player = std::make_shared<Player>(Vector2f(300, WindowSizeY / 2));
 	stage = std::make_shared<Stage>(*player);
 	bg = std::make_shared<BackGround>(*stage);
 	camera = std::make_shared<Camera>(*stage);
@@ -48,7 +48,7 @@ void GameScene::Update(FPS& _fps)
 	camera->Update();
 
 	//‰æ–Ê‘JˆÚ
-	if (stage->GoalCheck() || player->IsDead(stage->GetStageUnderLine()))
+	if (stage->GoalCheck() || stage->LavaHitCheck())
 	{
 		GameSystem::GameInstance().ChangeScene(new ResultScene());
 	}
